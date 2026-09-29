@@ -269,11 +269,29 @@ const server = http.createServer(async (req, res) => {
 
     if (contentType.includes('text/html')) {
       const text = await webResponse.text();
-      const gaSnippet = `<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n  gtag('config', '${GA_ID}');\n</script>\n</head>`;
+      const consentSnippet = `<!-- Google Consent Mode v2 -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500
+  });
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', '${GA_ID}', { send_page_view: false });
+</script>
+</head>`;
       
       let modifiedText = text;
       if (!text.includes(GA_ID)) {
-        modifiedText = text.replace('</head>', gaSnippet);
+        modifiedText = text.replace('</head>', consentSnippet);
       }
 
       webResponse.headers.forEach((value, key) => {

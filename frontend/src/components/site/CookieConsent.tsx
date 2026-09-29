@@ -5,29 +5,66 @@ import { track } from "@/lib/analytics";
 
 const STORAGE_KEY = "innrly_cookie_consent_v1";
 
-type Choice = "accepted" | "rejected";
+export type Choice = "accepted" | "rejected";
+
+export function checkGpcSignal(): boolean {
+  if (typeof window === "undefined") return false;
+  const nav = window.navigator as { globalPrivacyControl?: boolean | string };
+  return (
+    nav.globalPrivacyControl === true ||
+    nav.globalPrivacyControl === "1" ||
+    (window as unknown as { globalPrivacyControl?: boolean }).globalPrivacyControl === true
+  );
+}
+
+export function updateGoogleConsent(status: Choice) {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("consent", "update", {
+      analytics_storage: status === "accepted" ? "granted" : "denied",
+      ad_storage: status === "accepted" ? "granted" : "denied",
+      ad_user_data: status === "accepted" ? "granted" : "denied",
+      ad_personalization: status === "accepted" ? "granted" : "denied",
+    });
+  }
+}
 
 /**
- * Lightweight EU/UK-friendly cookie consent banner.
+ * Lightweight EU/UK & US/CCPA compliant cookie consent banner.
  *
- * Stores a single choice in localStorage. Until the user makes a choice,
- * downstream analytics scripts should check `window.__cookieConsent === "accepted"`
- * before firing. The banner re-appears only if the stored value is missing.
+ * Honors Global Privacy Control (GPC), integrates Google Consent Mode v2,
+ * and allows persistent preference management via the footer.
  */
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // 1. Listen for reopen events from footer or privacy policy
+    const handleOpen = () => setVisible(true);
+    window.addEventListener("open-cookie-preferences", handleOpen);
+
+    // 2. Check Global Privacy Control signal
+    const isGpc = checkGpcSignal();
+    if (isGpc) {
+      (window as unknown as { __cookieConsent?: Choice }).__cookieConsent = "rejected";
+      updateGoogleConsent("rejected");
+      setVisible(false);
+      return () => window.removeEventListener("open-cookie-preferences", handleOpen);
+    }
+
+    // 3. Check stored preference
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as Choice | null;
       if (stored) {
         (window as unknown as { __cookieConsent?: Choice }).__cookieConsent = stored;
+        updateGoogleConsent(stored);
       } else {
         setVisible(true);
       }
     } catch {
       setVisible(true);
     }
+
+    return () => window.removeEventListener("open-cookie-preferences", handleOpen);
   }, []);
 
   function decide(choice: Choice) {
@@ -37,6 +74,7 @@ export function CookieConsent() {
     } catch {
       /* ignore */
     }
+    updateGoogleConsent(choice);
     track("cookie_consent", { choice });
     setVisible(false);
   }

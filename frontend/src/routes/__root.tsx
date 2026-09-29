@@ -110,6 +110,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
     const dynamicScripts: any[] = [];
 
+    // Google Consent Mode v2 default initialization
+    if (isActive && (ga4Id || gtmId)) {
+      dynamicScripts.push({
+        children: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'wait_for_update': 500
+          });
+        `,
+      });
+    }
+
     // Google Tag Manager head snippet
     if (isActive && gtmId) {
       dynamicScripts.push({
