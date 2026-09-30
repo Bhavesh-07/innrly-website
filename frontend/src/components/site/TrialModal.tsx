@@ -37,34 +37,46 @@ export function TrialModal() {
   const [done, setDone] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
-  // Auto-open once per session (disabled on /onboarding page)
+  // Auto-open once per session after 10 seconds (disabled on /onboarding page)
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
     
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let isCancelled = false;
+
     // Fetch from backend
     fetch("/api/settings")
       .then(res => res.json())
       .then(data => {
+        if (isCancelled) return;
         if (data && data.innrly_trial_modal_disabled === "true") return;
         if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
         
-        const t = setTimeout(() => {
+        timer = setTimeout(() => {
+          if (isCancelled) return;
           if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
           setOpen(true);
           sessionStorage.setItem(SESSION_KEY, "1");
-        }, 600);
+        }, 10000);
       })
-      .catch(err => {
-        // Fallback: show if error
+      .catch(() => {
+        // Fallback: show after 10s if settings endpoint unavailable
+        if (isCancelled) return;
         if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
-        const t = setTimeout(() => {
+        timer = setTimeout(() => {
+          if (isCancelled) return;
           if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
           setOpen(true);
           sessionStorage.setItem(SESSION_KEY, "1");
-        }, 600);
+        }, 10000);
       });
+
+    return () => {
+      isCancelled = true;
+      if (timer) clearTimeout(timer);
+    };
   }, [currentPath]);
 
   // Listen for global "open trial" events from CTA buttons (disabled on /onboarding page)
