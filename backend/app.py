@@ -395,7 +395,7 @@ def get_smtp_config() -> dict:
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )
         """)
-        cur.execute("SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('smtp_host', 'smtp_port', 'smtp_user', 'smtp_password', 'email_from')")
+        cur.execute("SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('smtp_host', 'smtp_port', 'smtp_user', 'smtp_password', 'email_from', 'admin_email')")
         rows = cur.fetchall()
         for r in rows:
             k = r.get("setting_key")
@@ -413,13 +413,15 @@ def get_smtp_config() -> dict:
                 config["password"] = v
             elif k == "email_from" and v:
                 config["from_email"] = v.strip()
+            elif k == "admin_email" and v:
+                config["admin_email"] = v.strip()
         cur.close()
         conn.close()
     except Exception as e:
         print(f"[SMTP Config] Warning: DB lookup failed ({e}), using environment/default config.")
     return config
 
-def send_email_safe(to_email: str, subject: str, html_content: str) -> tuple[bool, Optional[str]]:
+def send_email_safe(to_email: Union[str, List[str]], subject: str, html_content: str) -> tuple[bool, Optional[str]]:
     smtp_cfg = get_smtp_config()
     host = smtp_cfg["host"]
     port = smtp_cfg["port"]
@@ -427,11 +429,21 @@ def send_email_safe(to_email: str, subject: str, html_content: str) -> tuple[boo
     password = smtp_cfg["password"]
     from_email = smtp_cfg["from_email"]
     
+    if isinstance(to_email, list):
+        recipients = [e.strip() for e in to_email if e and e.strip()]
+        to_header = ", ".join(recipients)
+    else:
+        recipients = [e.strip() for e in to_email.split(",") if e.strip()]
+        to_header = to_email.strip()
+        
+    if not recipients:
+        return False, "No recipient email provided"
+        
     try:
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
         msg["From"] = from_email
-        msg["To"] = to_email
+        msg["To"] = to_header
         msg.attach(MIMEText(html_content, "html"))
         
         with smtplib.SMTP(host, port, timeout=15) as server:
@@ -440,12 +452,12 @@ def send_email_safe(to_email: str, subject: str, html_content: str) -> tuple[boo
                 server.starttls()
                 server.ehlo()
                 server.login(user, password)
-            server.sendmail(from_email, [to_email], msg.as_string())
-        print(f"Email sent successfully to {to_email} via {host}:{port}")
+            server.sendmail(from_email, recipients, msg.as_string())
+        print(f"Email sent successfully to {to_header} via {host}:{port}")
         return True, None
     except Exception as e:
         err_msg = str(e)
-        print(f"Warning: Failed to send email to {to_email}: {err_msg}")
+        print(f"Warning: Failed to send email to {to_header}: {err_msg}")
         return False, err_msg
 
 def get_email_template(title: str, content: str) -> str:
@@ -707,7 +719,7 @@ def trigger_lead_emails(payload) -> tuple[bool, Optional[str]]:
         if not ok:
             errors.append(f"Submitter email failed: {err}")
         
-    # Send Sales Notification
+    # Send Internal Lead Alert Notifications (sales@innrly.com & contact@innrly.com)
     if sales_body_rows:
         rows_str = "\n".join(sales_body_rows)
         sales_content = f"""<h1>New Lead Received ({source or kind})</h1>
@@ -716,9 +728,23 @@ def trigger_lead_emails(payload) -> tuple[bool, Optional[str]]:
     {rows_str}
 </table>"""
         html_sales = get_email_template(sales_subject, sales_content)
-        ok, err = send_email_safe("sales@innrly.com", sales_subject, html_sales)
-        if not ok:
-            errors.append(f"Sales alert email failed: {err}")
+        
+        # Primary internal recipient list
+        notification_recipients = ["sales@innrly.com", "contact@innrly.com"]
+        
+        # Include any configured admin email if defined in settings
+        smtp_cfg = get_smtp_config()
+        configured_admin = smtp_cfg.get("admin_email")
+        if configured_admin:
+            for extra in configured_admin.split(","):
+                clean_extra = extra.strip()
+                if clean_extra and clean_extra.lower() not in [r.lower() for r in notification_recipients]:
+                    notification_recipients.append(clean_extra)
+                    
+        for recipient in notification_recipients:
+            ok, err = send_email_safe(recipient, sales_subject, html_sales)
+            if not ok:
+                errors.append(f"Lead alert email to {recipient} failed: {err}")
 
     if errors:
         return False, "; ".join(errors)

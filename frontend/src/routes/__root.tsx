@@ -363,6 +363,10 @@ function RootComponent() {
     );
   }
 
+  const isOnboardingRoute = 
+    routerState.location.pathname === "/onboarding" || 
+    routerState.location.pathname.startsWith("/onboarding");
+
   return (
     <QueryClientProvider client={queryClient}>
       <CustomScriptsInjector
@@ -389,7 +393,7 @@ function RootComponent() {
       <StickyMobileCta />
       <DesktopScrollCta />
       <CookieConsent />
-      <TrialModal />
+      {!isOnboardingRoute && <TrialModal />}
       <CursorGlow />
       <Toaster />
     </QueryClientProvider>

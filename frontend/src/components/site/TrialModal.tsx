@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { X, Check, Sparkles, Loader2, Clock, CreditCard, ArrowUpRight } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -28,14 +28,19 @@ const benefits = [
 ];
 
 export function TrialModal() {
+  const routerState = useRouterState();
+  const currentPath = routerState?.location?.pathname ?? (typeof window !== "undefined" ? window.location.pathname : "");
+  const isOnboardingPage = currentPath === "/onboarding" || currentPath.startsWith("/onboarding");
+
   const [open, setOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
-  // Auto-open once per session
+  // Auto-open once per session (disabled on /onboarding page)
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
     
     // Fetch from backend
@@ -43,37 +48,44 @@ export function TrialModal() {
       .then(res => res.json())
       .then(data => {
         if (data && data.innrly_trial_modal_disabled === "true") return;
+        if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
         
         const t = setTimeout(() => {
+          if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
           setOpen(true);
           sessionStorage.setItem(SESSION_KEY, "1");
         }, 600);
       })
       .catch(err => {
         // Fallback: show if error
+        if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
         const t = setTimeout(() => {
+          if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
           setOpen(true);
           sessionStorage.setItem(SESSION_KEY, "1");
         }, 600);
       });
-  }, []);
+  }, [currentPath]);
 
-  // Listen for global "open trial" events from CTA buttons
+  // Listen for global "open trial" events from CTA buttons (disabled on /onboarding page)
   useEffect(() => {
-    const handler = () => setOpen(true);
+    const handler = () => {
+      if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
+      setOpen(true);
+    };
     window.addEventListener("innrly:open-trial", handler);
     return () => window.removeEventListener("innrly:open-trial", handler);
   }, []);
 
   // Lock scroll while open
   useEffect(() => {
-    if (!open) return;
+    if (!open || isOnboardingPage) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
-  }, [open]);
+  }, [open, isOnboardingPage]);
 
   // Esc to close
   useEffect(() => {
@@ -85,7 +97,7 @@ export function TrialModal() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  if (!open) return null;
+  if (isOnboardingPage || !open) return null;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -397,6 +409,9 @@ function Field({
 /** Helper for any CTA button to open the trial modal. */
 export function openTrialModal() {
   if (typeof window !== "undefined") {
+    if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) {
+      return;
+    }
     window.dispatchEvent(new CustomEvent("innrly:open-trial"));
   }
 }

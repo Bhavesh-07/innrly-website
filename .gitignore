@@ -30,3 +30,6 @@ Thumbs.db
 
 # Deployment Guides
 PORT_8005_UPDATE_GUIDE.md
+
+# Runtime logs
+backend/logs/
