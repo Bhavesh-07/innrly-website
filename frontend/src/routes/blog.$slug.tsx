@@ -744,6 +744,7 @@ export const Route = createFileRoute("/blog/$slug")({
         ]
       : [],
   }),
+  component: BlogPost,
 });
 
 function readingTime(body?: string[], htmlContent?: string): number {

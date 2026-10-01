@@ -2918,24 +2918,39 @@ async def save_robots_txt(payload: SiteSettingPayload, current_user: dict = Depe
 @app.get("/api/llms-txt")
 @app.get("/api/llms-txt/")
 async def get_llms_txt():
-    connection = get_db_connection()
-    cursor = connection.cursor(dictionary=True)
+    default_llms = "# Innrly\n\n> Hotel management software for back-office automation, business intelligence, and labor management.\n"
+    default_llms_full = "# Innrly Full Documentation\n"
     try:
-        cursor.execute("SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('llms_txt', 'llms_full_txt')")
-        rows = cursor.fetchall()
-        data = {r["setting_key"]: r["setting_value"] for r in rows}
-        return {
-            "llms_txt": data.get("llms_txt", "# Innrly\n\n> Hospitality Management Platform\n"),
-            "llms_full_txt": data.get("llms_full_txt", data.get("llms_txt", ""))
-        }
+        p_llms = Path(__file__).parent.parent / "frontend" / "public" / "llms.txt"
+        if p_llms.exists():
+            default_llms = p_llms.read_text(encoding="utf-8")
+        p_llms_full = Path(__file__).parent.parent / "frontend" / "public" / "llms-full.txt"
+        if p_llms_full.exists():
+            default_llms_full = p_llms_full.read_text(encoding="utf-8")
+    except Exception:
+        pass
+
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor(dictionary=True)
+        try:
+            cursor.execute("SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('llms_txt', 'llms_full_txt')")
+            rows = cursor.fetchall()
+            data = {r["setting_key"]: r["setting_value"] for r in rows}
+            db_llms = data.get("llms_txt")
+            db_llms_full = data.get("llms_full_txt")
+            return {
+                "llms_txt": db_llms if (db_llms and len(db_llms.strip()) > 100) else default_llms,
+                "llms_full_txt": db_llms_full if (db_llms_full and len(db_llms_full.strip()) > 100) else default_llms_full
+            }
+        finally:
+            cursor.close()
+            connection.close()
     except Exception:
         return {
-            "llms_txt": "# Innrly\n\n> Hospitality Management Platform\n",
-            "llms_full_txt": "# Innrly Full Documentation\n"
+            "llms_txt": default_llms,
+            "llms_full_txt": default_llms_full
         }
-    finally:
-        cursor.close()
-        connection.close()
 
 @app.post("/llms-txt")
 @app.post("/llms-txt/")

@@ -176,6 +176,7 @@ export const Route = createFileRoute("/blog/")({
     if (posts.length === 0) {
       posts = STATIC_POSTS;
     }
+    posts.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     const seo = await fetchSeoData("/blog");
     return { posts, seo };
   },

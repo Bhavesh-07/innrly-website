@@ -4,14 +4,82 @@ export const Route = createFileRoute("/llms.txt")({
   server: {
     handlers: {
       GET: async () => {
-        let content = `# Innrly\n\n> Hotel management software for back-office automation, business intelligence, and labor management.\n`;
+        let content = `# Innrly
+
+> Hotel management software for back-office automation, business intelligence, and labor management. One platform for owners and operators to save 20–40 hours per property each month.
+
+## Pages
+
+- [Home](/): Overview of the Innrly platform for hotel back office, BI, and labor.
+- [Features](/features): Full feature breakdown across automation, reporting, and document vault.
+- [Pricing](/pricing): Plans and pricing for portfolios of any size.
+- [About](/about): Built by hotel operators for hotel operators.
+- [Contact](/contact): Talk to sales or request a demo.
+- [Onboarding](/onboarding): What the 14-day onboarding looks like.
+
+## Solutions
+
+- [Business intelligence](/solutions/business-intelligence): Multi-property dashboards and reporting.
+- [Financial control](/solutions/financial-control): Back-office accounting, reconciliation, and close.
+- [Labor & workforce](/solutions/labor-workforce): Labor cost, scheduling, and productivity.
+- [Operations automation](/solutions/operations-automation): Automated daily ops and night audit flows.
+- [Innrly Pay](/solutions/innrly-pay): Payments and disbursements built for hotels.
+- [Innrly Shift](/solutions/innrly-shift): Shift management for hotel teams.
+- [Reconciliation](/solutions/reconciliation): Daily PMS-to-bank, credit card, and OTA reconciliation.
+
+## Services
+
+- [Accountability Pack](/services/accountability-pack): Done-for-you data verification, franchise reporting, Green Engage, CLC reconciliation, and manual entries.
+
+## Industries
+
+- [Select service hotels](/industries/select-service): Back-office savings for select-service portfolios.
+
+## Integrations
+
+- [Integrations overview](/integrations): All supported PMS, accounting, and payroll integrations.
+- [M3](/integrations/m3): Innrly + M3 accounting.
+- [QuickBooks](/integrations/quickbooks): Innrly + QuickBooks.
+- [Sage Intacct](/integrations/sage-intacct): Innrly + Sage Intacct.
+
+## Compare
+
+- [Compare overview](/compare): How Innrly compares to competing platforms.
+- [Innrly: alternative to Otelier](/compare/innrly-vs-otelier): Feature and pricing comparison.
+- [Innrly vs Hotel Effectiveness](/compare/innrly-vs-hotel-effectiveness): Labor, TimeClock, and full back office compared.
+
+## Blog
+
+- [Blog index](/blog): Guides and insights for hotel operators.
+- [INNRLY joins M3 partner ecosystem](/blog/innrly-joins-m3-partner-ecosystem-hotel-accounting-automation): M3 Associate Partner announcement; invoice capture and GL coding into M3 Accounting Core.
+- [OTA reconciliation guide](/blog/ota-reconciliation-guide): How to reconcile OTA commissions accurately.
+- [Hotel night audit software guide](/blog/hotel-night-audit-software-guide): Modern night audit automation.
+- [Multi-property hotel accounting software](/blog/multi-property-hotel-accounting-software): What to look for in multi-property accounting.
+- [Hotel budgeting software 2026](/blog/hotel-budgeting-software-2026): Budgeting tools and approaches.
+- [Select-service back-office savings](/blog/select-service-back-office-savings): Where select-service hotels save the most.
+- [MPOR explained](/blog/mpor-explained): Manager's Productivity Operating Report explained.
+- [QuickBooks for hotels: limits](/blog/quickbooks-for-hotels-limits): Where QuickBooks falls short for hotel groups.
+- [Hospitality accounting services vs software](/blog/hospitality-accounting-services-vs-software): When to use each.
+
+## Case studies
+
+- [Midwest portfolio](/case-studies/midwest-portfolio): A multi-property operator's results with Innrly.
+
+## Optional
+
+- [Glossary](/glossary): Hotel back-office and accounting terms.
+- [Privacy](/legal/privacy)
+- [Terms](/legal/terms)
+- [Security](/legal/security)
+- [Cookies](/legal/cookies)
+`;
 
         try {
           const backendUrl = process.env.BACKEND_URL || "http://127.0.0.1:8005";
           const res = await fetch(`${backendUrl}/api/llms-txt`);
           if (res.ok) {
             const data = await res.json();
-            if (data && data.llms_txt) {
+            if (data && data.llms_txt && data.llms_txt.trim().length > 100) {
               content = data.llms_txt;
             }
           }
