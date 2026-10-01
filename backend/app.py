@@ -8,6 +8,7 @@ import secrets
 import base64
 import json
 from pathlib import Path
+import re
 from collections import defaultdict
 import dns.resolver
 
@@ -439,6 +440,74 @@ def has_valid_mx_record(email: Optional[str], timeout: float = 1.5) -> tuple[boo
     _MX_DOMAIN_CACHE[domain] = (False, "No mail exchanger records configured for domain")
     return False, "No mail exchanger records configured for domain"
 
+# Curated Anti-Spam / Phishing Keywords & Scam Signatures
+SPAM_KEYWORDS = [
+    # Crypto & Financial Scams
+    "bitcoin", "btc", "ethereum", "crypto", "cryptocurrency", "coinbase", "binance",
+    "wallet", "bitcoin transfer", "crypto transfer", "payment received", "payment pending",
+    "wire transfer", "bank transfer", "transaction id", "claim your", "verify your account",
+    "verify account", "confirm your account", "login now", "click here", "read now",
+    "read >>", "new transfer", "fund transfer", "withdrawal", "prize", "winner",
+    "urgent action", "security alert", "account suspended", "wallet balance", "blockchain",
+    "trustwallet", "metamask", "seed phrase", "recovery phrase",
+
+    # Phishing / Scam Link Domains & Shorteners
+    "graph.org", "telegra.ph", "t.me/", "bit.ly", "tinyurl.com", "cutt.ly", "is.gd",
+    "shorturl.at", "ubip.me", "uberip.com",
+
+    # Generic Spam / SEO Spam / Blackhat
+    "casino", "viagra", "cialis", "poker", "guest post", "buy backlinks", "seo ranking service",
+    "whatsapp group", "telegram channel"
+]
+
+def detect_spam_content(payload) -> tuple[bool, Optional[str]]:
+    """
+    Analyzes submitted form payload for automated spam bot patterns,
+    phishing link injections in names/company fields, and crypto scam keywords.
+    Returns (True, reason) if spam, or (False, None) if clean.
+    """
+    if not payload:
+        return False, None
+
+    # Extract field values
+    name = getattr(payload, "name", "") or (payload.get("name") if isinstance(payload, dict) else "") or ""
+    company = getattr(payload, "company", "") or (payload.get("company") if isinstance(payload, dict) else "") or ""
+    message = getattr(payload, "message", "") or (payload.get("message") if isinstance(payload, dict) else "") or ""
+    email = getattr(payload, "email", "") or (payload.get("email") if isinstance(payload, dict) else "") or ""
+    role = getattr(payload, "role", "") or (payload.get("role") if isinstance(payload, dict) else "") or ""
+    properties = getattr(payload, "properties", "") or (payload.get("properties") if isinstance(payload, dict) else "") or ""
+    pms = getattr(payload, "pms", "") or (payload.get("pms") if isinstance(payload, dict) else "") or ""
+    subSource = getattr(payload, "subSource", "") or (payload.get("subSource") if isinstance(payload, dict) else "") or ""
+    
+    # Onboarding details if present
+    companyDetails = getattr(payload, "companyDetails", None) or (payload.get("companyDetails") if isinstance(payload, dict) else None)
+    if companyDetails:
+        c_name = getattr(companyDetails, "companyName", "") or (companyDetails.get("companyName") if isinstance(companyDetails, dict) else "") or ""
+        c_auth = getattr(companyDetails, "authorizedPerson", "") or (companyDetails.get("authorizedPerson") if isinstance(companyDetails, dict) else "") or ""
+        company = f"{company} {c_name}"
+        name = f"{name} {c_auth}"
+
+    # 1. Check for URL / Link / Phishing markers injected into Name or Company fields
+    for field_label, field_val in [("name", name), ("company", company)]:
+        if field_val and isinstance(field_val, str):
+            if re.search(r'https?://|[a-z0-9-]+\.(?:org|com|net|xyz|ru|link|io|me|top)/[^\s]+|>>|<<|graph\.org|t\.me/|telegra\.ph', field_val, re.IGNORECASE):
+                return True, f"Suspicious URL/Link marker injected in {field_label}: '{field_val[:50]}'"
+
+    # 2. Check all text content against curated Spam & Phishing keywords
+    combined_text = f"{name} {company} {message} {email} {role} {properties} {pms} {subSource}".strip()
+    if combined_text:
+        c_lower = combined_text.lower()
+        for kw in SPAM_KEYWORDS:
+            if "/" in kw or "." in kw or " " in kw or ">>" in kw:
+                if kw in c_lower:
+                    return True, f"Spam/Phishing phrase/link match: '{kw}'"
+            else:
+                pattern = r'\b' + re.escape(kw) + r'\b'
+                if re.search(pattern, c_lower):
+                    return True, f"Spam/Phishing keyword match: '{kw}'"
+
+    return False, None
+
 # Lead Disk Logging Setup
 LEAD_LOGS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs", "leads")
 os.makedirs(LEAD_LOGS_DIR, exist_ok=True)
@@ -712,6 +781,12 @@ def get_email_template(title: str, content: str) -> str:
 
 
 def trigger_lead_emails(payload) -> tuple[bool, Optional[str]]:
+    # Final safety check: if payload contains spam keywords or phishing links, skip all emails
+    is_spam, spam_reason = detect_spam_content(payload)
+    if is_spam:
+        print(f"[Anti-Spam] trigger_lead_emails: Skipped email dispatch due to spam content ({spam_reason})")
+        return True, None
+
     submitter_email = None
     submitter_subject = ""
     submitter_body = ""
@@ -1505,6 +1580,12 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
     # Honeypot validation (silent success if bot filled honeypot fields)
     if payload.bot_field or payload.honeypot or payload.website_url or payload.company_website:
         print("[Anti-Spam] Bot detected via honeypot field. Silently ignoring.")
+        return {"ok": True, "message": "Lead captured successfully"}
+
+    # Content Spam & Phishing Keyword Detection (silent success to neutralize bots)
+    is_spam, spam_reason = detect_spam_content(payload)
+    if is_spam:
+        print(f"[Anti-Spam] Bot/Scam detected via content analysis ({spam_reason}). Silently ignoring.")
         return {"ok": True, "message": "Lead captured successfully"}
 
     # Rate Limiting (5 submissions per minute per IP)
