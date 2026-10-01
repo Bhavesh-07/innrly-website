@@ -11,6 +11,8 @@ from pathlib import Path
 import re
 from collections import defaultdict
 import dns.resolver
+import urllib.request
+import urllib.parse
 
 # Load .env if present
 env_file = Path(__file__).parent / ".env"
@@ -25,7 +27,7 @@ if env_file.exists():
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Tuple
 from fastapi import FastAPI, HTTPException, Request, Response, Depends, File, UploadFile, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -508,6 +510,79 @@ def detect_spam_content(payload) -> tuple[bool, Optional[str]]:
 
     return False, None
 
+# Client IP & Anti-Bot Security Helpers
+def get_real_client_ip(request: Request) -> str:
+    """
+    Extracts the genuine visitor IP address across Cloudflare (CF-Connecting-IP),
+    True-Client-IP, X-Forwarded-For, and Nginx X-Real-IP reverse proxy headers.
+    """
+    if not request:
+        return "127.0.0.1"
+    cf_ip = request.headers.get("cf-connecting-ip")
+    if cf_ip and cf_ip.strip():
+        return cf_ip.strip()
+    true_ip = request.headers.get("true-client-ip")
+    if true_ip and true_ip.strip():
+        return true_ip.strip()
+    x_forwarded = request.headers.get("x-forwarded-for")
+    if x_forwarded and x_forwarded.strip():
+        return x_forwarded.split(",")[0].strip()
+    real_ip = request.headers.get("x-real-ip")
+    if real_ip and real_ip.strip():
+        return real_ip.strip()
+    if request.client and request.client.host:
+        return request.client.host
+    return "127.0.0.1"
+
+def verify_recaptcha_token(token: Optional[str], client_ip: str) -> Tuple[bool, str, Optional[float]]:
+    """
+    Validates human verification / bot protection:
+    1. Rejects missing, empty, or dummy tokens outright.
+    2. If RECAPTCHA_SECRET_KEY is configured in .env, validates token with Google's siteverify API.
+    3. Enforces score threshold (>= 0.3) for reCAPTCHA v3.
+    """
+    if not token or not str(token).strip():
+        return False, "Missing human verification token", None
+
+    token_str = str(token).strip()
+    
+    # Check minimum token length (Google reCAPTCHA v3 tokens are typically > 100 characters)
+    if len(token_str) < 15:
+        return False, "Invalid human verification token format", None
+
+    secret = os.environ.get("RECAPTCHA_SECRET_KEY", "").strip()
+    if secret:
+        try:
+            url = "https://www.google.com/recaptcha/api/siteverify"
+            post_data = urllib.parse.urlencode({
+                "secret": secret,
+                "response": token_str,
+                "remoteip": client_ip
+            }).encode("utf-8")
+            
+            req = urllib.request.Request(url, data=post_data, headers={"User-Agent": "Innrly-AntiSpam/1.0"})
+            with urllib.request.urlopen(req, timeout=5) as response:
+                result = json.loads(response.read().decode("utf-8"))
+                success = result.get("success", False)
+                score = result.get("score")
+                
+                if not success:
+                    error_codes = result.get("error-codes", [])
+                    return False, f"reCAPTCHA validation failed ({error_codes})", score
+                    
+                min_score = float(os.environ.get("RECAPTCHA_MIN_SCORE", "0.3"))
+                if score is not None and score < min_score:
+                    return False, f"reCAPTCHA score too low ({score:.2f} < {min_score})", score
+                    
+                return True, "Valid human verification", score
+        except Exception as e:
+            print(f"[Anti-Spam] Google reCAPTCHA server verification error: {e}")
+            if os.environ.get("RECAPTCHA_STRICT_FAIL", "false").lower() == "true":
+                return False, f"Verification service temporarily unavailable: {e}", None
+            return True, "Verification service bypass on network error", None
+
+    return True, "Token format accepted", None
+
 # Lead Disk Logging Setup
 LEAD_LOGS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs", "leads")
 os.makedirs(LEAD_LOGS_DIR, exist_ok=True)
@@ -562,6 +637,36 @@ def update_disk_log(log_id: str, updates: dict):
                 break
     except Exception as e:
         print(f"[LeadLogger] Error updating disk log for {log_id}: {e}")
+
+def delete_disk_log_by_id(log_id_or_prefix: str) -> int:
+    deleted_count = 0
+    try:
+        ensure_lead_logs_dir()
+        import glob
+        for filepath in glob.glob(os.path.join(LEAD_LOGS_DIR, "leads-*.jsonl")):
+            modified = False
+            remaining_lines = []
+            with open(filepath, "r", encoding="utf-8") as f:
+                for line in f:
+                    line_str = line.strip()
+                    if not line_str:
+                        continue
+                    try:
+                        entry = json.loads(line_str)
+                        curr_id = entry.get("log_id", "")
+                        if curr_id == log_id_or_prefix or curr_id.startswith(log_id_or_prefix):
+                            deleted_count += 1
+                            modified = True
+                        else:
+                            remaining_lines.append(line_str)
+                    except Exception:
+                        remaining_lines.append(line_str)
+            if modified:
+                with open(filepath, "w", encoding="utf-8") as f:
+                    f.write("\n".join(remaining_lines) + ("\n" if remaining_lines else ""))
+    except Exception as e:
+        print(f"[LeadLogger] Error deleting disk logs for {log_id_or_prefix}: {e}")
+    return deleted_count
 
 def read_all_disk_logs() -> List[dict]:
     ensure_lead_logs_dir()
@@ -970,6 +1075,44 @@ def trigger_lead_emails(payload) -> tuple[bool, Optional[str]]:
     if errors:
         return False, "; ".join(errors)
     return True, None
+
+def dispatch_lead_emails_background(payload_dict: dict, log_id: str):
+    """
+    Executes email dispatch asynchronously in the background so HTTP responses return in <50ms.
+    Updates disk log and MySQL database with final email status.
+    """
+    try:
+        payload = LeadPayload(**payload_dict)
+        email_ok, email_err_msg = trigger_lead_emails(payload)
+        email_status = "success" if email_ok else "failed"
+        email_error = None if email_ok else email_err_msg
+        
+        # Update disk log
+        update_disk_log(log_id, {
+            "email_status": email_status,
+            "email_error": email_error,
+            "overall_status": "success" if email_ok else "partial"
+        })
+        
+        # Update MySQL lead_event_logs if table exists
+        try:
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute(
+                """
+                UPDATE lead_event_logs 
+                SET email_status = %s, email_error = %s, overall_status = %s 
+                WHERE log_id = %s
+                """,
+                (email_status, email_error, "success" if email_ok else "partial", log_id)
+            )
+            conn.commit()
+            cur.close()
+            conn.close()
+        except Exception:
+            pass
+    except Exception as e:
+        print(f"[LeadEmail] Background email task exception for {log_id}: {e}")
 
 # Innrly Portal Sync Configurations (https://ob.innrly.com)
 INNRLY_PORTAL_BASE_URL = os.environ.get("INNRLY_PORTAL_BASE_URL", "https://ob.innrly.com")
@@ -1577,26 +1720,40 @@ async def delete_admin_user(user_id: int, super_admin: dict = Depends(require_su
 @app.post("/api/leads")
 @app.post("/api/leads/")
 async def create_lead(payload: LeadPayload, request: Request, background_tasks: BackgroundTasks):
-    # Honeypot validation (silent success if bot filled honeypot fields)
-    if payload.bot_field or payload.honeypot or payload.website_url or payload.company_website:
-        print("[Anti-Spam] Bot detected via honeypot field. Silently ignoring.")
-        return {"ok": True, "message": "Lead captured successfully"}
+    client_ip = get_real_client_ip(request)
 
-    # Content Spam & Phishing Keyword Detection (silent success to neutralize bots)
-    is_spam, spam_reason = detect_spam_content(payload)
-    if is_spam:
-        print(f"[Anti-Spam] Bot/Scam detected via content analysis ({spam_reason}). Silently ignoring.")
-        return {"ok": True, "message": "Lead captured successfully"}
-
-    # Rate Limiting (5 submissions per minute per IP)
-    client_ip = request.client.host if request.client else "127.0.0.1"
+    # 1. Rate Limiting (Strict 5 submissions per minute per visitor IP)
     now = time.time()
     LEAD_RATE_LIMITS[client_ip] = [t for t in LEAD_RATE_LIMITS[client_ip] if now - t < 60]
     if len(LEAD_RATE_LIMITS[client_ip]) >= 5:
-        raise HTTPException(status_code=429, detail="Too many lead submission requests. Please try again in a minute.")
+        print(f"[Anti-Spam] Rate limit exceeded for IP {client_ip} (>5 submissions in 60s). Refusing.")
+        raise HTTPException(
+            status_code=429,
+            detail="Too many lead submission requests. A maximum of 5 submissions per minute is allowed. Please wait before trying again."
+        )
     LEAD_RATE_LIMITS[client_ip].append(now)
 
-    # 1. Generate unique Log ID and extract metadata
+    # 2. Human Verification / reCAPTCHA Bot Protection Check
+    captcha_valid, captcha_reason, captcha_score = verify_recaptcha_token(payload.recaptcha_token, client_ip)
+    if not captcha_valid:
+        print(f"[Anti-Spam] Rejected submission missing/invalid human verification ({captcha_reason}) from IP {client_ip}")
+        raise HTTPException(
+            status_code=400,
+            detail=f"Human verification check failed: {captcha_reason}. Please reload the page and try again."
+        )
+
+    # 3. Honeypot Validation (Refuse outright with HTTP 400)
+    if payload.bot_field or payload.honeypot or payload.website_url or payload.company_website:
+        print(f"[Anti-Spam] Bot detected via honeypot field from IP {client_ip}. Refusing outright.")
+        raise HTTPException(status_code=400, detail="Automated submission detected.")
+
+    # 4. Content Spam & Phishing Keyword Detection (Refuse outright with HTTP 400)
+    is_spam, spam_reason = detect_spam_content(payload)
+    if is_spam:
+        print(f"[Anti-Spam] Spam/Scam detected via content analysis ({spam_reason}) from IP {client_ip}. Refusing outright.")
+        raise HTTPException(status_code=400, detail=f"Submission rejected: {spam_reason}")
+
+    # 5. Generate unique Log ID and extract metadata
     log_id = f"LEAD-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}-{secrets.token_hex(3).upper()}"
     submitted_at_dt = datetime.utcnow()
     if payload.submittedAt:
@@ -1867,33 +2024,17 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
             except Exception:
                 pass
 
-    # 4. EMAIL DISPATCH EXECUTION
+    # 4. EMAIL DISPATCH EXECUTION (Offloaded to background tasks for instant <50ms response)
     if db_status in ("success", "partial"):
-        try:
-            email_ok, email_err_msg = trigger_lead_emails(payload)
-            if email_ok:
-                email_status = "success"
-                email_error = None
-            else:
-                email_status = "failed"
-                email_error = email_err_msg
-        except Exception as mail_ex:
-            email_status = "failed"
-            email_error = str(mail_ex)
+        background_tasks.add_task(dispatch_lead_emails_background, raw_payload_dict, log_id)
+        email_status = "queued"
+        overall_status = "success"
     else:
         email_status = "skipped"
         email_error = "Skipped because database insertion failed"
-
-    # 5. OVERALL STATUS COMPUTATION
-    if db_status == "success" and email_status == "success":
-        overall_status = "success"
-    elif db_status == "failed":
         overall_status = "failed"
-    else:
-        # Partial DB records OR DB success with Email failure
-        overall_status = "partial"
 
-    # 6. PERSIST TO MYSQL LEAD_EVENT_LOGS & UPDATE DISK LOG
+    # 5. PERSIST TO MYSQL LEAD_EVENT_LOGS & UPDATE DISK LOG
     final_log_entry = {
         "log_id": log_id,
         "source": payload.source or payload.kind or "unknown",
@@ -1960,6 +2101,13 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
             c_dict,
             props_dict,
             users_dict
+        )
+
+    if db_status == "failed":
+        err_detail = db_details.get("error", "Database execution error")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Lead submission could not be saved to database. Error: {err_detail}"
         )
 
     return {
@@ -2402,6 +2550,31 @@ async def download_lead_logs(current_user: dict = Depends(get_current_user)):
             "Content-Disposition": f'attachment; filename="innrly_lead_audit_logs_{datetime.utcnow().strftime("%Y%m%d")}.jsonl"'
         }
     )
+
+@app.delete("/leads/logs/{log_id}")
+@app.delete("/leads/logs/{log_id}/")
+@app.delete("/api/leads/logs/{log_id}")
+@app.delete("/api/leads/logs/{log_id}/")
+@app.delete("/admin/leads/logs/{log_id}")
+@app.delete("/admin/leads/logs/{log_id}/")
+async def delete_lead_log(log_id: str, current_user: dict = Depends(get_current_user)):
+    deleted_db = 0
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("DELETE FROM lead_event_logs WHERE log_id = %s OR log_id LIKE %s", (log_id, f"{log_id}%"))
+        conn.commit()
+        deleted_db = cur.rowcount
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(f"[LeadLogger] Could not delete from DB: {e}")
+
+    deleted_disk = delete_disk_log_by_id(log_id)
+    return {
+        "ok": True,
+        "message": f"Deleted log '{log_id}' (DB records: {deleted_db}, Disk records: {deleted_disk})"
+    }
 
 @app.post("/leads/logs/{log_id}/sync-portal")
 @app.post("/leads/logs/{log_id}/sync-portal/")
