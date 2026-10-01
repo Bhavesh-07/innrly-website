@@ -6,9 +6,17 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { submitLead } from "@/lib/lead-submit";
 import { useFormGuard, honeypotFieldProps } from "@/lib/form-guard";
+import { isDisposableEmail } from "@/lib/disposable-domains";
 
 const schema = z.object({
-  email: z.string().trim().email("Enter a valid email").max(255),
+  email: z
+    .string()
+    .trim()
+    .email("Enter a valid email")
+    .max(255)
+    .refine((val) => !isDisposableEmail(val), {
+      message: "Please enter a valid email address (disposable inboxes not accepted)",
+    }),
 });
 
 interface Props {

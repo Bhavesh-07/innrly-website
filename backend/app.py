@@ -298,6 +298,63 @@ async def on_startup():
 # Rate limiting storage (in-memory)
 LEAD_RATE_LIMITS = defaultdict(list)  # client_ip -> list of timestamps
 
+# Curated list of known disposable / temporary email domains
+DISPOSABLE_EMAIL_DOMAINS = {
+    # Popular Disposable Email Providers
+    "10minutemail.com", "10minutemail.net", "10minutemail.org", "10minmail.com", "10minemail.com",
+    "20minutemail.com", "anonbox.net", "antichef.com", "armyspy.com", "brefmail.com",
+    "burnermail.io", "byom.de", "chacuo.net", "crazymailing.com", "cuvox.de",
+    "dayrep.com", "deadaddress.com", "disbox.net", "disbox.org", "discard.email",
+    "discardmail.com", "disposable.net", "disposablemail.com", "dispostable.com", "dropmail.me",
+    "drdrb.com", "e4ward.com", "einrot.com", "emailondeck.com", "emailtemporanea.com",
+    "emailtemporaneo.com", "emailtemporar.ro", "emailtemporario.com.br", "fakemail.net", "fakeinbox.com",
+    "fakemailgenerator.com", "fleckens.hu", "fmail.com", "fmail.net", "freenet.de",
+    "generator.email", "getairmail.com", "getnada.com", "grr.la", "guerrillamail.biz",
+    "guerrillamail.com", "guerrillamail.de", "guerrillamail.net", "guerrillamail.org", "guerrillamailblock.com",
+    "gustr.com", "harakirimail.com", "hideaddress.com", "hidemyemail.com", "inboxbear.com",
+    "inboxclean.com", "inboxkitten.com", "inboxproxy.com", "incognitomail.org", "instantemailaddress.com",
+    "jourrapide.com", "junkmail.com", "kasmail.com", "klzlk.com", "koszmail.pl",
+    "lroid.com", "maildrop.cc", "mailcatch.com", "mailcheat.com", "mailde.de",
+    "maildrop.com", "mailexpire.com", "mailforspam.com", "mailhazard.com", "mailhazard.us",
+    "mailimate.com", "mailinator.com", "mailinator.net", "mailinator2.com", "mailnesia.com",
+    "mailnull.com", "mailsac.com", "mailtemp.top", "mailtothis.com", "meltmail.com",
+    "mintemail.com", "mohmal.com", "mohmal.in", "mohmal.im", "mytrashmail.com",
+    "mytemp.email", "mytempemail.com", "nada.ltd", "nada.email", "noclickemail.com",
+    "nomail.xl.cx", "nospam.ze.tc", "nowmymail.com", "objectmail.com", "oneoffemail.com",
+    "onewaymail.com", "ourproject.org", "pookmail.com", "pokemail.net", "quickemail.info",
+    "rcpt.at", "reallymymail.com", "rhyta.com", "rootfest.net", "safetymail.info",
+    "sharklasers.com", "shitmail.me", "shitmail.org", "shortmail.net", "smailpro.com",
+    "sofort-mail.de", "sogetthis.com", "spambox.us", "spamex.com", "spamfree24.org",
+    "spamgourmet.com", "spamherelots.com", "spamhole.com", "spaminator.de", "spaml.de",
+    "spammotel.com", "spamspot.com", "superrito.com", "teleworm.us", "temp-mail.com",
+    "temp-mail.de", "temp-mail.io", "temp-mail.org", "temp-mail.ru", "tempail.com",
+    "tempm.com", "tempmail.altmails.com", "tempmail.biz", "tempmail.com", "tempmail.de",
+    "tempmail.eu", "tempmail.in", "tempmail.io", "tempmail.net", "tempmail.ninja",
+    "tempmail.plus", "tempmail.us", "tempmail24.com", "tempmailaddress.com", "tempmailbox.net",
+    "tempmailin.com", "tempmailo.com", "tempmailer.net", "temporary-mail.net", "temporarymail.com",
+    "temporarymail.net", "tempr.email", "thespambox.com", "throwawaymail.com", "throwawayemailaddress.com",
+    "ticket-mail.com", "tmail.com", "tmail.ws", "tmailor.com", "tmailo.com",
+    "trash-mail.at", "trash-mail.com", "trash-mail.de", "trash-me.com", "trashmail.at",
+    "trashmail.com", "trashmail.de", "trashmail.io", "trashmail.me", "trashmail.net",
+    "trashmail.org", "trashmailer.com", "trashymail.com", "trbvm.com", "tuamaeaquitem.com",
+    "uggsrock.com", "vmani.com", "walkmail.net", "wegwerfadresse.de", "wegwerfemail.de",
+    "wegwerfmail.de", "wegwerfmail.net", "wegwerfmail.org", "whyspam.me", "yep.it",
+    "yopmail.com", "yopmail.fr", "yopmail.net", "ypmail.webcam", "zeroe.ml",
+    "zoemail.com", "zippymail.info"
+}
+
+def is_disposable_email(email: Optional[str]) -> bool:
+    """
+    Checks if an email belongs to a known temporary/disposable domain.
+    """
+    if not email or not isinstance(email, str):
+        return False
+    parts = email.strip().lower().split("@")
+    if len(parts) != 2:
+        return False
+    domain = parts[1].strip()
+    return domain in DISPOSABLE_EMAIL_DOMAINS
+
 # Lead Disk Logging Setup
 LEAD_LOGS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs", "leads")
 os.makedirs(LEAD_LOGS_DIR, exist_ok=True)
@@ -712,12 +769,15 @@ def trigger_lead_emails(payload) -> tuple[bool, Optional[str]]:
             ]
 
     errors = []
-    # Send Submitter Confirmation
+    # Send Submitter Confirmation (blocked if disposable email)
     if submitter_email and submitter_subject and submitter_body:
-        html_submitter = get_email_template(submitter_subject, submitter_body)
-        ok, err = send_email_safe(submitter_email, submitter_subject, html_submitter)
-        if not ok:
-            errors.append(f"Submitter email failed: {err}")
+        if not is_disposable_email(submitter_email):
+            html_submitter = get_email_template(submitter_subject, submitter_body)
+            ok, err = send_email_safe(submitter_email, submitter_subject, html_submitter)
+            if not ok:
+                errors.append(f"Submitter email failed: {err}")
+        else:
+            print(f"[Anti-Spam] Skipped outbound confirmation email to disposable address: {submitter_email}")
         
     # Send Internal Lead Alert Notifications (sales@innrly.com & contact@innrly.com)
     if sales_body_rows:
@@ -912,6 +972,7 @@ class LeadPayload(BaseModel):
     bot_field: Optional[str] = None
     honeypot: Optional[str] = None
     website_url: Optional[str] = None
+    company_website: Optional[str] = None
     
     # Structured onboarding fields
     companyDetails: Optional[CompanyDetails] = None
@@ -1356,7 +1417,7 @@ async def delete_admin_user(user_id: int, super_admin: dict = Depends(require_su
 @app.post("/api/leads/")
 async def create_lead(payload: LeadPayload, request: Request, background_tasks: BackgroundTasks):
     # Honeypot validation (silent success if bot filled honeypot fields)
-    if payload.bot_field or payload.honeypot or payload.website_url:
+    if payload.bot_field or payload.honeypot or payload.website_url or payload.company_website:
         print("[Anti-Spam] Bot detected via honeypot field. Silently ignoring.")
         return {"ok": True, "message": "Lead captured successfully"}
 
@@ -1394,6 +1455,32 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
         lead_email = payload.email or lead_email
 
     lead_email = lead_email or "unknown@innrly.com"
+
+    # Disposable / Burner Email Validation
+    if is_disposable_email(lead_email):
+        print(f"[Anti-Spam] Rejected disposable email address: {lead_email}")
+        raise HTTPException(
+            status_code=400,
+            detail="Disposable or temporary email addresses are not permitted. Please use a valid business email."
+        )
+
+    if payload.source == "onboarding":
+        if payload.companyDetails and is_disposable_email(payload.companyDetails.email):
+            print(f"[Anti-Spam] Rejected disposable company email: {payload.companyDetails.email}")
+            raise HTTPException(
+                status_code=400,
+                detail="Disposable or temporary email addresses are not permitted for company registration."
+            )
+        if payload.users:
+            for u in payload.users:
+                u_email = getattr(u, "email", None) or (u.get("email") if isinstance(u, dict) else None)
+                if is_disposable_email(u_email):
+                    print(f"[Anti-Spam] Rejected disposable onboarding user email: {u_email}")
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"Disposable or temporary email address ({u_email}) is not permitted."
+                    )
+
     raw_payload_dict = payload.dict()
 
     # 2. FAIL-SAFE DISK LOGGING (Write immediately BEFORE attempting DB)

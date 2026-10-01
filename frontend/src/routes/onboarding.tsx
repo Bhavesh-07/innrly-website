@@ -32,6 +32,7 @@ import { useFormGuard, honeypotFieldProps } from "@/lib/form-guard";
 import { track } from "@/lib/analytics";
 import { submitLead } from "@/lib/lead-submit";
 import { defaultSeoData, fetchSeoData, getMetaTags } from "@/lib/seo";
+import { isDisposableEmail } from "@/lib/disposable-domains";
 
 export const Route = createFileRoute("/onboarding")({
   component: OnboardingPage,
@@ -59,7 +60,14 @@ const companySchema = z.object({
   decisionMaker: z.enum(["yes", "no"], { required_error: "Required" }),
   companyName: z.string().trim().min(1, "Company name required").max(150),
   authorizedPerson: z.string().trim().min(1, "Authorized person required").max(150),
-  email: z.string().trim().email("Valid email required").max(255),
+  email: z
+    .string()
+    .trim()
+    .email("Valid email required")
+    .max(255)
+    .refine((val) => !isDisposableEmail(val), {
+      message: "Please provide a valid company work email (disposable inboxes not accepted)",
+    }),
   address: z.string().trim().min(1, "Address required").max(255),
   state: z.string().trim().min(1, "State required").max(80),
   city: z.string().trim().min(1, "City required").max(80),
@@ -70,7 +78,14 @@ const companySchema = z.object({
 
 const userSchema = z.object({
   name: z.string().trim().min(1, "Name required").max(150),
-  email: z.string().trim().email("Valid email required").max(255),
+  email: z
+    .string()
+    .trim()
+    .email("Valid email required")
+    .max(255)
+    .refine((val) => !isDisposableEmail(val), {
+      message: "Please provide a valid work email (disposable inboxes not accepted)",
+    }),
   phone: z.string().trim().regex(phoneRe, "Valid phone required"),
 });
 

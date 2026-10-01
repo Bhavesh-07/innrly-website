@@ -15,6 +15,7 @@ import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { submitLead } from "@/lib/lead-submit";
 import { defaultSeoData, fetchSeoData, getMetaTags } from "@/lib/seo";
+import { isDisposableEmail } from "@/lib/disposable-domains";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -69,7 +70,14 @@ export const Route = createFileRoute("/contact")({
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name required").max(100),
-  email: z.string().trim().email("Valid email required").max(255),
+  email: z
+    .string()
+    .trim()
+    .email("Valid email required")
+    .max(255)
+    .refine((val) => !isDisposableEmail(val), {
+      message: "Please enter a valid work email (disposable inboxes not accepted)",
+    }),
   company: z.string().trim().min(1, "Company required").max(150),
   phone: z.string().trim().min(7, "Valid phone required").max(20),
   properties: z.string().trim().max(20).optional(),

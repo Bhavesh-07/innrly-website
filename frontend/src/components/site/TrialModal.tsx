@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { X, Check, Sparkles, Loader2, Clock, CreditCard, ArrowUpRight } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -8,14 +8,22 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { submitLead } from "@/lib/lead-submit";
 import { useFormGuard, honeypotFieldProps } from "@/lib/form-guard";
+import { isDisposableEmail } from "@/lib/disposable-domains";
 
 const SESSION_KEY = "innrly_trial_modal_seen";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Required").max(100),
-  email: z.string().trim().email("Enter a valid work email").max(255),
+  email: z
+    .string()
+    .trim()
+    .email("Enter a valid work email")
+    .max(255)
+    .refine((val) => !isDisposableEmail(val), {
+      message: "Please enter a valid work email (temporary/disposable inboxes not accepted)",
+    }),
   company: z.string().trim().min(1, "Required").max(150),
-  role: z.string().trim().max(100).optional(),
+  role: z.string().trim().min(1, "Required").max(100),
   phone: z.string().trim().min(7, "Enter a valid phone").max(30),
   properties: z.string().trim().min(1, "Required").max(20),
   pms: z.string().trim().max(100).optional(),
@@ -29,77 +37,39 @@ const benefits = [
 ];
 
 export function TrialModal() {
-  const routerState = useRouterState();
-  const currentPath = routerState?.location?.pathname ?? (typeof window !== "undefined" ? window.location.pathname : "");
-  const isOnboardingPage = currentPath === "/onboarding" || currentPath.startsWith("/onboarding");
-
   const [open, setOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const guard = useFormGuard(2500);
 
-  // Auto-open once per session after 10 seconds (disabled on /onboarding page)
+  // Auto-open once per session
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
     if (sessionStorage.getItem(SESSION_KEY)) return;
-    
-    let timer: ReturnType<typeof setTimeout> | null = null;
-    let isCancelled = false;
-
-    // Fetch from backend
-    fetch("/api/settings")
-      .then(res => res.json())
-      .then(data => {
-        if (isCancelled) return;
-        if (data && data.innrly_trial_modal_disabled === "true") return;
-        if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
-        
-        timer = setTimeout(() => {
-          if (isCancelled) return;
-          if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
-          setOpen(true);
-          sessionStorage.setItem(SESSION_KEY, "1");
-        }, 10000);
-      })
-      .catch(() => {
-        // Fallback: show after 10s if settings endpoint unavailable
-        if (isCancelled) return;
-        if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
-        timer = setTimeout(() => {
-          if (isCancelled) return;
-          if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
-          setOpen(true);
-          sessionStorage.setItem(SESSION_KEY, "1");
-        }, 10000);
-      });
-
-    return () => {
-      isCancelled = true;
-      if (timer) clearTimeout(timer);
-    };
-  }, [currentPath]);
-
-  // Listen for global "open trial" events from CTA buttons (disabled on /onboarding page)
-  useEffect(() => {
-    const handler = () => {
-      if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) return;
+    const t = setTimeout(() => {
       setOpen(true);
-    };
+      sessionStorage.setItem(SESSION_KEY, "1");
+    }, 600);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Listen for global "open trial" events from CTA buttons
+  useEffect(() => {
+    const handler = () => setOpen(true);
     window.addEventListener("innrly:open-trial", handler);
     return () => window.removeEventListener("innrly:open-trial", handler);
   }, []);
 
   // Lock scroll while open
   useEffect(() => {
-    if (!open || isOnboardingPage) return;
+    if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
-  }, [open, isOnboardingPage]);
+  }, [open]);
 
   // Esc to close
   useEffect(() => {
@@ -111,7 +81,7 @@ export function TrialModal() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  if (isOnboardingPage || !open) return null;
+  if (!open) return null;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -172,11 +142,12 @@ export function TrialModal() {
               id="trial-modal-title"
               className="mt-5 text-3xl font-bold leading-tight text-foreground"
             >
-              Try Innrly free for <span className="text-gradient">90 days.</span>
+              Try Innrly free for{" "}
+              <span className="text-gradient">90 days.</span>
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">
-              Full platform. Every property. Zero risk. See what your back office looks like when
-              the spreadsheets are gone.
+              Full platform. Every property. Zero risk. See what your back office
+              looks like when the spreadsheets are gone.
             </p>
             <ul className="mt-6 space-y-3">
               {benefits.map((b) => (
@@ -189,7 +160,7 @@ export function TrialModal() {
               ))}
             </ul>
 
-            {/* Module strip */}
+            {/* New module strip */}
             <div className="mt-6">
               <p className="text-[10px] font-bold uppercase tracking-widest text-accent">
                 New in Innrly
@@ -207,8 +178,8 @@ export function TrialModal() {
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-1.5">
                       <span className="text-sm font-semibold text-foreground">Innrly Shift</span>
-                      <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">
-                        Add-on
+                      <span className="rounded-full bg-success/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-success">
+                        Included
                       </span>
                     </span>
                     <span className="block truncate text-[11px] text-muted-foreground">
@@ -229,8 +200,8 @@ export function TrialModal() {
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-1.5">
                       <span className="text-sm font-semibold text-foreground">Innrly Pay</span>
-                      <span className="rounded-full bg-success/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-success">
-                        Included
+                      <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">
+                        Add-on
                       </span>
                     </span>
                     <span className="block truncate text-[11px] text-muted-foreground">
@@ -243,9 +214,11 @@ export function TrialModal() {
             </div>
           </div>
           <div className="relative mt-6 rounded-xl border border-border/40 bg-surface/40 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">Trusted across</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">
+              Trusted across
+            </p>
             <p className="mt-1 text-lg font-bold text-foreground">
-              200+ hotels · 17,000+ rooms · 3,000+ employees
+              200+ hotels · 17,000+ rooms · 1,500+ users
             </p>
           </div>
         </div>
@@ -261,8 +234,8 @@ export function TrialModal() {
                 You're in. Welcome to Innrly.
               </h3>
               <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                Our team will reach out within one business day to schedule your onboarding and
-                activate your 90-day trial.
+                Our team will reach out within one business day to schedule your
+                onboarding and activate your 90-day trial.
               </p>
               <Button className="mt-6 bg-cta hover:opacity-90" onClick={() => setOpen(false)}>
                 Close
@@ -275,7 +248,8 @@ export function TrialModal() {
                   <Sparkles className="h-3.5 w-3.5" /> 90-day free trial
                 </span>
                 <h2 className="mt-3 text-2xl font-bold text-foreground">
-                  Try Innrly free for <span className="text-gradient">90 days.</span>
+                  Try Innrly free for{" "}
+                  <span className="text-gradient">90 days.</span>
                 </h2>
 
                 {/* Mobile-only module strip */}
@@ -291,11 +265,9 @@ export function TrialModal() {
                       <Clock className="h-3.5 w-3.5" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-[12px] font-semibold text-foreground">
-                        Innrly Shift
-                      </span>
-                      <span className="mt-0.5 inline-block rounded-full bg-accent/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">
-                        Add-on
+                      <span className="block text-[12px] font-semibold text-foreground">Innrly Shift</span>
+                      <span className="mt-0.5 inline-block rounded-full bg-success/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-success">
+                        Included
                       </span>
                     </span>
                   </Link>
@@ -310,11 +282,9 @@ export function TrialModal() {
                       <CreditCard className="h-3.5 w-3.5" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-[12px] font-semibold text-foreground">
-                        Innrly Pay
-                      </span>
-                      <span className="mt-0.5 inline-block rounded-full bg-success/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-success">
-                        Included
+                      <span className="block text-[12px] font-semibold text-foreground">Innrly Pay</span>
+                      <span className="mt-0.5 inline-block rounded-full bg-accent/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">
+                        Add-on
                       </span>
                     </span>
                   </Link>
@@ -330,33 +300,18 @@ export function TrialModal() {
               <form onSubmit={onSubmit} className="mt-5 grid gap-3.5 sm:grid-cols-2">
                 <input ref={guard.honeypotRef} {...honeypotFieldProps} />
                 <Field label="Full name" name="name" placeholder="Jane Patel" />
-                <Field
-                  label="Work email"
-                  name="email"
-                  type="email"
-                  placeholder="jane@hotelco.com"
-                />
+                <Field label="Work email" name="email" type="email" placeholder="jane@hotelco.com" />
                 <Field label="Company" name="company" placeholder="Hotel Co." />
                 <Field label="Phone" name="phone" type="tel" placeholder="(555) 123-4567" />
                 <div className="sm:col-span-2">
-                  <Field
-                    label="# of properties"
-                    name="properties"
-                    type="number"
-                    placeholder="12"
-                    min="1"
-                  />
+                  <Field label="# of properties" name="properties" type="number" placeholder="12" min="1" />
                 </div>
 
                 {/* Collapsible secondary fields */}
                 {showMore ? (
                   <>
                     <Field label="Your role" name="role" placeholder="VP of Operations" />
-                    <Field
-                      label="Current PMS (optional)"
-                      name="pms"
-                      placeholder="Opera, Choice Advantage, etc."
-                    />
+                    <Field label="Current PMS (optional)" name="pms" placeholder="Opera, Choice Advantage, etc." />
                   </>
                 ) : (
                   <button
@@ -429,9 +384,6 @@ function Field({
 /** Helper for any CTA button to open the trial modal. */
 export function openTrialModal() {
   if (typeof window !== "undefined") {
-    if (window.location.pathname === "/onboarding" || window.location.pathname.startsWith("/onboarding")) {
-      return;
-    }
     window.dispatchEvent(new CustomEvent("innrly:open-trial"));
   }
 }
