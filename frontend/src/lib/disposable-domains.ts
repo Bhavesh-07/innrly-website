@@ -3,6 +3,19 @@
  * Used for client-side form validation to prevent spam and fake submissions.
  */
 export const DISPOSABLE_EMAIL_DOMAINS = new Set([
+  // Common Typo Domains
+  "gmial.com",
+  "gmaill.com",
+  "gamil.com",
+  "gmal.com",
+  "gmai.com",
+  "hotmial.com",
+  "outlokk.com",
+  "outlok.com",
+  "yaho.com",
+  "yahooo.com",
+  "yhoo.com",
+
   // Popular Disposable Email Providers
   "10minutemail.com",
   "10minutemail.net",

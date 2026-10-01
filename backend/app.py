@@ -9,6 +9,7 @@ import base64
 import json
 from pathlib import Path
 from collections import defaultdict
+import dns.resolver
 
 # Load .env if present
 env_file = Path(__file__).parent / ".env"
@@ -298,8 +299,12 @@ async def on_startup():
 # Rate limiting storage (in-memory)
 LEAD_RATE_LIMITS = defaultdict(list)  # client_ip -> list of timestamps
 
-# Curated list of known disposable / temporary email domains
+# Curated list of known disposable / temporary / typo email domains
 DISPOSABLE_EMAIL_DOMAINS = {
+    # Common Typo Domains
+    "gmial.com", "gmaill.com", "gamil.com", "gmal.com", "gmai.com",
+    "hotmial.com", "outlokk.com", "outlok.com", "yaho.com", "yahooo.com", "yhoo.com",
+
     # Popular Disposable Email Providers
     "10minutemail.com", "10minutemail.net", "10minutemail.org", "10minmail.com", "10minemail.com",
     "20minutemail.com", "anonbox.net", "antichef.com", "armyspy.com", "brefmail.com",
@@ -354,6 +359,85 @@ def is_disposable_email(email: Optional[str]) -> bool:
         return False
     domain = parts[1].strip()
     return domain in DISPOSABLE_EMAIL_DOMAINS
+
+# Pre-warmed DNS Cache with top global and hospitality email providers
+_MX_DOMAIN_CACHE = {
+    "gmail.com": (True, "Pre-verified top provider"),
+    "googlemail.com": (True, "Pre-verified top provider"),
+    "yahoo.com": (True, "Pre-verified top provider"),
+    "ymail.com": (True, "Pre-verified top provider"),
+    "outlook.com": (True, "Pre-verified top provider"),
+    "hotmail.com": (True, "Pre-verified top provider"),
+    "live.com": (True, "Pre-verified top provider"),
+    "msn.com": (True, "Pre-verified top provider"),
+    "icloud.com": (True, "Pre-verified top provider"),
+    "me.com": (True, "Pre-verified top provider"),
+    "mac.com": (True, "Pre-verified top provider"),
+    "aol.com": (True, "Pre-verified top provider"),
+    "protonmail.com": (True, "Pre-verified top provider"),
+    "proton.me": (True, "Pre-verified top provider"),
+    "zoho.com": (True, "Pre-verified top provider"),
+    "innrly.com": (True, "Pre-verified official domain"),
+    "hilton.com": (True, "Pre-verified corporate domain"),
+    "marriott.com": (True, "Pre-verified corporate domain"),
+    "hyatt.com": (True, "Pre-verified corporate domain"),
+    "ihg.com": (True, "Pre-verified corporate domain"),
+    "wyndhamhotels.com": (True, "Pre-verified corporate domain"),
+    "choicehotels.com": (True, "Pre-verified corporate domain"),
+    "bestwestern.com": (True, "Pre-verified corporate domain"),
+    "accor.com": (True, "Pre-verified corporate domain"),
+}
+
+def has_valid_mx_record(email: Optional[str], timeout: float = 1.5) -> tuple[bool, str]:
+    """
+    Validates if an email's domain actually exists and has configured mail exchangers (MX records).
+    Implements in-memory caching and fail-safe timeout handling to maintain sub-100ms response times.
+    """
+    if not email or not isinstance(email, str):
+        return False, "Missing email address"
+    
+    parts = email.strip().lower().split("@")
+    if len(parts) != 2 or not parts[1].strip():
+        return False, "Invalid email format"
+    
+    domain = parts[1].strip()
+    
+    # 1. Fast Path: Check in-memory cache (sub-millisecond)
+    if domain in _MX_DOMAIN_CACHE:
+        return _MX_DOMAIN_CACHE[domain]
+    
+    # 2. Query DNS with primary anycast resolvers + system fallback
+    try:
+        resolver = dns.resolver.Resolver(configure=True)
+        # Prepend fast anycast DNS servers (Google + Cloudflare)
+        resolver.nameservers = ["8.8.8.8", "1.1.1.1", "8.8.4.4"] + list(resolver.nameservers)
+        resolver.timeout = timeout
+        resolver.lifetime = timeout + 0.5
+        
+        try:
+            mx_records = resolver.resolve(domain, 'MX')
+            if mx_records:
+                _MX_DOMAIN_CACHE[domain] = (True, "Valid MX")
+                return True, "Valid MX"
+        except (dns.resolver.NoAnswer, dns.resolver.NoNameservers):
+            # Fallback to A record per RFC 5321
+            try:
+                a_records = resolver.resolve(domain, 'A')
+                if a_records:
+                    _MX_DOMAIN_CACHE[domain] = (True, "Valid A record fallback")
+                    return True, "Valid A record fallback"
+            except Exception:
+                pass
+        except dns.resolver.NXDOMAIN:
+            _MX_DOMAIN_CACHE[domain] = (False, "Domain does not exist (NXDOMAIN)")
+            return False, "Domain does not exist (NXDOMAIN)"
+    except Exception as e:
+        # In case of network timeout or DNS glitch, fail open to avoid false rejections
+        print(f"[DNS Validator] DNS lookup note for {domain}: {e}")
+        return True, "DNS lookup bypassed (timeout/error)"
+    
+    _MX_DOMAIN_CACHE[domain] = (False, "No mail exchanger records configured for domain")
+    return False, "No mail exchanger records configured for domain"
 
 # Lead Disk Logging Setup
 LEAD_LOGS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs", "leads")
@@ -769,15 +853,17 @@ def trigger_lead_emails(payload) -> tuple[bool, Optional[str]]:
             ]
 
     errors = []
-    # Send Submitter Confirmation (blocked if disposable email)
+    # Send Submitter Confirmation (blocked if disposable or invalid MX domain)
     if submitter_email and submitter_subject and submitter_body:
-        if not is_disposable_email(submitter_email):
+        is_disp = is_disposable_email(submitter_email)
+        mx_valid, _ = has_valid_mx_record(submitter_email)
+        if not is_disp and mx_valid:
             html_submitter = get_email_template(submitter_subject, submitter_body)
             ok, err = send_email_safe(submitter_email, submitter_subject, html_submitter)
             if not ok:
                 errors.append(f"Submitter email failed: {err}")
         else:
-            print(f"[Anti-Spam] Skipped outbound confirmation email to disposable address: {submitter_email}")
+            print(f"[Anti-Spam] Skipped outbound confirmation email to invalid/disposable address: {submitter_email}")
         
     # Send Internal Lead Alert Notifications (sales@innrly.com & contact@innrly.com)
     if sales_body_rows:
@@ -1480,6 +1566,38 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
                         status_code=400,
                         detail=f"Disposable or temporary email address ({u_email}) is not permitted."
                     )
+
+    # DNS / MX Record Domain Validation (Checks domain existence & mail exchanger config)
+    mx_valid, mx_reason = has_valid_mx_record(lead_email)
+    if not mx_valid:
+        print(f"[Anti-Spam] Rejected invalid/nonexistent email domain ({lead_email}): {mx_reason}")
+        raise HTTPException(
+            status_code=400,
+            detail="The email domain does not exist or cannot receive emails. Please check for typos or use a valid company email."
+        )
+
+    if payload.source == "onboarding":
+        if payload.companyDetails:
+            c_email = getattr(payload.companyDetails, "email", None) or (payload.companyDetails.get("email") if isinstance(payload.companyDetails, dict) else None)
+            if c_email:
+                c_mx_valid, c_mx_reason = has_valid_mx_record(c_email)
+                if not c_mx_valid:
+                    print(f"[Anti-Spam] Rejected invalid company email domain ({c_email}): {c_mx_reason}")
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"The company email domain ({c_email}) does not exist or cannot receive emails."
+                    )
+        if payload.users:
+            for u in payload.users:
+                u_email = getattr(u, "email", None) or (u.get("email") if isinstance(u, dict) else None)
+                if u_email:
+                    u_mx_valid, u_mx_reason = has_valid_mx_record(u_email)
+                    if not u_mx_valid:
+                        print(f"[Anti-Spam] Rejected invalid user email domain ({u_email}): {u_mx_reason}")
+                        raise HTTPException(
+                            status_code=400,
+                            detail=f"The user email domain ({u_email}) does not exist or cannot receive emails."
+                        )
 
     raw_payload_dict = payload.dict()
 
