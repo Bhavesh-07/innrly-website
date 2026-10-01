@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { submitLead } from "@/lib/lead-submit";
+import { useFormGuard, honeypotFieldProps } from "@/lib/form-guard";
 
 const SESSION_KEY = "innrly_trial_modal_seen";
 
@@ -36,6 +37,7 @@ export function TrialModal() {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const guard = useFormGuard(2500);
 
   // Auto-open once per session after 10 seconds (disabled on /onboarding page)
   useEffect(() => {
@@ -113,7 +115,12 @@ export function TrialModal() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!guard.check().ok) {
+      setDone(true); // silently "succeed" for bots
+      return;
+    }
     const fd = new FormData(e.currentTarget);
+    fd.delete("company_website");
     const raw = Object.fromEntries(fd.entries());
     const parsed = schema.safeParse(raw);
     if (!parsed.success) {
@@ -182,7 +189,7 @@ export function TrialModal() {
               ))}
             </ul>
 
-            {/* New module strip */}
+            {/* Module strip */}
             <div className="mt-6">
               <p className="text-[10px] font-bold uppercase tracking-widest text-accent">
                 New in Innrly
@@ -321,6 +328,7 @@ export function TrialModal() {
               </p>
 
               <form onSubmit={onSubmit} className="mt-5 grid gap-3.5 sm:grid-cols-2">
+                <input ref={guard.honeypotRef} {...honeypotFieldProps} />
                 <Field label="Full name" name="name" placeholder="Jane Patel" />
                 <Field
                   label="Work email"

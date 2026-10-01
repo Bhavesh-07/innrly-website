@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { submitLead } from "@/lib/lead-submit";
+import { useFormGuard, honeypotFieldProps } from "@/lib/form-guard";
 
 const schema = z.object({
   email: z.string().trim().email("Enter a valid email").max(255),
@@ -19,9 +20,14 @@ export function NewsletterSignup({ variant = "card", source = "blog" }: Props) {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const { honeypotRef, check } = useFormGuard();
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!check().ok) {
+      setDone(true);
+      return;
+    }
     const parsed = schema.safeParse({ email });
     if (!parsed.success) {
       toast.error(parsed.error.issues[0]?.message ?? "Invalid email");
@@ -46,9 +52,7 @@ export function NewsletterSignup({ variant = "card", source = "blog" }: Props) {
 
   if (done) {
     return (
-      <div
-        className={`flex items-center gap-3 rounded-2xl border border-accent/40 bg-accent/5 px-5 py-4 text-sm text-foreground ${variant === "card" ? "" : ""}`}
-      >
+      <div className={`flex items-center gap-3 rounded-2xl border border-accent/40 bg-accent/5 px-5 py-4 text-sm text-foreground ${variant === "card" ? "" : ""}`}>
         <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" aria-hidden />
         <span>Thanks — we'll send the next operator brief to your inbox.</span>
       </div>
@@ -57,7 +61,8 @@ export function NewsletterSignup({ variant = "card", source = "blog" }: Props) {
 
   if (variant === "inline") {
     return (
-      <form onSubmit={onSubmit} className="flex flex-col gap-2 sm:flex-row">
+      <form onSubmit={onSubmit} className="relative flex flex-col gap-2 sm:flex-row">
+        <input ref={honeypotRef} {...honeypotFieldProps} />
         <Input
           type="email"
           required
@@ -67,11 +72,7 @@ export function NewsletterSignup({ variant = "card", source = "blog" }: Props) {
           className="sm:flex-1"
           aria-label="Email address"
         />
-        <Button
-          type="submit"
-          disabled={submitting}
-          className="bg-cta hover:bg-cta/90 text-primary-foreground"
-        >
+        <Button type="submit" disabled={submitting} className="bg-cta hover:bg-cta/90 text-primary-foreground">
           {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Subscribe"}
         </Button>
       </form>
@@ -85,17 +86,16 @@ export function NewsletterSignup({ variant = "card", source = "blog" }: Props) {
           <Mail className="h-5 w-5 text-accent" aria-hidden />
         </div>
         <div className="flex-1">
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-            Operator brief
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent">Operator brief</p>
           <h2 className="mt-1 text-xl font-semibold text-foreground">
             One email a month. No fluff.
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Benchmarks, automation playbooks, and the occasional rant about spreadsheets — written
-            for multi-property finance and ops leaders.
+            Benchmarks, automation playbooks, and the occasional rant about
+            spreadsheets — written for multi-property finance and ops leaders.
           </p>
-          <form onSubmit={onSubmit} className="mt-5 flex flex-col gap-2 sm:flex-row">
+          <form onSubmit={onSubmit} className="relative mt-5 flex flex-col gap-2 sm:flex-row">
+            <input ref={honeypotRef} {...honeypotFieldProps} />
             <Input
               type="email"
               required
@@ -105,11 +105,7 @@ export function NewsletterSignup({ variant = "card", source = "blog" }: Props) {
               className="sm:flex-1"
               aria-label="Email address"
             />
-            <Button
-              type="submit"
-              disabled={submitting}
-              className="bg-cta hover:bg-cta/90 text-primary-foreground"
-            >
+            <Button type="submit" disabled={submitting} className="bg-cta hover:bg-cta/90 text-primary-foreground">
               {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Subscribe"}
             </Button>
           </form>
