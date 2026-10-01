@@ -230,7 +230,7 @@ function Page() {
             },
             {
               q: "What accounting systems do you sync with?",
-              a: "QuickBooks (two-way sync), M3 (certified push integration), Sage Intacct, and others. Vendor master and GL stay aligned so your accounting system remains the system of record.",
+              a: "QuickBooks (two-way sync), M3 (Associate Partner push integration), Sage Intacct, and others. Vendor master and GL stay aligned so your accounting system remains the system of record.",
             },
           ],
         }}

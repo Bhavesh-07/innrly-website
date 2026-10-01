@@ -25,7 +25,7 @@ const comparisons = [
     competitor: "M3",
     tagline: "How Innrly + M3 work together — capture, code, and push invoices into M3.",
     readTime: "5 min read",
-    highlights: ["Certified M3 partner", "Push-only invoice sync", "M3 stays your GL"],
+    highlights: ["M3 Associate Partner", "Push-only invoice sync", "M3 stays your GL"],
     available: true,
   },
   {

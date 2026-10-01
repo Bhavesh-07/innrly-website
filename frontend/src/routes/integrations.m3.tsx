@@ -5,7 +5,7 @@ import { IntegrationLayout } from "@/components/site/IntegrationLayout";
 const faqs = [
   {
     q: "Is this an official M3 integration?",
-    a: "Yes. Innrly is an officially certified M3 integration partner. Invoices captured and GL-coded in Innrly push directly into M3 as the system of record.",
+    a: "Yes. Innrly is an M3 Associate Partner, as announced by M3 on September 29, 2026. Invoices captured and GL-coded in Innrly push directly into M3 as the system of record.",
   },
   {
     q: "Is the integration two-way or push-only?",
@@ -35,7 +35,10 @@ export const Route = createFileRoute("/integrations/m3")({
     meta: [
       ...getMetaTags(
         loaderData?.seo || null,
-        defaultSeoData["/integrations/m3"],
+        defaultSeoData["/integrations/m3"] || {
+          title: "Innrly + M3 — Auto GL-Code & Push Invoices | Innrly",
+          description: "Innrly is an M3 Associate Partner. Innrly auto-populates, GL-codes, and pushes invoices into M3 — eliminating manual A/P data entry for hotel operators.",
+        },
         "/integrations/m3"
       ),
       {
@@ -71,13 +74,13 @@ function Page() {
     <IntegrationLayout
       partnerName="M3"
       eyebrow="Integration · M3"
-      badge="Certified M3 integration partner"
+      badge="M3 Associate Partner"
       title={
         <>
           Innrly + M3: <span className="text-gradient">auto-coded invoices</span> straight into M3.
         </>
       }
-      intro="Innrly is an officially certified M3 integration partner. Capture invoices, auto-populate and GL-code them in Innrly, then push the completed entries into M3 as your accounting system of record."
+      intro="Innrly is an M3 Associate Partner. Capture invoices, auto-populate and GL-code them in Innrly, then push the completed entries into M3 as your accounting system of record."
       direction="push-only"
       directionLabel="Push-only · invoices → M3"
       whatItDoes={[
@@ -114,6 +117,11 @@ function Page() {
         ],
       }}
       faqs={faqs}
+      announcement={{
+        text: "Announced by M3 on September 29, 2026.",
+        pressUrl: "https://www.m3as.com/press-release/innrly-joins-m3s-partner-ecosystem/",
+        blogUrl: "/blog/innrly-joins-m3-partner-ecosystem-hotel-accounting-automation",
+      }}
     />
   );
 }

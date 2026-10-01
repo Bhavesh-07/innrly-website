@@ -3,7 +3,19 @@ import { Section } from "@/components/site/Section";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { NewsletterSignup } from "@/components/site/NewsletterSignup";
 
-const posts: Record<string, { title: string; metaTitle?: string; date: string; body: string[] }> = {
+type Post = {
+  title: string;
+  metaTitle?: string;
+  description?: string;
+  date: string;
+  image?: string;
+  imageAlt?: string;
+  source?: { label: string; url: string };
+  faq?: { q: string; a: string }[];
+  body: string[];
+};
+
+const posts: Record<string, Post> = {
   "best-hotel-accounting-software": {
     title: "Best Hotel Accounting Software for Multi-Property Operators (2026)",
     metaTitle: "Best Hotel Accounting Software 2026 — Honest Buyer's Guide",
@@ -26,9 +38,9 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "Onboarding tolerance. Full-suite platforms like M3, Inn-Flow, and Sage Intacct typically involve longer, structured implementations. QuickBooks is days. Plan the migration window honestly.",
       "Where the automation layer fits",
       "Whichever GL you pick, it does not know how to fetch a night-audit pack from OnQ, normalize it against an Opera property and a Cloudbeds property, line-match an Expedia statement, or capture and code 300 vendor invoices a month across 12 properties. That work has to happen before the journal entry reaches the GL — and it's the work that eats most of a corporate accounting team's week.",
-      "Innrly is the automation layer. It sits between every PMS in your portfolio and whichever accounting system you run — M3 (certified integration), QuickBooks (two-way sync), Sage Intacct, and Inn-Flow (integration on the roadmap). It pulls and normalizes night-audit packs across brands, runs OTA reconciliation, captures and GL-codes invoices, handles Bill Pay, tracks labor and MPOR across properties, and pushes clean journals into the GL. The GL stays the system of record. Innrly makes it operate at multi-property speed.",
+      "Innrly is the automation layer. It sits between every PMS in your portfolio and whichever accounting system you run — M3 (Associate Partner integration), QuickBooks (two-way sync), Sage Intacct, and Inn-Flow (integration on the roadmap). It pulls and normalizes night-audit packs across brands, runs OTA reconciliation, captures and GL-codes invoices, handles Bill Pay, tracks labor and MPOR across properties, and pushes clean journals into the GL. The GL stays the system of record. Innrly makes it operate at multi-property speed.",
       "Comparison shortcuts",
-      "Honest head-to-heads we maintain: Innrly: alternative to Otelier, Innrly: alternative to Aptech, Innrly: alternative to Nimble, Innrly: alternative to ProfitSage, Innrly: alternative to QuickBooks, and Innrly: alternative to Actabl. M3 and Inn-Flow are partner GLs, not competitors — Innrly is an officially certified M3 integration partner, and the Inn-Flow integration is on the roadmap. See Innrly + M3 and Innrly + Inn-Flow integration for how the data flows in.",
+      "Honest head-to-heads we maintain: Innrly: alternative to Otelier, Innrly: alternative to Aptech, Innrly: alternative to Nimble, Innrly: alternative to ProfitSage, Innrly: alternative to QuickBooks, and Innrly: alternative to Actabl. M3 and Inn-Flow are partner GLs, not competitors — Innrly is an M3 Associate Partner, and the Inn-Flow integration is on the roadmap. See Innrly + M3 and Innrly + Inn-Flow integration for how the data flows in.",
       "What to ask any vendor",
       "1. Are you the GL, or do you sit on top of one? If both, which mode are you selling me?",
       "2. Which PMSes do you pull from directly, and which require a file drop?",
@@ -43,7 +55,7 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "What is the best hotel accounting software in 2026? It depends on portfolio size and brand mix. M3 is the most common choice for 10+ property hospitality-native operators. Sage Intacct is common for ownership groups with mixed asset classes. Inn-Flow is a full hospitality suite for branded operators. QuickBooks still works for 1–3 hotels. Whichever you pick, add a PMS-agnostic automation layer above it.",
       "Is Innrly hotel accounting software? No. Innrly is the automation layer that sits between your PMSes and your accounting system. It does not replace M3, Sage Intacct, QuickBooks, or Inn-Flow — it feeds them clean, GL-coded data so the GL stays the system of record.",
       "Can I use QuickBooks for a multi-property hotel portfolio? Up to 3 hotels, usually yes. Beyond that, the property dimension, PMS reconciliation, and USALI reporting gaps cost more in manual work than upgrading the GL would. See our QuickBooks for hotels guide.",
-      "Does Innrly integrate with M3, Sage Intacct, Inn-Flow, and QuickBooks? M3 via certified integration. QuickBooks via two-way sync. Sage Intacct via supported integration. Inn-Flow integration is on the roadmap — talk to us if you're an Inn-Flow customer interested in early access.",
+      "Does Innrly integrate with M3, Sage Intacct, Inn-Flow, and QuickBooks? M3 via Associate Partner integration. QuickBooks via two-way sync. Sage Intacct via supported integration. Inn-Flow integration is on the roadmap — talk to us if you're an Inn-Flow customer interested in early access.",
       "How much does hotel accounting software cost? Wide range. QuickBooks Online is $30–$200 per company per month. M3 and Inn-Flow are quote-based, with pricing that varies by portfolio size and modules. Sage Intacct varies by entity count. Innrly's automation layer is $199 per property per month on top of whichever GL you run.",
     ],
   },
@@ -117,7 +129,7 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "When to make the switch",
       "Rule of thumb: if month-end close is taking more than 7 business days, or if your controller spends more than half their time on data movement instead of analysis, the QuickBooks-alone setup is costing you more than the software would.",
       "How Innrly fits",
-      "Innrly is the PMS-agnostic accounting layer described above. It connects with QuickBooks (two-way sync), Sage Intacct, and M3 (certified push integration), so you don't have to migrate your GL to get the workflow upgrade. Talk to us about a walkthrough on your stack.",
+      "Innrly is the PMS-agnostic accounting layer described above. It connects with QuickBooks (two-way sync), Sage Intacct, and M3 (Associate Partner push integration), so you don't have to migrate your GL to get the workflow upgrade. Talk to us about a walkthrough on your stack.",
     ],
   },
   "hospitality-accounting-services-vs-software": {
@@ -255,9 +267,9 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "If you are evaluating, ask: - How many separate logins after I sign? - How many data models are stitched together under the hood? - What does pricing look like for a 10-property portfolio — itemized? - How long is onboarding for property #4?",
       "Evaluation checklist",
       "Use this when you sit down with any back-office vendor:",
-      "- [ ] PMS coverage — does it support every brand in your portfolio without manual file uploads? - [ ] Accounting integration — is it certified by M3, two-way with QuickBooks, real with Sage Intacct? Push-only or bi-directional? - [ ] OTA reconciliation — Expedia, Booking.com, and the direct channel? - [ ] Bill Pay — ACH and check, with vendor remittance and audit trail? - [ ] Labor — scheduling + time clock + cost % tied to RevPAR, or just a punch clock? - [ ] BI — does it match what you already produce in Excel? Can it drill from portfolio → brand → property → line? - [ ] Onboarding — 2–4 weeks or 8–16? - [ ] Pricing transparency — published, per-property, no hidden modules? - [ ] Single platform — one login or six?",
+      "- [ ] PMS coverage — does it support every brand in your portfolio without manual file uploads? - [ ] Accounting integration — is it an M3 partner integration, two-way with QuickBooks, real with Sage Intacct? Push-only or bi-directional? - [ ] OTA reconciliation — Expedia, Booking.com, and the direct channel? - [ ] Bill Pay — ACH and check, with vendor remittance and audit trail? - [ ] Labor — scheduling + time clock + cost % tied to RevPAR, or just a punch clock? - [ ] BI — does it match what you already produce in Excel? Can it drill from portfolio → brand → property → line? - [ ] Onboarding — 2–4 weeks or 8–16? - [ ] Pricing transparency — published, per-property, no hidden modules? - [ ] Single platform — one login or six?",
       "How Innrly fits",
-      "Innrly is the single-platform option. Officially certified M3 integration partner, two-way QuickBooks sync, support for Sage Intacct, full OTA reconciliation, Innrly Pay for Bill Pay, Innrly Shift for labor, and a BI layer that matches what most controllers already build by hand. Transparent pricing at $199 per property per month. 90-day free trial. 2–4 week onboarding.",
+      "Innrly is the single-platform option. M3 Associate Partner, two-way QuickBooks sync, support for Sage Intacct, full OTA reconciliation, Innrly Pay for Bill Pay, Innrly Shift for labor, and a BI layer that matches what most controllers already build by hand. Transparent pricing at $199 per property per month. 90-day free trial. 2–4 week onboarding.",
       "[Book a 20-minute walkthrough on your own data →](/contact)",
       "FAQ",
       "What is hotel back-office automation? Software that replaces manual back-office work — night audit consolidation, A/P, OTA reconciliation, Bill Pay, BI, and labor — with automated capture, coding, reconciliation, and posting into your accounting system.",
@@ -301,7 +313,7 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "FAQ",
       "Does this replace my night auditor? No. Night auditors still close the day at the property level. Innrly replaces the consolidation, normalization, and corporate reporting layer that sits on top.",
       "What if my brand isn't supported? Innrly supports every major US brand and most independents. New brands are typically added in 1–2 weeks if there is an exportable format.",
-      "Does it push directly to M3? Yes. Innrly is an officially certified M3 integration partner. GL-coded entries push automatically.",
+      "Does it push directly to M3? Yes. Innrly is an M3 Associate Partner. GL-coded entries push automatically.",
       "What about QuickBooks? Two-way sync with QuickBooks Online. Entries push out, vendors and CoA read back.",
       "How long to deploy 10 properties across 3 brands? 2–4 weeks for a single-platform vendor like Innrly. 8–16 weeks for multi-module suites.",
     ],
@@ -314,7 +326,7 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "If you are running 5+ hotels, your accounting stack is the most important software decision in the company. Get it wrong and you spend the next three years duct-taping integrations and explaining variances to your lender. Get it right and your close shrinks from 15 days to 4.",
       "This guide compares the four real options in 2026 — M3, Sage Intacct, QuickBooks (with Innrly), and the all-in-one suites — and explains how to evaluate them for a multi-property portfolio.",
       "The four architectures",
-      "1. M3 (Innrly + M3) M3 is the dominant hotel-specific accounting platform in North America. Strongest for portfolios of 10+ branded hotels. Innrly is an officially certified M3 integration partner — capture, code, and push invoices into M3 as the system of record.",
+      "1. M3 (Innrly + M3) M3 is the dominant hotel-specific accounting platform in North America. Strongest for portfolios of 10+ branded hotels. Innrly is an M3 Associate Partner — capture, code, and push invoices into M3 as the system of record.",
       "Best for: Branded portfolios (Choice, Wyndham, Hilton, IHG) at 10+ properties.",
       "2. Sage Intacct (Innrly + Sage Intacct) Sage Intacct is the enterprise general ledger for portfolios that have outgrown M3 or QuickBooks. Strong multi-entity consolidation, dimensional reporting, audit-ready. Innrly integrates as the hotel-specific back-office layer in front.",
       "Best for: Large portfolios (25+ properties), portfolios with mixed asset types (hotels + commercial + residential), or PE-backed operators that need GAAP consolidation.",
@@ -335,7 +347,7 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "How to pick",
       "- Under 5 properties: QuickBooks + Innrly. Lowest TCO, fastest deploy. - 5–15 properties, branded: M3 + Innrly. Hotel-specific GL with deep brand integrations. - 15–25 properties, mixed: Sage Intacct + Innrly. Multi-entity consolidation, GAAP-ready. - 25+ properties, PE-backed: Sage Intacct + Innrly. Audit-ready reporting.",
       "How Innrly fits every option",
-      "Innrly is the back-office automation layer that sits in front of M3 (certified), QuickBooks (two-way), or Sage Intacct. One platform handles invoice capture, GL coding, OTA reconciliation, night audit, Bill Pay, BI, and labor. Your accounting system stays the system of record.",
+      "Innrly is the back-office automation layer that sits in front of M3 (Associate Partner), QuickBooks (two-way), or Sage Intacct. One platform handles invoice capture, GL coding, OTA reconciliation, night audit, Bill Pay, BI, and labor. Your accounting system stays the system of record.",
       "[See Innrly running with your accounting stack →](/contact)",
       "FAQ",
       "Do I need to switch accounting systems to use Innrly? No. Innrly works with M3, QuickBooks Online, and Sage Intacct as your system of record.",
@@ -371,14 +383,14 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "Evaluation checklist",
       "- [ ] Email-in capture per property - [ ] OCR accuracy 95%+ on hotel invoice types - [ ] Auto GL coding with history learning - [ ] Line-item splits - [ ] Multi-level approval routing - [ ] Mobile approval - [ ] ACH and check Bill Pay - [ ] Vendor remittance - [ ] Push to M3, two-way QuickBooks, or Sage Intacct - [ ] Audit pack export - [ ] Duplicate invoice detection - [ ] Early payment discount tracking",
       "How Innrly handles it",
-      "Innrly's A/P module is purpose-built for multi-property hotels: email-in capture per property, hotel-tuned OCR, auto GL coding that learns from your history, multi-level approval routing, and Innrly Pay for ACH + check Bill Pay. Invoices push to M3 (certified), QuickBooks (two-way), or Sage Intacct.",
+      "Innrly's A/P module is purpose-built for multi-property hotels: email-in capture per property, hotel-tuned OCR, auto GL coding that learns from your history, multi-level approval routing, and Innrly Pay for ACH + check Bill Pay. Invoices push to M3 (Associate Partner), QuickBooks (two-way), or Sage Intacct.",
       "[See A/P automation on your own invoices →](/contact)",
       "FAQ",
       "How long until auto-coding accuracy reaches 80%? Typically 30–60 days, depending on invoice volume.",
       "Do we keep our existing approval workflow? Yes. Innrly mirrors your existing approval hierarchy by property, dollar threshold, GL code, or vendor type.",
       "Does Bill Pay handle both ACH and check? Yes. Innrly Pay generates ACH for vendors with bank details and checks for the rest, with auto-remittance.",
       "What about duplicate invoice detection? Innrly flags duplicates by vendor + invoice number + amount + property. Catches the most common errors before they become double payments.",
-      "Does it work with M3? Yes — Innrly is an officially certified M3 integration partner. Invoices push directly with GL coding intact.",
+      "Does it work with M3? Yes — Innrly is an M3 Associate Partner. Invoices push directly with GL coding intact.",
     ],
   },
   "hotel-labor-cost-percentage": {
@@ -475,7 +487,7 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "5. What's the onboarding plan, week by week? A single-platform vendor onboards a property in 2–4 weeks. A multi-module suite is 8–16 weeks.",
       "6. Itemize pricing per property, per module. Transparent per-property pricing tells you whether the vendor expects to grow with you or upsell you every quarter.",
       "Where Innrly fits",
-      "Innrly is the back-office automation layer. It sits between your PMSes (any of them) and your accounting system (M3, QuickBooks, or Sage Intacct). One login, one data model, one bill. Officially certified M3 integration partner, two-way QuickBooks sync, full OTA reconciliation, Innrly Pay for Bill Pay, Innrly Shift for labor, and a BI layer that matches what most controllers already build by hand. $199 per property per month, transparent. 90-day free trial. 2–4 week onboarding.",
+      "Innrly is the back-office automation layer. It sits between your PMSes (any of them) and your accounting system (M3, QuickBooks, or Sage Intacct). One login, one data model, one bill. M3 Associate Partner, two-way QuickBooks sync, full OTA reconciliation, Innrly Pay for Bill Pay, Innrly Shift for labor, and a BI layer that matches what most controllers already build by hand. $199 per property per month, transparent. 90-day free trial. 2–4 week onboarding.",
       "We don't replace your PMS. We make the data it produces actually useful.",
       "[Book a 20-minute walkthrough on your own data →](/contact)",
       "FAQ",
@@ -533,6 +545,46 @@ const posts: Record<string, { title: string; metaTitle?: string; date: string; b
       "Innrly reconciles every OTA channel statement against your PMS data automatically every night, flags discrepancies with the dispute-ready evidence, and tracks recovery. Operators typically see $30K–$80K per property per year recovered in the first 12 months. See /case-studies/urban-full-service for a full-service operator running this at scale.",
     ],
   },
+  "innrly-joins-m3-partner-ecosystem-hotel-accounting-automation": {
+    title: "INNRLY Joins M3's Partner Ecosystem: What It Means for Hotel Accounting Automation",
+    metaTitle: "INNRLY Joins M3 Partner Ecosystem for Hotel Accounting Automation",
+    description: "INNRLY joins M3's partner ecosystem, bringing automated invoice capture and GL coding to hotel back-office workflows through M3 Accounting Core.",
+    date: "2026-09-30",
+    image: "/blog/innrly-joins-m3.png",
+    imageAlt: "INNRLY joins M3's partner ecosystem announcement",
+    source: { label: "M3 Press Release: \u201CINNRLY Joins M3\u2019s Partner Ecosystem\u201D \u2014 September 29, 2026", url: "https://www.m3as.com/press-release/innrly-joins-m3s-partner-ecosystem/" },
+    body: [
+      "Hotel accounting teams manage a constant flow of invoices, approvals, coding, reconciliations, and month-end close activities. As hotel portfolios grow, manual accounts payable processes can create additional administrative work and make it harder for teams to maintain timely, accurate financial information. A new partnership between INNRLY and M3 is designed to address part of this challenge.",
+      "On September 29, 2026, M3 announced that INNRLY had joined its partner ecosystem as an Associate Partner. The relationship connects INNRLY's automation capabilities with M3's hospitality-focused financial platform, creating an opportunity to streamline invoice processing and general ledger coding for hotel organizations.",
+      "What Is the INNRLY and M3 Partnership?",
+      "The partnership brings together INNRLY's back-office automation capabilities and M3's hospitality financial technology. According to M3's announcement, INNRLY's integration with M3 Accounting Core enables invoice capture, automatic population of invoice information, and automatic GL coding. Approved, GL-coded invoices can then be delivered into M3 in a format designed to support monthly close and audit readiness.",
+      "For hotel accounting teams, the practical objective is straightforward: reduce repetitive invoice-processing work while improving the consistency and speed of financial data moving through the back office.",
+      "How Hotel AP Automation Can Reduce Manual Work",
+      "Accounts payable is an important operational function, but it can also involve repetitive steps. A typical invoice workflow may require employees to collect invoice information, enter data, determine the appropriate general ledger account, obtain approval, and prepare the transaction for accounting. Automation can connect these steps into a more consistent workflow.",
+      "With the INNRLY and M3 integration, invoice information can be captured and GL coding can be automated before approved invoices move into M3 Accounting Core. This can help reduce manual data entry and repetitive coding work for hotel finance teams.",
+      "Why Automatic GL Coding Matters for Hotel Finance Teams",
+      "General ledger coding determines how financial transactions are classified within an accounting system. In a hotel environment, invoices may relate to food and beverage, housekeeping, maintenance, utilities, administration, technology, and many other operational categories. When coding is handled manually, accounting teams may spend significant time reviewing invoices and assigning accounts. Automated GL coding can standardize this part of the workflow and create a more efficient path from invoice receipt to accounting.",
+      "The INNRLY-M3 integration is specifically positioned around this workflow, with the goal of helping customers receive approved, GL-coded invoices directly into M3.",
+      "What This Means for Hotel Owners and Management Companies",
+      "The announcement is particularly relevant to hotel organizations that want to modernize back-office operations without treating accounting automation as a standalone technology project. M3 describes INNRLY as helping mid-size hotels with approximately 70–200+ rooms and management companies operating 5–100+ hotels. INNRLY's broader platform is focused on hotel back-office automation, business intelligence, labor management, and financial workflows.",
+      "For growing hotel groups, connecting automation with the accounting environment can create a more connected operational model: data is captured closer to the source, repetitive processing is reduced, and finance teams can spend more time reviewing financial performance rather than manually moving information between systems.",
+      "From Invoice Capture to Month-End Close",
+      "The value of accounting automation is not limited to the first step of invoice entry. A simplified automated path looks like this: (1) invoice information is captured; (2) relevant information is populated automatically; (3) general ledger coding is applied; (4) the invoice moves through the required approval process; (5) the approved, GL-coded invoice is delivered into M3 Accounting Core; (6) accounting teams use the resulting data as part of their regular financial close. The purpose is not simply to eliminate data entry — it is to create a more consistent information flow across the hotel back office.",
+      "What Makes the Partnership Relevant to Hospitality?",
+      "Hospitality accounting has specific operational requirements because financial activity is closely connected to property-level operations. Hotel organizations may manage multiple properties, departments, vendors, operating accounts, and recurring expenses. M3 has built its platform specifically for the hospitality industry, while INNRLY focuses on automation and timely operational data for hotel owners and operators. Their partnership combines those areas around a specific accounting workflow: invoice processing and GL coding.",
+      "What's Next for the INNRLY-M3 Integration?",
+      "M3 stated that the first capabilities built on the new architecture were expected to arrive in fall 2026, with additional capabilities planned to follow. As integrations expand, the potential opportunity is to create more efficient workflows across accounts payable, accounting, reporting, labor, and other hotel back-office functions. Learn more on our Innrly + M3 integration page.",
+      "Conclusion",
+      "The INNRLY-M3 partnership represents a practical step toward more connected hotel back-office automation. By combining invoice capture and automated GL coding with M3's hospitality accounting environment, the integration is designed to reduce repetitive accounting work and create a cleaner path from invoice processing to financial close.",
+    ],
+    faq: [
+      { q: "What is INNRLY?", a: "INNRLY is a hotel technology platform focused on back-office automation, business intelligence, labor management, and financial workflows for hotel owners and operators." },
+      { q: "What is M3?", a: "M3 is a hospitality-focused financial technology provider offering accounting, financial reporting, business intelligence, and labor management solutions." },
+      { q: "What does the INNRLY-M3 integration do?", a: "The announced integration with M3 Accounting Core supports invoice capture, automatic population of invoice information, and automatic GL coding, allowing approved, GL-coded invoices to move into M3." },
+      { q: "Who can benefit from hotel AP automation?", a: "Hotel owners, management companies, and finance teams handling large volumes of invoices and accounting transactions can use AP automation to reduce repetitive manual processing and improve workflow consistency." },
+      { q: "Does the partnership replace a hotel's accounting system?", a: "No. The announced integration is designed to work with M3 Accounting Core rather than replace the accounting platform." },
+    ],
+  },
 };
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -574,12 +626,15 @@ export const Route = createFileRoute("/blog/$slug")({
         post = {
           title: staticPost.title,
           metaTitle: staticPost.metaTitle,
-          metaDescription: staticPost.body[0]?.slice(0, 155) || "",
+          metaDescription: staticPost.description || staticPost.body[0]?.slice(0, 155) || "",
           date: staticPost.date,
           author: "The Innrly Team",
           body: staticPost.body,
           contentHtml: "",
-          featuredImageAlt: staticPost.title,
+          featuredImage: staticPost.image,
+          featuredImageAlt: staticPost.imageAlt || staticPost.title,
+          source: staticPost.source,
+          faq: staticPost.faq,
         };
       }
     }
@@ -589,16 +644,19 @@ export const Route = createFileRoute("/blog/$slug")({
       throw notFound();
     }
 
-    // 4. Check for SEO override in seo_settings (from Control Hub SEO Editor / MySQL)
+    // 4. Check for explicit SEO override in seo_settings (from Control Hub SEO Editor / MySQL)
     try {
-      const { fetchSeoData } = await import("@/lib/seo");
-      const seoOverride = await fetchSeoData(`/blog/${params.slug}`);
-      if (seoOverride) {
-        if (seoOverride.title) post.metaTitle = seoOverride.title;
-        if (seoOverride.description) post.metaDescription = seoOverride.description;
-        if (seoOverride.og_title) post.ogTitle = seoOverride.og_title;
-        if (seoOverride.og_description) post.ogDescription = seoOverride.og_description;
-        if (seoOverride.og_image) post.featuredImage = seoOverride.og_image;
+      const baseUrl = typeof window === "undefined" ? (process.env.BACKEND_URL || "http://127.0.0.1:8005") : "/api";
+      const seoRes = await fetch(`${baseUrl}/api/seo?page_path=${encodeURIComponent(`/blog/${params.slug}`)}`);
+      if (seoRes.ok) {
+        const seoData = await seoRes.json();
+        if (seoData && seoData.title) {
+          post.metaTitle = seoData.title;
+          if (seoData.description) post.metaDescription = seoData.description;
+          if (seoData.og_title) post.ogTitle = seoData.og_title;
+          if (seoData.og_description) post.ogDescription = seoData.og_description;
+          if (seoData.og_image) post.featuredImage = seoData.og_image;
+        }
       }
     } catch {
       // Ignore SEO override fetch failure
@@ -606,7 +664,6 @@ export const Route = createFileRoute("/blog/$slug")({
 
     return { post, slug: params.slug };
   },
-  component: BlogPost,
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
@@ -625,41 +682,66 @@ export const Route = createFileRoute("/blog/$slug")({
             property: "og:description", 
             content: loaderData.post.metaDescription || loaderData.post.summary || (loaderData.post.body?.[0]?.slice(0, 155) ?? "") 
           },
-          ...(loaderData.post.featuredImage ? [{ property: "og:image", content: loaderData.post.featuredImage }] : []),
+          ...(loaderData.post.featuredImage
+            ? [
+                { property: "og:image", content: loaderData.post.featuredImage.startsWith("http") ? loaderData.post.featuredImage : `https://innrly.com${loaderData.post.featuredImage}` },
+                { name: "twitter:image", content: loaderData.post.featuredImage.startsWith("http") ? loaderData.post.featuredImage : `https://innrly.com${loaderData.post.featuredImage}` },
+                { name: "twitter:card", content: "summary_large_image" },
+              ]
+            : []),
           { property: "og:type", content: "article" },
           { property: "og:url", content: `/blog/${loaderData.slug}` },
         ]
       : [],
     links: loaderData ? [{ rel: "canonical", href: `https://innrly.com/blog/${loaderData.slug}` }] : [],
     scripts: loaderData
-      ? [{
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: loaderData.post.title,
-            datePublished: loaderData.post.date,
-            dateModified: loaderData.post.date,
-            author: { "@type": "Organization", name: loaderData.post.author || "The Innrly Team", url: "/about" },
-            publisher: {
-              "@type": "Organization",
-              name: "Innrly",
-              logo: { "@type": "ImageObject", url: "/favicon.svg" },
-            },
-            mainEntityOfPage: { "@type": "WebPage", "@id": `https://innrly.com/blog/${loaderData.slug}` },
-          }),
-        }, {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-              { "@type": "ListItem", position: 2, name: "Blog", item: "/blog" },
-              { "@type": "ListItem", position: 3, name: loaderData.post.title, item: `/blog/${loaderData.slug}` },
-            ],
-          }),
-        }]
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: loaderData.post.title,
+              datePublished: loaderData.post.date,
+              dateModified: loaderData.post.date,
+              author: { "@type": "Organization", name: loaderData.post.author || "The Innrly Team", url: "/about" },
+              publisher: {
+                "@type": "Organization",
+                name: "Innrly",
+                logo: { "@type": "ImageObject", url: "/favicon.svg" },
+              },
+              mainEntityOfPage: { "@type": "WebPage", "@id": `https://innrly.com/blog/${loaderData.slug}` },
+            }),
+          },
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+                { "@type": "ListItem", position: 2, name: "Blog", item: "/blog" },
+                { "@type": "ListItem", position: 3, name: loaderData.post.title, item: `/blog/${loaderData.slug}` },
+              ],
+            }),
+          },
+          ...(loaderData.post.faq
+            ? [
+                {
+                  type: "application/ld+json",
+                  children: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    mainEntity: loaderData.post.faq.map((f: { q: string; a: string }) => ({
+                      "@type": "Question",
+                      name: f.q,
+                      acceptedAnswer: { "@type": "Answer", text: f.a },
+                    })),
+                  }),
+                },
+              ]
+            : []),
+        ]
       : [],
   }),
 });
@@ -786,6 +868,11 @@ const RELATED_BY_SLUG: Record<string, RelatedLink[]> = {
     { to: "/blog/mpor-explained", label: "MPOR explained", kind: "Guide" },
     { to: "/solutions/innrly-shift", label: "Innrly Shift", kind: "Solution" },
   ],
+  "innrly-joins-m3-partner-ecosystem-hotel-accounting-automation": [
+    { to: "/integrations/m3", label: "Innrly + M3 integration", kind: "Solution" },
+    { to: "/blog/ap-automation-hotels", label: "A/P automation for hotels", kind: "Guide" },
+    { to: "/solutions/financial-control", label: "Financial Control suite", kind: "Solution" },
+  ],
   "ota-commission-audit": [
     { to: "/solutions/reconciliation", label: "Reconciliation engine", kind: "Solution" },
     { to: "/blog/hotel-ota-commission-reconciliation", label: "OTA commission recovery playbook", kind: "Guide" },
@@ -872,6 +959,34 @@ function BlogPost() {
               }
               return <p key={i}>{p}</p>;
             })}
+
+            {post.faq && (
+              <div className="pt-6">
+                <h2 className="text-2xl font-semibold text-foreground">Frequently Asked Questions</h2>
+                <dl className="mt-4 space-y-5">
+                  {post.faq.map((f: { q: string; a: string }) => (
+                    <div key={f.q}>
+                      <dt className="font-semibold text-foreground">{f.q}</dt>
+                      <dd className="mt-1 text-base">{f.a}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
+
+            {post.source && (
+              <p className="text-sm pt-4">
+                Source:{" "}
+                <a
+                  href={post.source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent underline"
+                >
+                  {post.source.label}
+                </a>
+              </p>
+            )}
           </div>
         )}
 

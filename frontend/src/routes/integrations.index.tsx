@@ -263,8 +263,8 @@ function Page() {
             {
               to: "/integrations/m3",
               name: "M3",
-              badge: "Certified",
-              body: "Officially certified. Auto GL-code and push invoices into M3.",
+              badge: "Associate Partner",
+              body: "M3 Associate Partner. Auto GL-code and push invoices into M3.",
             },
             {
               to: "/integrations/quickbooks",

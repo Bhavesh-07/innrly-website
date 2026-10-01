@@ -16,6 +16,7 @@ export interface IntegrationLayoutProps {
   inScope: string[];
   staysIn: { system: string; items: string[] };
   faqs: { q: string; a: string }[];
+  announcement?: { text: string; pressUrl: string; blogUrl: string };
 }
 
 export function IntegrationLayout({
@@ -30,6 +31,7 @@ export function IntegrationLayout({
   inScope,
   staysIn,
   faqs,
+  announcement,
 }: IntegrationLayoutProps) {
   return (
     <div className="bg-background">
@@ -50,6 +52,14 @@ export function IntegrationLayout({
               {directionLabel}
             </span>
           </div>
+          {announcement && (
+            <p className="mt-5 text-sm text-muted-foreground">
+              {announcement.text}{" "}
+              <a href={announcement.pressUrl} target="_blank" rel="noopener" className="text-accent underline">Read M3's press release</a>
+              {" · "}
+              <a href={announcement.blogUrl} className="text-accent underline">Read our announcement</a>
+            </p>
+          )}
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="bg-cta hover:opacity-90">
               <Link to="/contact">Talk to us about {partnerName}</Link>
@@ -66,15 +76,10 @@ export function IntegrationLayout({
         <div className="mt-10 grid items-stretch gap-4 md:grid-cols-3">
           {[flow.from, flow.via, flow.to].map((step, i) => (
             <div key={step} className="relative aurora-card rounded-2xl p-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-                Step {i + 1}
-              </p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-accent">Step {i + 1}</p>
               <p className="mt-2 text-base font-semibold text-foreground">{step}</p>
               {i < 2 && (
-                <ArrowRight
-                  className="absolute -right-3 top-1/2 hidden h-5 w-5 -translate-y-1/2 text-accent md:block"
-                  aria-hidden
-                />
+                <ArrowRight className="absolute -right-3 top-1/2 hidden h-5 w-5 -translate-y-1/2 text-accent md:block" aria-hidden />
               )}
             </div>
           ))}
@@ -82,10 +87,7 @@ export function IntegrationLayout({
       </Section>
 
       <Section className="py-12">
-        <SectionHeading
-          eyebrow="What Innrly automates into it"
-          title={`What Innrly does for ${partnerName} users.`}
-        />
+        <SectionHeading eyebrow="What Innrly automates into it" title={`What Innrly does for ${partnerName} users.`} />
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {whatItDoes.map((s) => (
             <div key={s.heading} className="aurora-card rounded-2xl p-6">
@@ -97,10 +99,7 @@ export function IntegrationLayout({
       </Section>
 
       <Section className="py-12">
-        <SectionHeading
-          eyebrow="Where each platform lives in your stack"
-          title="Clear lines, no overlap."
-        />
+        <SectionHeading eyebrow="Where each platform lives in your stack" title="Clear lines, no overlap." />
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-accent/40 bg-card p-6">
             <h3 className="text-lg font-semibold text-foreground">In Innrly</h3>
@@ -138,8 +137,7 @@ export function IntegrationLayout({
           ))}
         </div>
         <p className="mt-6 text-xs text-muted-foreground">
-          {partnerName} is a trademark of its respective owner. Integration details reflect Innrly's
-          implementation.
+          {partnerName} is a trademark of its respective owner. Integration details reflect Innrly's implementation.
         </p>
       </Section>
 
