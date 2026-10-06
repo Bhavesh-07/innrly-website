@@ -1366,7 +1366,7 @@ class CompanyDetails(BaseModel):
     work: str
 
 class LeadPayload(BaseModel):
-    source: str
+    source: Optional[str] = "contact"
     name: Optional[str] = None
     email: Optional[str] = None  # Optional since onboarding has its own email
     work_email: Optional[str] = None
@@ -1825,6 +1825,12 @@ async def delete_admin_user(user_id: int, super_admin: dict = Depends(require_su
     finally:
         cursor.close()
         connection.close()
+
+@app.get("/")
+@app.get("/health")
+@app.get("/api/health")
+async def health_check():
+    return {"ok": True, "service": "Innrly API Server", "status": "running", "timestamp": datetime.utcnow().isoformat()}
 
 @app.post("/leads")
 @app.post("/leads/")
