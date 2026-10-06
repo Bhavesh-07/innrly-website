@@ -17,15 +17,15 @@ def migrate():
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS contact_leads (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
+                name VARCHAR(255) NOT NULL DEFAULT 'Website Visitor',
                 email VARCHAR(255) NOT NULL,
-                company VARCHAR(255) NOT NULL,
-                phone VARCHAR(50) NOT NULL,
-                properties VARCHAR(50),
+                company VARCHAR(255) NULL DEFAULT 'N/A',
+                phone VARCHAR(50) NULL DEFAULT 'N/A',
+                properties VARCHAR(50) NULL DEFAULT '',
                 message TEXT,
                 submitted_at DATETIME,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         """)
         
         # Create trial_leads table
@@ -33,16 +33,27 @@ def migrate():
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS trial_leads (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
+                name VARCHAR(255) NOT NULL DEFAULT 'Website Visitor',
                 email VARCHAR(255) NOT NULL,
-                company VARCHAR(255) NOT NULL,
-                role VARCHAR(255),
-                phone VARCHAR(50) NOT NULL,
-                properties VARCHAR(50) NOT NULL,
-                pms VARCHAR(255),
+                company VARCHAR(255) NULL DEFAULT 'N/A',
+                role VARCHAR(255) NULL DEFAULT '',
+                phone VARCHAR(50) NULL DEFAULT 'N/A',
+                properties VARCHAR(50) NULL DEFAULT '',
+                pms VARCHAR(255) NULL DEFAULT '',
                 submitted_at DATETIME,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        """)
+
+        # Create lead_rate_limits table
+        print("Creating table 'lead_rate_limits'...")
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS lead_rate_limits (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                ip_address VARCHAR(100) NOT NULL,
+                requested_at DATETIME NOT NULL,
+                INDEX idx_ip_time (ip_address, requested_at)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         """)
         
         # Create newsletter_subscribers table

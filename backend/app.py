@@ -26,7 +26,7 @@ if env_file.exists():
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional, List, Union, Tuple
 from fastapi import FastAPI, HTTPException, Request, Response, Depends, File, UploadFile, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -278,6 +278,70 @@ def init_db():
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         """)
 
+        # 4. Lead Rate Limits Table (Shared across all worker processes)
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS lead_rate_limits (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                ip_address VARCHAR(100) NOT NULL,
+                requested_at DATETIME NOT NULL,
+                INDEX idx_ip_time (ip_address, requested_at)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        """)
+
+        # 5. Lead Event Logs Table
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS lead_event_logs (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                log_id VARCHAR(100) NOT NULL UNIQUE,
+                source VARCHAR(50) NOT NULL,
+                submitter_name VARCHAR(255) NULL,
+                submitter_email VARCHAR(255) NULL,
+                company_name VARCHAR(255) NULL,
+                overall_status VARCHAR(50) NOT NULL,
+                db_status VARCHAR(50) NOT NULL,
+                db_details LONGTEXT NULL,
+                email_status VARCHAR(50) NOT NULL,
+                email_error TEXT NULL,
+                raw_payload LONGTEXT NULL,
+                is_recovered TINYINT(1) DEFAULT 0,
+                recovered_at DATETIME NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                INDEX idx_log_id (log_id),
+                INDEX idx_status (overall_status),
+                INDEX idx_created (created_at)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        """)
+
+        # Ensure contact_leads and trial_leads columns allow safe defaults
+        try:
+            cur.execute("ALTER TABLE contact_leads MODIFY COLUMN company VARCHAR(255) NULL DEFAULT 'N/A'")
+        except Exception:
+            pass
+        try:
+            cur.execute("ALTER TABLE contact_leads MODIFY COLUMN phone VARCHAR(50) NULL DEFAULT 'N/A'")
+        except Exception:
+            pass
+        try:
+            cur.execute("ALTER TABLE trial_leads MODIFY COLUMN company VARCHAR(255) NULL DEFAULT 'N/A'")
+        except Exception:
+            pass
+        try:
+            cur.execute("ALTER TABLE trial_leads MODIFY COLUMN phone VARCHAR(50) NULL DEFAULT 'N/A'")
+        except Exception:
+            pass
+        try:
+            cur.execute("ALTER TABLE trial_leads MODIFY COLUMN properties VARCHAR(50) NULL DEFAULT ''")
+        except Exception:
+            pass
+        try:
+            cur.execute("ALTER TABLE trial_leads MODIFY COLUMN role VARCHAR(255) NULL DEFAULT ''")
+        except Exception:
+            pass
+        try:
+            cur.execute("ALTER TABLE trial_leads MODIFY COLUMN pms VARCHAR(255) NULL DEFAULT ''")
+        except Exception:
+            pass
+
         # Check and seed default root admin user
         cur.execute("SELECT id FROM admin_users WHERE username = %s", (ADMIN_USERNAME,))
         if not cur.fetchone():
@@ -299,8 +363,55 @@ def init_db():
 async def on_startup():
     init_db()
 
-# Rate limiting storage (in-memory)
+# Rate limiting storage (in-memory fallback)
 LEAD_RATE_LIMITS = defaultdict(list)  # client_ip -> list of timestamps
+
+def check_and_increment_rate_limit(client_ip: str, max_requests: int = 5, window_seconds: int = 60) -> bool:
+    """
+    Cluster & Multi-worker safe Rate Limiter.
+    Persists and aggregates request counts in MySQL `lead_rate_limits` table
+    with an in-memory fallback, ensuring strict 5/min limit across all processes.
+    Returns: True if request is within rate limit, False if exceeded.
+    """
+    now = time.time()
+    # 1. In-memory check
+    LEAD_RATE_LIMITS[client_ip] = [t for t in LEAD_RATE_LIMITS[client_ip] if now - t < window_seconds]
+    if len(LEAD_RATE_LIMITS[client_ip]) >= max_requests:
+        return False
+
+    # 2. Database shared check across all workers
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor(dictionary=True)
+        cutoff_dt = datetime.utcnow() - timedelta(seconds=window_seconds)
+        
+        # Cleanup old entries
+        cur.execute("DELETE FROM lead_rate_limits WHERE requested_at < %s", (cutoff_dt,))
+        
+        # Count requests in window
+        cur.execute(
+            "SELECT COUNT(*) as cnt FROM lead_rate_limits WHERE ip_address = %s AND requested_at >= %s",
+            (client_ip, cutoff_dt)
+        )
+        res = cur.fetchone()
+        cnt = res["cnt"] if res else 0
+        if cnt >= max_requests:
+            cur.close()
+            conn.close()
+            return False
+            
+        cur.execute(
+            "INSERT INTO lead_rate_limits (ip_address, requested_at) VALUES (%s, %s)",
+            (client_ip, datetime.utcnow())
+        )
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(f"[RateLimiter] Database rate limit warning: {e}")
+
+    LEAD_RATE_LIMITS[client_ip].append(now)
+    return True
 
 # Curated list of known disposable / temporary / typo email domains
 DISPOSABLE_EMAIL_DOMAINS = {
@@ -1722,16 +1833,14 @@ async def delete_admin_user(user_id: int, super_admin: dict = Depends(require_su
 async def create_lead(payload: LeadPayload, request: Request, background_tasks: BackgroundTasks):
     client_ip = get_real_client_ip(request)
 
-    # 1. Rate Limiting (Strict 5 submissions per minute per visitor IP)
-    now = time.time()
-    LEAD_RATE_LIMITS[client_ip] = [t for t in LEAD_RATE_LIMITS[client_ip] if now - t < 60]
-    if len(LEAD_RATE_LIMITS[client_ip]) >= 5:
+    # 1. Rate Limiting (Cluster & multi-worker safe 5 submissions per minute per IP)
+    is_rate_allowed = check_and_increment_rate_limit(client_ip, max_requests=5, window_seconds=60)
+    if not is_rate_allowed:
         print(f"[Anti-Spam] Rate limit exceeded for IP {client_ip} (>5 submissions in 60s). Refusing.")
         raise HTTPException(
             status_code=429,
             detail="Too many lead submission requests. A maximum of 5 submissions per minute is allowed. Please wait before trying again."
         )
-    LEAD_RATE_LIMITS[client_ip].append(now)
 
     # 2. Human Verification / reCAPTCHA Bot Protection Check
     captcha_valid, captcha_reason, captcha_score = verify_recaptcha_token(payload.recaptcha_token, client_ip)
@@ -1763,20 +1872,25 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
         except Exception:
             submitted_at_dt = datetime.utcnow()
 
-    # Determine submitter details
-    submitter_name = payload.name
-    company_name = payload.company
-    lead_email = payload.email or payload.work_email or payload.workEmail or payload.contactEmail
+    # Determine submitter details with safe defaults (never None for non-nullable DB columns)
+    submitter_name = (payload.name or "").strip() or "Website Visitor"
+    company_name = (payload.company or "").strip() or "N/A"
+    lead_phone = (payload.phone or "").strip() or "N/A"
+    lead_properties = (payload.properties or "").strip() or ""
+    lead_role = (payload.role or "").strip() or ""
+    lead_pms = (payload.pms or "").strip() or ""
+    lead_message = (payload.message or "").strip() or ""
+    lead_email = (payload.email or payload.work_email or payload.workEmail or payload.contactEmail or "").strip()
 
     if payload.source == "onboarding" and payload.companyDetails:
         c = payload.companyDetails
-        company_name = c.companyName or company_name
-        submitter_name = c.authorizedPerson or submitter_name
-        lead_email = c.email or lead_email
+        company_name = (c.companyName or "").strip() or company_name
+        submitter_name = (c.authorizedPerson or "").strip() or submitter_name
+        lead_email = (c.email or "").strip() or lead_email
     elif payload.kind == "newsletter":
         submitter_name = "Subscriber"
         company_name = "Newsletter"
-        lead_email = payload.email or lead_email
+        lead_email = (payload.email or "").strip() or lead_email
 
     lead_email = lead_email or "unknown@innrly.com"
 
@@ -1902,7 +2016,7 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
                     INSERT INTO contact_leads (name, email, company, phone, properties, message, submitted_at)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)
                     """,
-                    (payload.name, lead_email, payload.company, payload.phone, payload.properties, payload.message, submitted_at_dt)
+                    (submitter_name, lead_email, company_name, lead_phone, lead_properties, lead_message, submitted_at_dt)
                 )
                 connection.commit()
                 db_status = "success"
@@ -1918,7 +2032,7 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
                     INSERT INTO trial_leads (name, email, company, role, phone, properties, pms, submitted_at)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                     """,
-                    (payload.name, lead_email, payload.company, payload.role, payload.phone, payload.properties, payload.pms, submitted_at_dt)
+                    (submitter_name, lead_email, company_name, lead_role, lead_phone, lead_properties, lead_pms, submitted_at_dt)
                 )
                 connection.commit()
                 db_status = "success"
@@ -2105,9 +2219,10 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
 
     if db_status == "failed":
         err_detail = db_details.get("error", "Database execution error")
+        print(f"[LeadSubmission] Internal DB error: {err_detail}")
         raise HTTPException(
             status_code=500,
-            detail=f"Lead submission could not be saved to database. Error: {err_detail}"
+            detail="Something went wrong while processing your submission. Please try again or contact us directly at contact@innrly.com."
         )
 
     return {
@@ -2327,6 +2442,13 @@ async def recover_lead_data(
             pass
 
     lead_email = lead_obj.email or lead_obj.work_email or lead_obj.workEmail or lead_obj.contactEmail or (lead_obj.companyDetails.email if lead_obj.companyDetails else None) or "unknown@innrly.com"
+    rec_name = (lead_obj.name or "").strip() or "Website Visitor"
+    rec_company = (lead_obj.company or "").strip() or "N/A"
+    rec_phone = (lead_obj.phone or "").strip() or "N/A"
+    rec_properties = (lead_obj.properties or "").strip() or ""
+    rec_message = (lead_obj.message or "").strip() or ""
+    rec_role = (lead_obj.role or "").strip() or ""
+    rec_pms = (lead_obj.pms or "").strip() or ""
 
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
@@ -2350,7 +2472,7 @@ async def recover_lead_data(
                 INSERT INTO contact_leads (name, email, company, phone, properties, message, submitted_at)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """,
-                (lead_obj.name, lead_email, lead_obj.company, lead_obj.phone, lead_obj.properties, lead_obj.message, submitted_at_dt)
+                (rec_name, lead_email, rec_company, rec_phone, rec_properties, rec_message, submitted_at_dt)
             )
             connection.commit()
             db_details = {"recovered": True, "lead_id": cursor.lastrowid}
@@ -2361,7 +2483,7 @@ async def recover_lead_data(
                 INSERT INTO trial_leads (name, email, company, role, phone, properties, pms, submitted_at)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """,
-                (lead_obj.name, lead_email, lead_obj.company, lead_obj.role, lead_obj.phone, lead_obj.properties, lead_obj.pms, submitted_at_dt)
+                (rec_name, lead_email, rec_company, rec_role, rec_phone, rec_properties, rec_pms, submitted_at_dt)
             )
             connection.commit()
             db_details = {"recovered": True, "lead_id": cursor.lastrowid}
