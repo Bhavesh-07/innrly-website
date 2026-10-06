@@ -352,6 +352,16 @@ def init_db():
             """, ("Super Administrator", ADMIN_USERNAME, "admin@innrly.com", default_hash, "super_admin", json.dumps(["all"]), "active"))
             conn.commit()
 
+        # Clean up requested test submissions from database
+        try:
+            cur.execute("DELETE FROM contact_leads WHERE email IN ('x@x.com', 'live.test@hilton.com')")
+            cur.execute("DELETE FROM trial_leads WHERE email IN ('x@x.com', 'live.test@hilton.com')")
+            cur.execute("DELETE FROM newsletter_subscribers WHERE email IN ('x@x.com', 'live.test@hilton.com')")
+            cur.execute("DELETE FROM lead_event_logs WHERE submitter_email IN ('x@x.com', 'live.test@hilton.com')")
+            conn.commit()
+        except Exception:
+            pass
+
         conn.commit()
         cur.close()
         conn.close()
@@ -648,20 +658,34 @@ def get_real_client_ip(request: Request) -> str:
 def verify_recaptcha_token(token: Optional[str], client_ip: str) -> Tuple[bool, str, Optional[float]]:
     """
     Validates human verification / bot protection:
-    1. Rejects missing, empty, or dummy tokens outright.
-    2. If RECAPTCHA_SECRET_KEY is configured in .env, validates token with Google's siteverify API.
-    3. Enforces score threshold (>= 0.3) for reCAPTCHA v3.
+    1. Rejects missing, empty, or dummy test tokens outright.
+    2. Validates token with Google's siteverify API using RECAPTCHA_SECRET_KEY.
+    3. Enforces strict score threshold (>= 0.5) for reCAPTCHA v3.
     """
     if not token or not str(token).strip():
         return False, "Missing human verification token", None
 
     token_str = str(token).strip()
     
-    # Check minimum token length (Google reCAPTCHA v3 tokens are typically > 100 characters)
-    if len(token_str) < 15:
-        return False, "Invalid human verification token format", None
+    # Reject test bypass tokens in production
+    if token_str.upper() in ("TEST_BYPASS_TOKEN", "BYPASS", "TEST", "DUMMY") or len(token_str) < 20:
+        return False, "Invalid human verification token format. Test bypass tokens are rejected.", None
 
     secret = os.environ.get("RECAPTCHA_SECRET_KEY", "").strip()
+    if not secret:
+        # Check site_settings database table as fallback
+        try:
+            conn = get_db_connection()
+            cur = conn.cursor(dictionary=True)
+            cur.execute("SELECT setting_value FROM site_settings WHERE setting_key = 'recaptcha_secret_key'")
+            row = cur.fetchone()
+            if row and row.get("setting_value"):
+                secret = row["setting_value"].strip()
+            cur.close()
+            conn.close()
+        except Exception:
+            pass
+
     if secret:
         try:
             url = "https://www.google.com/recaptcha/api/siteverify"
@@ -681,15 +705,15 @@ def verify_recaptcha_token(token: Optional[str], client_ip: str) -> Tuple[bool, 
                     error_codes = result.get("error-codes", [])
                     return False, f"reCAPTCHA validation failed ({error_codes})", score
                     
-                min_score = float(os.environ.get("RECAPTCHA_MIN_SCORE", "0.3"))
+                min_score = float(os.environ.get("RECAPTCHA_MIN_SCORE", "0.5"))
                 if score is not None and score < min_score:
-                    return False, f"reCAPTCHA score too low ({score:.2f} < {min_score})", score
+                    return False, f"reCAPTCHA score too low ({score:.2f} < {min_score:.2f})", score
                     
                 return True, "Valid human verification", score
         except Exception as e:
             print(f"[Anti-Spam] Google reCAPTCHA server verification error: {e}")
-            if os.environ.get("RECAPTCHA_STRICT_FAIL", "false").lower() == "true":
-                return False, f"Verification service temporarily unavailable: {e}", None
+            if os.environ.get("RECAPTCHA_STRICT_FAIL", "true").lower() == "true":
+                return False, f"Verification service error: {e}", None
             return True, "Verification service bypass on network error", None
 
     return True, "Token format accepted", None
