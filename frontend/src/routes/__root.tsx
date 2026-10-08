@@ -110,23 +110,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
     const dynamicScripts: any[] = [];
 
-    // Google Consent Mode v2 default initialization
-    if (isActive && (ga4Id || gtmId)) {
-      dynamicScripts.push({
-        children: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('consent', 'default', {
-            'analytics_storage': 'denied',
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'wait_for_update': 500
-          });
-        `,
-      });
-    }
-
     // Google Tag Manager head snippet
     if (isActive && gtmId) {
       dynamicScripts.push({
@@ -140,7 +123,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       });
     }
 
-    // Google Analytics 4 snippet
+    // 3. Google Analytics 4 snippet
     if (isActive && ga4Id) {
       dynamicScripts.push(
         {
@@ -149,9 +132,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         },
         {
           children: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
             gtag('config', '${ga4Id}', {
               send_page_view: false
             });
@@ -160,7 +140,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       );
     }
 
-    // Google reCAPTCHA v3
+    // 4. Google reCAPTCHA v3
     dynamicScripts.push({
       src: "https://www.google.com/recaptcha/api.js?render=6LcVJrkkAAAAABsSLGi1FDOjAtIyby9UNsBQPUCd&ver=3.0",
       async: true,
@@ -304,8 +284,45 @@ function RootShell({ children }: { children: React.ReactNode }) {
   const isActive = scripts?.is_active !== false;
 
   return (
-    <html lang="en" className="dark">
-      <head>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head suppressHydrationWarning>
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              
+              var hasGpc = false;
+              try {
+                hasGpc = (typeof navigator !== 'undefined' && (navigator.globalPrivacyControl === true || navigator.globalPrivacyControl === '1')) ||
+                         (typeof window !== 'undefined' && (window.globalPrivacyControl === true || window.__gpcSignalDetected === true));
+              } catch(e) {}
+
+              var storedConsent = null;
+              try {
+                storedConsent = localStorage.getItem('innrly_cookie_consent_v1');
+              } catch(e) {}
+
+              var consentStatus = (!hasGpc && storedConsent === 'accepted') ? 'granted' : 'denied';
+
+              gtag('consent', 'default', {
+                'analytics_storage': consentStatus,
+                'ad_storage': consentStatus,
+                'ad_user_data': consentStatus,
+                'ad_personalization': consentStatus,
+                'personalization_storage': consentStatus,
+                'functionality_storage': 'granted',
+                'security_storage': 'granted',
+                'wait_for_update': 500
+              });
+
+              gtag('set', 'ads_data_redaction', true);
+              gtag('set', 'url_passthrough', true);
+              gtag('js', new Date());
+            `,
+          }}
+        />
         <HeadContent />
       </head>
       <body>

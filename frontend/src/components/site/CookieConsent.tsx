@@ -36,35 +36,42 @@ export function updateGoogleConsent(status: Choice) {
  */
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const [isGpcActive, setIsGpcActive] = useState(false);
 
   useEffect(() => {
-    // 1. Listen for reopen events from footer or privacy policy
-    const handleOpen = () => setVisible(true);
-    window.addEventListener("open-cookie-preferences", handleOpen);
+    const handleOpen = () => {
+      const currentGpc = checkGpcSignal();
+      setIsGpcActive(currentGpc);
+      setVisible(true);
+    };
 
-    // 2. Check Global Privacy Control signal
+    window.addEventListener("open-cookie-preferences", handleOpen);
+    (window as unknown as { openCookieConsent?: () => void }).openCookieConsent = handleOpen;
+
     const isGpc = checkGpcSignal();
+    setIsGpcActive(isGpc);
+
     if (isGpc) {
       (window as unknown as { __cookieConsent?: Choice }).__cookieConsent = "rejected";
       updateGoogleConsent("rejected");
-      setVisible(false);
-      return () => window.removeEventListener("open-cookie-preferences", handleOpen);
-    }
-
-    // 3. Check stored preference
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Choice | null;
-      if (stored) {
-        (window as unknown as { __cookieConsent?: Choice }).__cookieConsent = stored;
-        updateGoogleConsent(stored);
-      } else {
+      // GPC signal active: default banner stays closed, but can be reopened via footer
+    } else {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY) as Choice | null;
+        if (stored) {
+          (window as unknown as { __cookieConsent?: Choice }).__cookieConsent = stored;
+          updateGoogleConsent(stored);
+        } else {
+          setVisible(true);
+        }
+      } catch {
         setVisible(true);
       }
-    } catch {
-      setVisible(true);
     }
 
-    return () => window.removeEventListener("open-cookie-preferences", handleOpen);
+    return () => {
+      window.removeEventListener("open-cookie-preferences", handleOpen);
+    };
   }, []);
 
   function decide(choice: Choice) {
@@ -85,29 +92,64 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-live="polite"
-      aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 backdrop-blur sm:bottom-4 sm:left-4 sm:right-4 sm:rounded-2xl sm:border"
+      aria-label="Cookie and privacy preferences"
+      className="fixed inset-x-0 bottom-0 z-[110] border-t border-border bg-background/95 backdrop-blur sm:bottom-4 sm:left-4 sm:right-4 sm:rounded-2xl sm:border sm:shadow-2xl"
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <p className="text-sm text-muted-foreground">
-          We use cookies to improve your experience and measure site performance. See our{" "}
-          <Link to="/legal/cookies" className="text-accent underline">
-            cookie policy
-          </Link>
-          .
-        </p>
-        <div className="flex shrink-0 gap-2">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="space-y-1 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <p className="font-semibold text-foreground">Privacy &amp; Cookie Choices</p>
+            {isGpcActive && (
+              <span className="inline-flex items-center rounded-full bg-accent/15 px-2 py-0.5 text-[11px] font-medium text-accent">
+                GPC Signal Active
+              </span>
+            )}
+          </div>
+          <p>
+            We respect your privacy. Under CCPA/CPRA, you have the right to opt out of the sale or sharing of your personal information.{" "}
+            {isGpcActive
+              ? "Your browser's Global Privacy Control (GPC) signal is active and non-essential tracking is disabled."
+              : "We use cookies to ensure site functionality and measure performance."}{" "}
+            See our{" "}
+            <Link to="/legal/privacy" className="text-accent underline">
+              Privacy Policy
+            </Link>{" "}
+            and{" "}
+            <Link to="/legal/cookies" className="text-accent underline">
+              Cookie Policy
+            </Link>
+            .
+          </p>
+        </div>
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
           <Button
             variant="outline"
             size="sm"
-            className="border-border bg-background/40"
+            className="border-border bg-background/40 hover:bg-background/80"
             onClick={() => decide("rejected")}
+            aria-label="Reject non-essential tracking and opt out"
           >
-            Reject
+            Reject All / Opt-Out
           </Button>
-          <Button size="sm" className="bg-cta hover:opacity-90" onClick={() => decide("accepted")}>
-            Accept
-          </Button>
+          {!isGpcActive && (
+            <Button
+              size="sm"
+              className="bg-cta hover:opacity-90"
+              onClick={() => decide("accepted")}
+              aria-label="Accept essential and analytics cookies"
+            >
+              Accept All
+            </Button>
+          )}
+          {isGpcActive && (
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => setVisible(false)}
+            >
+              Close
+            </Button>
+          )}
         </div>
       </div>
     </div>

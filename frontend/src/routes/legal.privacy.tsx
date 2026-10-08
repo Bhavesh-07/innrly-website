@@ -80,7 +80,7 @@ function PrivacyPage() {
               ["retention", "8. Retention"],
               ["security", "9. Security"],
               ["your-rights", "10. Your rights (GDPR)"],
-              ["california", "11. California rights (CCPA/CPRA)"],
+              ["do-not-sell", "11. California rights & Do Not Sell (CCPA/CPRA)"],
               ["us-states", "12. Other US state rights"],
               ["children", "13. Children's privacy"],
               ["cookies", "14. Cookies & tracking"],
@@ -266,20 +266,64 @@ function PrivacyPage() {
             . You also have the right to lodge a complaint with your local supervisory authority.
           </p>
 
-          <H2 id="california">11. California rights (CCPA / CPRA)</H2>
-          <p>California residents have the right to:</p>
+          <H2 id="do-not-sell">11. California Rights &amp; &ldquo;Do Not Sell or Share My Personal Information&rdquo; (CCPA / CPRA)</H2>
+          <p>
+            Under the California Consumer Privacy Act (CCPA), as amended by the California Privacy
+            Rights Act (CPRA), California residents have specific rights regarding their personal
+            information:
+          </p>
           <ul className="list-disc space-y-2 pl-6">
-            <li>Know what personal information we collect, use, and disclose.</li>
-            <li>Access and obtain a copy of personal information we hold about you.</li>
-            <li>Correct inaccurate personal information.</li>
-            <li>Delete personal information, subject to certain exceptions.</li>
-            <li>Limit use of sensitive personal information.</li>
             <li>
-              Opt out of sale or sharing of personal information. As noted in Section 6, Innrly does
-              not sell or share personal information.
+              <strong className="text-foreground">Right to Know &amp; Access:</strong> Know what
+              categories and specific pieces of personal information we collect, use, and disclose.
             </li>
-            <li>Non-discrimination for exercising any of these rights.</li>
+            <li>
+              <strong className="text-foreground">Right to Correct:</strong> Request correction of
+              inaccurate personal information.
+            </li>
+            <li>
+              <strong className="text-foreground">Right to Delete:</strong> Request deletion of
+              personal information, subject to legal exceptions.
+            </li>
+            <li>
+              <strong className="text-foreground">Right to Opt Out of Sale or Sharing:</strong> As
+              noted in Section 6, Innrly <strong className="text-foreground">does not sell</strong>{" "}
+              personal information and <strong className="text-foreground">does not share</strong>{" "}
+              personal data for cross-context behavioral advertising.
+            </li>
+            <li>
+              <strong className="text-foreground">Global Privacy Control (GPC):</strong> We
+              automatically detect and honor Global Privacy Control (GPC) opt-out preference
+              signals sent by your browser.
+            </li>
+            <li>
+              <strong className="text-foreground">Right to Non-Discrimination:</strong> We will never
+              discriminate against you for exercising your privacy rights.
+            </li>
           </ul>
+
+          <div className="my-4 rounded-xl border border-border bg-card/60 p-4">
+            <p className="font-semibold text-foreground">Interactive Privacy &amp; Opt-Out Controls</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              You may manage cookie categories, disable analytics, and exercise your opt-out
+              preferences at any time directly through our preference manager:
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  if (typeof (window as unknown as { openCookieConsent?: () => void }).openCookieConsent === "function") {
+                    (window as unknown as { openCookieConsent?: () => void }).openCookieConsent?.();
+                  }
+                  window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
+                }
+              }}
+              className="mt-3 inline-flex items-center gap-2 rounded-lg bg-accent/20 px-4 py-2 text-sm font-medium text-accent hover:bg-accent/30 transition cursor-pointer"
+            >
+              Open Privacy &amp; Cookie Preferences
+            </button>
+          </div>
+
           <p>
             <strong className="text-foreground">Categories collected in the past 12 months:</strong>{" "}
             identifiers (name, email, phone), commercial information, internet/network activity,
@@ -289,12 +333,11 @@ function PrivacyPage() {
             <strong className="text-foreground">Purposes:</strong> as described in Section 2.
           </p>
           <p>
-            To exercise any right, email{" "}
+            To submit a formal privacy request or designate an authorized agent, email{" "}
             <a href="mailto:privacy@innrly.com" className="underline">
               privacy@innrly.com
             </a>
-            . We will verify your request and respond within the timeframes required by law. You may
-            also designate an authorized agent to act on your behalf.
+            . We will verify your request and respond within 45 days as required by law.
           </p>
           <p>
             <strong className="text-foreground">Shine the Light (Cal. Civ. Code § 1798.83):</strong>{" "}

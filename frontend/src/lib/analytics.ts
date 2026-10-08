@@ -44,16 +44,41 @@ export function isAnalyticsConfigured(): boolean {
   return Boolean(import.meta.env.VITE_ANALYTICS_ENDPOINT || GA_MEASUREMENT_ID);
 }
 
+export function checkGlobalPrivacyControl(): boolean {
+  if (typeof window === "undefined") return false;
+  const nav = window.navigator as { globalPrivacyControl?: boolean | string };
+  return (
+    nav.globalPrivacyControl === true ||
+    nav.globalPrivacyControl === "1" ||
+    (window as unknown as { globalPrivacyControl?: boolean }).globalPrivacyControl === true
+  );
+}
+
+export function isOptedOut(): boolean {
+  if (typeof window === "undefined") return false;
+  if (checkGlobalPrivacyControl()) return true;
+  try {
+    return localStorage.getItem("innrly_cookie_consent_v1") === "rejected";
+  } catch {
+    return false;
+  }
+}
+
 export function track(event: AnalyticsEvent, payload: AnalyticsPayload = {}) {
   if (typeof window === "undefined") return;
 
-  // Forward to Google Analytics 4 if available
+  // Forward to Google Analytics 4 if available (Google Consent Mode v2 governs cookies/pings)
   if (typeof window.gtag === "function") {
     try {
       window.gtag("event", event, payload);
     } catch {
       /* swallow */
     }
+  }
+
+  // If user has enabled Global Privacy Control or rejected consent, do not transmit to custom analytics endpoint
+  if (isOptedOut()) {
+    return;
   }
 
   const body = {

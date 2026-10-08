@@ -53,7 +53,8 @@ const columns = [
   {
     title: "Legal",
     links: [
-      { to: "/legal/privacy", label: "Privacy" },
+      { to: "/legal/privacy", label: "Privacy Policy" },
+      { to: "/legal/privacy#do-not-sell", label: "Do Not Sell My Personal Information" },
       { to: "/legal/terms", label: "Terms" },
       { to: "/legal/subscription", label: "Subscription Agreement" },
       { to: "/legal/security", label: "Security" },
@@ -250,9 +251,28 @@ export function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-8 sm:flex-row sm:items-center">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Innrly. All rights reserved.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            <p>© {new Date().getFullYear()} Innrly. All rights reserved.</p>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  if (typeof (window as unknown as { openCookieConsent?: () => void }).openCookieConsent === "function") {
+                    (window as unknown as { openCookieConsent?: () => void }).openCookieConsent?.();
+                  }
+                  window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
+                }
+              }}
+              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition hover:text-foreground hover:underline cursor-pointer"
+              aria-label="Do Not Sell or Share My Personal Information and manage privacy choices"
+              id="do-not-sell-link"
+            >
+              <svg className="h-3.5 w-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>Your Privacy Choices | Do Not Sell My Info</span>
+            </button>
+          </div>
           <p className="text-xs text-muted-foreground">Built for hotel owners and operators.</p>
         </div>
       </div>

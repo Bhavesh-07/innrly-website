@@ -159,12 +159,38 @@ function CookiesPage() {
             governing how it processes your data.
           </p>
 
-          <h2 className="text-2xl font-semibold text-foreground">How to control cookies</h2>
+          <h2 id="preferences" className="text-2xl font-semibold text-foreground">How to control cookies &amp; your privacy choices</h2>
+          <p>
+            You can control cookies and non-essential tracking at any time using our preference
+            manager or through your browser settings:
+          </p>
+
+          <div className="my-4 rounded-xl border border-border bg-card/60 p-4">
+            <p className="font-semibold text-foreground">Manage Cookie &amp; Tracking Preferences</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Click below to view and update your cookie choices or opt out of analytics tracking:
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  if (typeof (window as unknown as { openCookieConsent?: () => void }).openCookieConsent === "function") {
+                    (window as unknown as { openCookieConsent?: () => void }).openCookieConsent?.();
+                  }
+                  window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
+                }
+              }}
+              className="mt-3 inline-flex items-center gap-2 rounded-lg bg-accent/20 px-4 py-2 text-sm font-medium text-accent hover:bg-accent/30 transition cursor-pointer"
+            >
+              Open Cookie Preferences
+            </button>
+          </div>
+
           <ul className="list-disc space-y-2 pl-6">
             <li>
               Use the cookie banner on innrly.com to accept or reject non-essential categories. You
-              can change your choice at any time by clearing
-              <em> innrly_cookie_consent_v1</em> from your browser storage and reloading the page.
+              can change or revoke your choice at any time by clicking "Your Privacy Choices" in the
+              footer or using the button above.
             </li>
             <li>
               Most browsers let you block or delete cookies through their settings:{" "}
@@ -232,11 +258,12 @@ function CookiesPage() {
             </li>
           </ul>
 
-          <h2 className="text-2xl font-semibold text-foreground">Do Not Track</h2>
+          <h2 id="do-not-sell" className="text-2xl font-semibold text-foreground">Global Privacy Control (GPC) &amp; Do Not Sell</h2>
           <p>
-            Some browsers send a &ldquo;Do Not Track&rdquo; signal. There is no industry standard
-            for how sites must respond. Innrly honors the choices you make through our cookie banner
-            regardless of any DNT header.
+            Innrly automatically recognizes and honors the <strong>Global Privacy Control (GPC)</strong>{" "}
+            browser signal. When a GPC signal is detected, we automatically treat it as a request to
+            opt out of all non-essential cookies, analytics, and data sharing, without requiring any
+            manual action on your part.
           </p>
 
           <h2 className="text-2xl font-semibold text-foreground">Changes to this policy</h2>

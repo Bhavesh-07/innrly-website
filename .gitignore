@@ -33,3 +33,4 @@ PORT_8005_UPDATE_GUIDE.md
 
 # Runtime logs
 backend/logs/
+scratch/
