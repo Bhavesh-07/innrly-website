@@ -52,9 +52,9 @@ export function NewsletterSignup({ variant = "card", source = "blog" }: Props) {
     if (res.ok) {
       setDone(true);
       setEmail("");
-      toast.success("You're on the list.");
+      toast.success(res.message || "You're on the list.");
     } else {
-      toast.error("Something went wrong. Try again.");
+      toast.error(res.message || res.error || "Something went wrong. Try again.");
     }
   }
 

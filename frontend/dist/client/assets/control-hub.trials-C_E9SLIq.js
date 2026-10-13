@@ -1,0 +1,1 @@
+import{i as e}from"./utils-Oy7PmJWG.js";import{x as t}from"./index-Cm-haE0J.js";var n=e();function r(){return(0,n.jsx)(t,{activeTab:`trials`})}export{r as component};

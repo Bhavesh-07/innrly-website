@@ -53,7 +53,7 @@ export async function getRecaptchaToken(action: string = "lead_submit"): Promise
   });
 }
 
-export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; error?: string }> {
+export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; error?: string; message?: string; data?: unknown }> {
   const url = (import.meta.env.VITE_LEAD_WEBHOOK_URL as string | undefined) || "/api/leads";
   const isNewsletter = (payload as { kind?: string }).kind === "newsletter";
 
@@ -93,16 +93,18 @@ export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; e
         submittedAt: new Date().toISOString()
       }),
     });
+    const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       track(isNewsletter ? "newsletter_signup" : "form_submit", {
         source: payload.source,
         ok: false,
         status: res.status,
       });
-      return { ok: false, error: `HTTP ${res.status}` };
+      const errorMsg = data?.detail || data?.message || `HTTP ${res.status}`;
+      return { ok: false, error: errorMsg, message: errorMsg };
     }
     track(isNewsletter ? "newsletter_signup" : "form_submit", { source: payload.source, ok: true });
-    return { ok: true };
+    return { ok: true, message: data?.message, data };
   } catch (e) {
     const error = e instanceof Error ? e.message : "network error";
     track(isNewsletter ? "newsletter_signup" : "form_submit", {
@@ -110,7 +112,7 @@ export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; e
       ok: false,
       error,
     });
-    return { ok: false, error };
+    return { ok: false, error, message: error };
   }
 }
 

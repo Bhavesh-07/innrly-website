@@ -352,6 +352,13 @@ def init_db():
             """, ("Super Administrator", ADMIN_USERNAME, "admin@innrly.com", default_hash, "super_admin", json.dumps(["all"]), "active"))
             conn.commit()
 
+        # Ensure phone column exists in newsletter_subscribers
+        try:
+            cur.execute("ALTER TABLE newsletter_subscribers ADD COLUMN phone VARCHAR(50) DEFAULT NULL AFTER email")
+            conn.commit()
+        except Exception:
+            pass
+
         # Clean up requested test submissions from database
         try:
             cur.execute("DELETE FROM contact_leads WHERE email IN ('x@x.com', 'live.test@hilton.com')")
@@ -2034,24 +2041,36 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
         cursor = connection.cursor(dictionary=True)
 
         if payload.kind == "newsletter":
-            # Check for existing subscription to suppress duplicates & spam
+            # Check for existing subscription by email or phone to reject duplicates
             try:
-                cursor.execute(
-                    "SELECT id FROM newsletter_subscribers WHERE email = %s ORDER BY id DESC LIMIT 1",
-                    (lead_email,)
-                )
-                existing = cursor.fetchone()
-                if existing:
-                    db_status = "duplicate"
-                    db_details = {"newsletter_saved": True, "duplicate": True, "id": existing["id"]}
+                phone_val = (payload.phone or "").strip()
+                if phone_val:
+                    cursor.execute(
+                        "SELECT id FROM newsletter_subscribers WHERE email = %s OR (phone IS NOT NULL AND phone != '' AND phone = %s) LIMIT 1",
+                        (lead_email, phone_val)
+                    )
                 else:
                     cursor.execute(
-                        "INSERT INTO newsletter_subscribers (email, sub_source, submitted_at) VALUES (%s, %s, %s)",
-                        (lead_email, payload.subSource, submitted_at_dt)
+                        "SELECT id FROM newsletter_subscribers WHERE email = %s LIMIT 1",
+                        (lead_email,)
+                    )
+                existing = cursor.fetchone()
+                if existing:
+                    print(f"[Anti-Spam] Duplicate newsletter registration attempt for email: {lead_email}, phone: {phone_val}")
+                    raise HTTPException(
+                        status_code=400,
+                        detail="This email or phone number is already registered with us for newsletter."
+                    )
+                else:
+                    cursor.execute(
+                        "INSERT INTO newsletter_subscribers (email, phone, sub_source, submitted_at) VALUES (%s, %s, %s, %s)",
+                        (lead_email, phone_val or None, payload.subSource or "website", submitted_at_dt)
                     )
                     connection.commit()
                     db_status = "success"
                     db_details = {"newsletter_saved": True, "id": cursor.lastrowid}
+            except HTTPException:
+                raise
             except Exception as n_err:
                 db_status = "failed"
                 db_details = {"error": str(n_err)}
@@ -2170,6 +2189,8 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
             db_status = "failed"
             db_details = {"error": "Unknown source"}
 
+    except HTTPException:
+        raise
     except Exception as db_ex:
         db_status = "failed"
         db_details = {"error": f"Database connection or execution failed: {db_ex}"}
