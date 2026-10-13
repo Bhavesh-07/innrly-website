@@ -43,6 +43,7 @@ import { Route as CompareInnrlyVsM3RouteImport } from './routes/compare.innrly-v
 import { Route as CompareInnrlyVsNimbleRouteImport } from './routes/compare.innrly-vs-nimble'
 import { Route as CompareInnrlyVsOtelierRouteImport } from './routes/compare.innrly-vs-otelier'
 import { Route as CompareInnrlyVsProfitsageRouteImport } from './routes/compare.innrly-vs-profitsage'
+import { Route as CompareInnrlyVsQuickbooksRouteImport } from './routes/compare.innrly-vs-quickbooks'
 import { Route as ControlHubIndexRouteImport } from './routes/control-hub.index'
 import { Route as ControlHubBlogsRouteImport } from './routes/control-hub.blogs'
 import { Route as ControlHubLogsRouteImport } from './routes/control-hub.logs'
@@ -257,6 +258,12 @@ const CompareInnrlyVsProfitsageRoute =
   CompareInnrlyVsProfitsageRouteImport.update({
     id: '/compare/innrly-vs-profitsage',
     path: '/compare/innrly-vs-profitsage',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CompareInnrlyVsQuickbooksRoute =
+  CompareInnrlyVsQuickbooksRouteImport.update({
+    id: '/compare/innrly-vs-quickbooks',
+    path: '/compare/innrly-vs-quickbooks',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ControlHubIndexRoute = ControlHubIndexRouteImport.update({
@@ -481,6 +488,7 @@ export interface FileRoutesByFullPath {
   '/compare/innrly-vs-nimble': typeof CompareInnrlyVsNimbleRoute
   '/compare/innrly-vs-otelier': typeof CompareInnrlyVsOtelierRoute
   '/compare/innrly-vs-profitsage': typeof CompareInnrlyVsProfitsageRoute
+  '/compare/innrly-vs-quickbooks': typeof CompareInnrlyVsQuickbooksRoute
   '/control-hub/blogs': typeof ControlHubBlogsRoute
   '/control-hub/logs': typeof ControlHubLogsRoute
   '/control-hub/newsletters': typeof ControlHubNewslettersRoute
@@ -553,6 +561,7 @@ export interface FileRoutesByTo {
   '/compare/innrly-vs-nimble': typeof CompareInnrlyVsNimbleRoute
   '/compare/innrly-vs-otelier': typeof CompareInnrlyVsOtelierRoute
   '/compare/innrly-vs-profitsage': typeof CompareInnrlyVsProfitsageRoute
+  '/compare/innrly-vs-quickbooks': typeof CompareInnrlyVsQuickbooksRoute
   '/control-hub/blogs': typeof ControlHubBlogsRoute
   '/control-hub/logs': typeof ControlHubLogsRoute
   '/control-hub/newsletters': typeof ControlHubNewslettersRoute
@@ -627,6 +636,7 @@ export interface FileRoutesById {
   '/compare/innrly-vs-nimble': typeof CompareInnrlyVsNimbleRoute
   '/compare/innrly-vs-otelier': typeof CompareInnrlyVsOtelierRoute
   '/compare/innrly-vs-profitsage': typeof CompareInnrlyVsProfitsageRoute
+  '/compare/innrly-vs-quickbooks': typeof CompareInnrlyVsQuickbooksRoute
   '/control-hub/blogs': typeof ControlHubBlogsRoute
   '/control-hub/logs': typeof ControlHubLogsRoute
   '/control-hub/newsletters': typeof ControlHubNewslettersRoute
@@ -702,6 +712,7 @@ export interface FileRouteTypes {
     | '/compare/innrly-vs-nimble'
     | '/compare/innrly-vs-otelier'
     | '/compare/innrly-vs-profitsage'
+    | '/compare/innrly-vs-quickbooks'
     | '/control-hub/blogs'
     | '/control-hub/logs'
     | '/control-hub/newsletters'
@@ -774,6 +785,7 @@ export interface FileRouteTypes {
     | '/compare/innrly-vs-nimble'
     | '/compare/innrly-vs-otelier'
     | '/compare/innrly-vs-profitsage'
+    | '/compare/innrly-vs-quickbooks'
     | '/control-hub/blogs'
     | '/control-hub/logs'
     | '/control-hub/newsletters'
@@ -847,6 +859,7 @@ export interface FileRouteTypes {
     | '/compare/innrly-vs-nimble'
     | '/compare/innrly-vs-otelier'
     | '/compare/innrly-vs-profitsage'
+    | '/compare/innrly-vs-quickbooks'
     | '/control-hub/blogs'
     | '/control-hub/logs'
     | '/control-hub/newsletters'
@@ -921,6 +934,7 @@ export interface RootRouteChildren {
   CompareInnrlyVsNimbleRoute: typeof CompareInnrlyVsNimbleRoute
   CompareInnrlyVsOtelierRoute: typeof CompareInnrlyVsOtelierRoute
   CompareInnrlyVsProfitsageRoute: typeof CompareInnrlyVsProfitsageRoute
+  CompareInnrlyVsQuickbooksRoute: typeof CompareInnrlyVsQuickbooksRoute
   IndustriesExtendedStayRoute: typeof IndustriesExtendedStayRoute
   IndustriesFullServiceRoute: typeof IndustriesFullServiceRoute
   IndustriesSelectServiceRoute: typeof IndustriesSelectServiceRoute
@@ -1191,6 +1205,13 @@ declare module '@tanstack/react-router' {
       path: '/compare/innrly-vs-profitsage'
       fullPath: '/compare/innrly-vs-profitsage'
       preLoaderRoute: typeof CompareInnrlyVsProfitsageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/innrly-vs-quickbooks': {
+      id: '/compare/innrly-vs-quickbooks'
+      path: '/compare/innrly-vs-quickbooks'
+      fullPath: '/compare/innrly-vs-quickbooks'
+      preLoaderRoute: typeof CompareInnrlyVsQuickbooksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/control-hub/': {
@@ -1519,6 +1540,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareInnrlyVsNimbleRoute: CompareInnrlyVsNimbleRoute,
   CompareInnrlyVsOtelierRoute: CompareInnrlyVsOtelierRoute,
   CompareInnrlyVsProfitsageRoute: CompareInnrlyVsProfitsageRoute,
+  CompareInnrlyVsQuickbooksRoute: CompareInnrlyVsQuickbooksRoute,
   IndustriesExtendedStayRoute: IndustriesExtendedStayRoute,
   IndustriesFullServiceRoute: IndustriesFullServiceRoute,
   IndustriesSelectServiceRoute: IndustriesSelectServiceRoute,

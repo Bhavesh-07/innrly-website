@@ -358,6 +358,7 @@ def init_db():
             cur.execute("DELETE FROM trial_leads WHERE email IN ('x@x.com', 'live.test@hilton.com')")
             cur.execute("DELETE FROM newsletter_subscribers WHERE email IN ('x@x.com', 'live.test@hilton.com')")
             cur.execute("DELETE FROM lead_event_logs WHERE submitter_email IN ('x@x.com', 'live.test@hilton.com')")
+            cur.execute("DELETE FROM onboarding_companies WHERE email IN ('x@x.com', 'live.test@hilton.com')")
             conn.commit()
         except Exception:
             pass
@@ -671,7 +672,7 @@ def verify_recaptcha_token(token: Optional[str], client_ip: str) -> Tuple[bool, 
     if token_str.upper() in ("TEST_BYPASS_TOKEN", "BYPASS", "TEST", "DUMMY") or len(token_str) < 20:
         return False, "Invalid human verification token format. Test bypass tokens are rejected.", None
 
-    secret = os.environ.get("RECAPTCHA_SECRET_KEY", "").strip()
+    secret = os.environ.get("RECAPTCHA_SECRET_KEY", "6LcVJrkkAAAAAJNlZkxKzz1CcuhI0BpQmhDggVrA").strip()
     if not secret:
         # Check site_settings database table as fallback
         try:
@@ -686,37 +687,35 @@ def verify_recaptcha_token(token: Optional[str], client_ip: str) -> Tuple[bool, 
         except Exception:
             pass
 
-    if secret:
-        try:
-            url = "https://www.google.com/recaptcha/api/siteverify"
-            post_data = urllib.parse.urlencode({
-                "secret": secret,
-                "response": token_str,
-                "remoteip": client_ip
-            }).encode("utf-8")
-            
-            req = urllib.request.Request(url, data=post_data, headers={"User-Agent": "Innrly-AntiSpam/1.0"})
-            with urllib.request.urlopen(req, timeout=5) as response:
-                result = json.loads(response.read().decode("utf-8"))
-                success = result.get("success", False)
-                score = result.get("score")
-                
-                if not success:
-                    error_codes = result.get("error-codes", [])
-                    return False, f"reCAPTCHA validation failed ({error_codes})", score
-                    
-                min_score = float(os.environ.get("RECAPTCHA_MIN_SCORE", "0.5"))
-                if score is not None and score < min_score:
-                    return False, f"reCAPTCHA score too low ({score:.2f} < {min_score:.2f})", score
-                    
-                return True, "Valid human verification", score
-        except Exception as e:
-            print(f"[Anti-Spam] Google reCAPTCHA server verification error: {e}")
-            if os.environ.get("RECAPTCHA_STRICT_FAIL", "true").lower() == "true":
-                return False, f"Verification service error: {e}", None
-            return True, "Verification service bypass on network error", None
+    if not secret:
+        return False, "reCAPTCHA server configuration error (secret key not found)", None
 
-    return True, "Token format accepted", None
+    try:
+        url = "https://www.google.com/recaptcha/api/siteverify"
+        post_data = urllib.parse.urlencode({
+            "secret": secret,
+            "response": token_str,
+            "remoteip": client_ip
+        }).encode("utf-8")
+        
+        req = urllib.request.Request(url, data=post_data, headers={"User-Agent": "Innrly-AntiSpam/1.0"})
+        with urllib.request.urlopen(req, timeout=5) as response:
+            result = json.loads(response.read().decode("utf-8"))
+            success = result.get("success", False)
+            score = result.get("score")
+            
+            if not success:
+                error_codes = result.get("error-codes", [])
+                return False, f"reCAPTCHA validation failed ({error_codes})", score
+                
+            min_score = float(os.environ.get("RECAPTCHA_MIN_SCORE", "0.5"))
+            if score is not None and score < min_score:
+                return False, f"reCAPTCHA score too low ({score:.2f} < {min_score:.2f})", score
+                
+            return True, "Valid human verification", score
+    except Exception as e:
+        print(f"[Anti-Spam] Google reCAPTCHA server verification error: {e}")
+        return False, f"Verification service error: {e}", None
 
 # Lead Disk Logging Setup
 LEAD_LOGS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs", "leads")
@@ -1924,6 +1923,24 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
 
     lead_email = lead_email or "unknown@innrly.com"
 
+    # Reject test email addresses in production
+    BLOCKED_TEST_EMAILS = {"x@x.com", "live.test@hilton.com", "test@test.com", "example@example.com"}
+    if lead_email.lower() in BLOCKED_TEST_EMAILS:
+        print(f"[Anti-Spam] Rejected test email address: {lead_email}")
+        raise HTTPException(
+            status_code=400,
+            detail="Test email submissions (x@x.com / live.test@hilton.com) are blocked."
+        )
+
+    # Repeat / Rapid Submission Rate Limit per Email Address (max 2 submissions per 120s)
+    email_key = f"email:{lead_email.lower()}"
+    if not check_and_increment_rate_limit(email_key, max_requests=2, window_seconds=120):
+        print(f"[Anti-Spam] Repeat submission rate limit exceeded for email: {lead_email}")
+        raise HTTPException(
+            status_code=429,
+            detail="Too many submissions received for this email. Please wait 2 minutes before submitting again."
+        )
+
     # Disposable / Burner Email Validation
     if is_disposable_email(lead_email):
         print(f"[Anti-Spam] Rejected disposable email address: {lead_email}")
@@ -2017,7 +2034,7 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
         cursor = connection.cursor(dictionary=True)
 
         if payload.kind == "newsletter":
-            # Check for recent duplicate subscription within 24h
+            # Check for existing subscription to suppress duplicates & spam
             try:
                 cursor.execute(
                     "SELECT id FROM newsletter_subscribers WHERE email = %s ORDER BY id DESC LIMIT 1",
@@ -2025,8 +2042,8 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
                 )
                 existing = cursor.fetchone()
                 if existing:
-                    db_status = "success"
-                    db_details = {"newsletter_saved": True, "duplicate": True}
+                    db_status = "duplicate"
+                    db_details = {"newsletter_saved": True, "duplicate": True, "id": existing["id"]}
                 else:
                     cursor.execute(
                         "INSERT INTO newsletter_subscribers (email, sub_source, submitted_at) VALUES (%s, %s, %s)",
@@ -2169,10 +2186,14 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
                 pass
 
     # 4. EMAIL DISPATCH EXECUTION (Offloaded to background tasks for instant <50ms response)
-    if db_status in ("success", "partial"):
+    if db_status == "success" or (db_status == "partial" and payload.source == "onboarding"):
         background_tasks.add_task(dispatch_lead_emails_background, raw_payload_dict, log_id)
         email_status = "queued"
         overall_status = "success"
+    elif db_status == "duplicate":
+        email_status = "skipped"
+        email_error = "Duplicate subscription - notification email skipped"
+        overall_status = "duplicate"
     else:
         email_status = "skipped"
         email_error = "Skipped because database insertion failed"
@@ -2254,6 +2275,17 @@ async def create_lead(payload: LeadPayload, request: Request, background_tasks: 
             status_code=500,
             detail="Something went wrong while processing your submission. Please try again or contact us directly at contact@innrly.com."
         )
+
+    if db_status == "duplicate":
+        return {
+            "ok": True,
+            "message": "You are already subscribed to the newsletter.",
+            "duplicate": True,
+            "log_id": log_id,
+            "status": "duplicate",
+            "db_status": "duplicate",
+            "email_status": "skipped"
+        }
 
     return {
         "ok": True,
