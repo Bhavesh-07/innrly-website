@@ -92,8 +92,31 @@ def run_verification():
     else:
         print(f"WARNING: {aug_20_count} posts still show 2026-08-20.")
 
+    # 5. Check seo_settings table
+    print("\n[Test 5] Scanning seo_settings table for prohibited terms...")
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT page_path, title, description, og_title, og_description FROM seo_settings")
+    seo_rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    seo_violations = []
+    for r in seo_rows:
+        corpus = f"{r.get('title', '')} {r.get('description', '')} {r.get('og_title', '')} {r.get('og_description', '')}"
+        for term in prohibited_terms:
+            if re.search(r'\b' + re.escape(term) + r'\b', corpus, re.IGNORECASE):
+                seo_violations.append((r.get('page_path'), term))
+
+    if seo_violations:
+        print(f"FAILED: Found {len(seo_violations)} violations in seo_settings:")
+        for path, term in seo_violations:
+            print(f"  - {path}: {term}")
+    else:
+        print(f"PASSED: 0 prohibited terms found in {len(seo_rows)} seo_settings records.")
+
     # Summary
-    if not db_violations and not frontend_violations and p1 and "Automation Layer" in p1['title']:
+    if not db_violations and not frontend_violations and not seo_violations and p1 and "Automation Layer" in p1['title'] and aug_20_count == 0:
         print("\n==================================================")
         print("ALL VERIFICATION SUITE CHECKS PASSED (100% CLEAN)")
         print("==================================================")
