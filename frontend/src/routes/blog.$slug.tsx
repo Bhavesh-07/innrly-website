@@ -607,8 +607,9 @@ export const Route = createFileRoute("/blog/$slug")({
             date: data.created_at || "2026-06-01",
             author: data.author || "The Innrly Team",
             summary: data.summary,
-            featuredImage: data.featured_image,
+            featuredImage: data.featured_image || "",
             featuredImageAlt: data.featured_image_alt || data.title,
+            ogImage: data.featured_image || "",
             categoryName: data.category_name,
             contentHtml: data.content || "",
             body: [],
@@ -631,8 +632,9 @@ export const Route = createFileRoute("/blog/$slug")({
           author: "The Innrly Team",
           body: staticPost.body,
           contentHtml: "",
-          featuredImage: staticPost.image,
+          featuredImage: staticPost.image || "",
           featuredImageAlt: staticPost.imageAlt || staticPost.title,
+          ogImage: staticPost.image || "",
           source: staticPost.source,
           faq: staticPost.faq,
         };
@@ -655,7 +657,7 @@ export const Route = createFileRoute("/blog/$slug")({
           if (seoData.description) post.metaDescription = seoData.description;
           if (seoData.og_title) post.ogTitle = seoData.og_title;
           if (seoData.og_description) post.ogDescription = seoData.og_description;
-          if (seoData.og_image) post.featuredImage = seoData.og_image;
+          if (seoData.og_image) post.ogImage = seoData.og_image;
         }
       }
     } catch {
@@ -682,12 +684,15 @@ export const Route = createFileRoute("/blog/$slug")({
             property: "og:description", 
             content: loaderData.post.metaDescription || loaderData.post.summary || (loaderData.post.body?.[0]?.slice(0, 155) ?? "") 
           },
-          ...(loaderData.post.featuredImage
-            ? [
-                { property: "og:image", content: loaderData.post.featuredImage.startsWith("http") ? loaderData.post.featuredImage : `https://innrly.com${loaderData.post.featuredImage}` },
-                { name: "twitter:image", content: loaderData.post.featuredImage.startsWith("http") ? loaderData.post.featuredImage : `https://innrly.com${loaderData.post.featuredImage}` },
-                { name: "twitter:card", content: "summary_large_image" },
-              ]
+          ...((loaderData.post.ogImage || loaderData.post.featuredImage)
+            ? (() => {
+                const img = loaderData.post.ogImage || loaderData.post.featuredImage;
+                return [
+                  { property: "og:image", content: img.startsWith("http") ? img : `https://innrly.com${img}` },
+                  { name: "twitter:image", content: img.startsWith("http") ? img : `https://innrly.com${img}` },
+                  { name: "twitter:card", content: "summary_large_image" },
+                ];
+              })()
             : []),
           { property: "og:type", content: "article" },
           { property: "og:url", content: `/blog/${loaderData.slug}` },
