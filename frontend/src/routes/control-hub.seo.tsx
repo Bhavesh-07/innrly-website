@@ -138,7 +138,7 @@ const PAGE_GROUPS = [
       { path: "/blog/multi-property-accounting-software", label: "/blog/multi-property-accounting-software (Multi-Property Accounting 2)", defaultPriority: "0.7", defaultFreq: "monthly" },
       { path: "/blog/ap-automation-hotels", label: "/blog/ap-automation-hotels (AP Automation Hotels)", defaultPriority: "0.7", defaultFreq: "monthly" },
       { path: "/blog/hotel-labor-cost-percentage", label: "/blog/hotel-labor-cost-percentage (Labor Cost Percentage)", defaultPriority: "0.7", defaultFreq: "monthly" },
-      { path: "/blog/innrly-vs-inn-flow", label: "/blog/innrly-vs-inn-flow (Innrly vs Inn-Flow)", defaultPriority: "0.7", defaultFreq: "monthly" },
+      { path: "/blog/innrly-vs-inn-flow", label: "/blog/innrly-vs-inn-flow (Innrly + Inn-Flow)", defaultPriority: "0.7", defaultFreq: "monthly" },
       { path: "/blog/pms-vs-back-office-automation", label: "/blog/pms-vs-back-office-automation (PMS vs Back-Office)", defaultPriority: "0.7", defaultFreq: "monthly" },
       { path: "/blog/hotel-night-audit-checklist", label: "/blog/hotel-night-audit-checklist (Night Audit Checklist)", defaultPriority: "0.7", defaultFreq: "monthly" },
       { path: "/blog/hotel-ota-commission-reconciliation", label: "/blog/hotel-ota-commission-reconciliation (OTA Commission Reconciliation)", defaultPriority: "0.7", defaultFreq: "monthly" },

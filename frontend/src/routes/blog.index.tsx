@@ -33,7 +33,7 @@ const STATIC_POSTS: BlogPostItem[] = [
   },
   {
     slug: "night-audit-automation",
-    title: "Night Audit Automation: Eliminate the 2 AM Excel Marathon",
+    title: "Night Audit Automation: Replace the 2 AM Excel Marathon",
     created_at: "2026-05-24",
     summary: "What night audit automation replaces, how it normalizes data across Choice, Wyndham, Hilton, and IHG, and how to deploy across a multi-brand portfolio.",
   },
@@ -57,9 +57,9 @@ const STATIC_POSTS: BlogPostItem[] = [
   },
   {
     slug: "innrly-vs-inn-flow",
-    title: "Innrly + Inn-Flow: The Automation Layer for Your Inn-Flow GL",
+    title: "Innrly + Inn-Flow: How the Automation Layer Fits",
     created_at: "2026-05-20",
-    summary: "How Innrly sits in front of Inn-Flow as the automation layer — invoice capture, OTA reconciliation, night audit, and labor — while Inn-Flow stays your accounting system of record.",
+    summary: "Inn-Flow stays your accounting system of record. See how Innrly's automation layer fits alongside it and the current status of the planned integration.",
   },
   {
     slug: "hotel-night-audit-checklist",
@@ -69,9 +69,9 @@ const STATIC_POSTS: BlogPostItem[] = [
   },
   {
     slug: "hotel-ota-commission-reconciliation",
-    title: "Hotel OTA Commission Reconciliation: Recover 1–3% of Revenue You're Already Owed",
+    title: "Hotel OTA Commission Reconciliation: How to Find and Review Variances",
     created_at: "2026-05-27",
-    summary: "Where Expedia, Booking.com, and Hotels.com routinely overcharge — and how to line-match statements to PMS reservations to recover what you're owed.",
+    summary: "How multi-property hotel operators identify OTA commission variances, line-match statements to PMS folios, and submit timely dispute claims.",
   },
   {
     slug: "pms-vs-back-office-automation",
@@ -87,7 +87,7 @@ const STATIC_POSTS: BlogPostItem[] = [
   },
   {
     slug: "select-service-back-office-savings",
-    title: "How Select-Service Portfolios Save 5–15 Hours and $200–500 Per Hotel Each Week",
+    title: "Select-Service Hotel Back-Office Savings: Where the Hours Go",
     created_at: "2026-05-17",
     summary: "What changes when night-audit packs get reviewed automatically for anomalies and the transactions that need attention surface in one queue.",
   },

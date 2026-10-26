@@ -14,7 +14,7 @@ Sales contact: sales@innrly.com
 
 ## What Innrly does, in one paragraph
 
-Innrly automates the daily back office for hotel owners and operators: night audit, AR/AP, OTA commission reconciliation, bank reconciliation, multi-property accounting, invoice capture and GL coding, payments to vendors, labor cost control with Face-ID TimeClock, document storage, and real-time portfolio dashboards. It plugs into 50+ PMS, accounting, payroll, banking, guest-survey, and A/P systems so the operator's existing tools keep working while Innrly automates the work between them. Customers report saving 40 to 180 hours per property each month.
+Innrly automates the daily back office for hotel owners and operators: night audit, AR/AP, OTA commission reconciliation, bank reconciliation, multi-property accounting, invoice capture and GL coding, payments to vendors, labor cost control with Face-ID TimeClock, document storage, and real-time portfolio dashboards. It plugs into 50+ PMS, accounting, payroll, banking, guest-survey, and A/P systems so the operator's existing tools keep working while Innrly automates the work between them. Customers report saving valuable hours per property each month.
 
 ## Who Innrly is for
 

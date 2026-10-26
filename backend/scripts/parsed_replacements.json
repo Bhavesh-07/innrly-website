@@ -1,0 +1,1146 @@
+[
+  {
+    "page_num": 1,
+    "slug": "innrly-vs-inn-flow",
+    "header": "Page 1 of 21: /blog/innrly-vs-inn-flow",
+    "why": "Inn-Flow is a PARTNER. The live page is a head-to-head competitor article with unverified competitor pricing, onboarding times, trial and integration claims. Replace the WHOLE article body. Keep the same URL.",
+    "page_title": "Innrly + Inn-Flow: How the Automation Layer Fits | Innrly",
+    "meta_description": "Inn-Flow stays your accounting system of record. See how Innrly's automation layer fits alongside it and the current status of the planned integration.",
+    "also_update": [
+      "Replace FAQPage JSON-LD with ONLY the 4 Q&As above. Delete every old FAQ entry (pricing, onboarding, trial, M3 comparison). Change the page's category/tag from 'Comparison' to 'Integrations'. On the /blog index card, use the new title and description."
+    ],
+    "paragraphs": [
+      "Page 1 of 21: /blog/innrly-vs-inn-flow",
+      "Live URL: https://www.innrly.com/blog/innrly-vs-inn-flow",
+      "Why: Inn-Flow is a PARTNER. The live page is a head-to-head competitor article with unverified competitor pricing, onboarding times, trial and integration claims. Replace the WHOLE article body. Keep the same URL.",
+      "Also update: Replace FAQPage JSON-LD with ONLY the 4 Q&As above. Delete every old FAQ entry (pricing, onboarding, trial, M3 comparison). Change the page's category/tag from 'Comparison' to 'Integrations'. On the /blog index card, use the new title and description.",
+      "Page title (exact): Innrly + Inn-Flow: How the Automation Layer Fits | Innrly",
+      "Meta description + og:description + twitter:description (exact): Inn-Flow stays your accounting system of record. See how Innrly's automation layer fits alongside it and the current status of the planned integration."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "ENTIRE ARTICLE BODY (everything from the H1 'Innrly vs Inn-Flow: Honest 2026 Comparison' down to the end of the FAQ section, including the comparison table, 'Where Inn-Flow wins', 'Pick Innrly if / Pick Inn-Flow if' and all FAQ questions)",
+        "replace": "H1: Innrly + Inn-Flow: How the Automation Layer Fits\n\nInn-Flow is an established hotel accounting and back-office platform, and many multi-property operators already run their books on it. Innrly is not a replacement for Inn-Flow. Innrly is an automation layer that can sit alongside the accounting system a hotel group already uses.\n\nH2: How the two fit together\n- Inn-Flow remains the accounting system of record.\n- Innrly focuses on the work that happens before entries reach the books: invoice capture, GL-coding suggestions, approval routing, OTA reconciliation flags and portfolio reporting.\n- Your accounting team keeps its existing chart of accounts, close process and controls in Inn-Flow.\n\nH2: Integration status\nA proposed Innrly integration with Inn-Flow is on our roadmap. It is not live today. Before planning a deployment, contact us to confirm availability, the data that will be supported and the workflow for your properties.\n\nH2: Who this is for\nHotel groups that use Inn-Flow and want to explore extra automation for accounts payable, reconciliation or reporting, without changing their accounting system.\n\nH2: Next step\nTalk to our team about your current Inn-Flow setup and which workflows you want to automate. We will tell you plainly what is available now and what is still on the roadmap.\n\nH2: FAQ\nQ: Is Innrly a competitor to Inn-Flow?\nA: No. We position Innrly as an automation layer that works alongside your accounting system. Inn-Flow stays your system of record.\nQ: Is the Inn-Flow integration available now?\nA: Not yet. It is on our roadmap. Contact us to confirm current status before planning a rollout.\nQ: Do I need to change accounting systems to use Innrly?\nA: No. Innrly is designed to work with the accounting system you already use.\nQ: Where can I learn more?\nA: See the Inn-Flow integration page at /integrations/inn-flow."
+      },
+      {
+        "num": "2",
+        "find": "Related-reading card: '12-hotel case study'",
+        "replace": "No change needed, keep."
+      }
+    ]
+  },
+  {
+    "page_num": 2,
+    "slug": "ap-automation-hotels",
+    "header": "Page 2 of 21: /blog/ap-automation-hotels",
+    "why": "M3 'certified' wording must become 'M3 Associate Partner'. Performance numbers have no evidence.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "In FAQPage JSON-LD, replace the two FAQ answers above with the new wording exactly. Remove any '95%', '80%', '30-60 days' or 'certified' text from the meta description."
+    ],
+    "paragraphs": [
+      "Page 2 of 21: /blog/ap-automation-hotels",
+      "Live URL: https://www.innrly.com/blog/ap-automation-hotels",
+      "Why: M3 'certified' wording must become 'M3 Associate Partner'. Performance numbers have no evidence.",
+      "Also update: In FAQPage JSON-LD, replace the two FAQ answers above with the new wording exactly. Remove any '95%', '80%', '30-60 days' or 'certified' text from the meta description."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "For a typical multi-property hotel group, accounts payable is the single highest-volume back-office workflow. A 10-property operator processes 3,000–6,000 invoices a month across utilities, laundry, F&B, OS&E, maintenance, brand fees, OTA commissions, and dozens of one-off vendors. Most do it by hand.",
+        "replace": "For a multi-property hotel group, accounts payable is often one of the highest-volume back-office workflows. Operators handle invoices across utilities, laundry, F&B, OS&E, maintenance, brand fees, OTA commissions and many one-off vendors, and much of it is still keyed by hand."
+      },
+      {
+        "num": "2",
+        "find": "The bar is 95%+ first-pass capture accuracy without any human keystroke.",
+        "replace": "Look for high first-pass capture accuracy on your own invoice types, and test it on a sample of your real invoices before you commit."
+      },
+      {
+        "num": "3",
+        "find": "After 30–60 days of training data, 80%+ of invoices auto-code without human review.",
+        "replace": "As the system learns from your coding history, more invoices can be coded automatically, with a person reviewing exceptions."
+      },
+      {
+        "num": "4",
+        "find": "80%+ auto-coded",
+        "replace": "More invoices auto-coded over time"
+      },
+      {
+        "num": "5",
+        "find": "95% first-pass approval (no rework)",
+        "replace": "Fewer invoices sent back for rework"
+      },
+      {
+        "num": "6",
+        "find": "4-hour controller review per week (vs 40 hours of clerk keying)",
+        "replace": "Less controller time spent on manual review"
+      },
+      {
+        "num": "7",
+        "find": "OCR accuracy 95%+ on hotel invoice types",
+        "replace": "OCR accuracy tested on your own hotel invoice types"
+      },
+      {
+        "num": "8",
+        "find": "Innrly's A/P module is purpose-built for multi-property hotels: email-in capture per property, hotel-tuned OCR, auto GL coding that learns from your history, multi-level approval routing, and Innrly Pay for ACH + check Bill Pay. Invoices push to M3 (certified), QuickBooks (two-way), or Sage Intacct.",
+        "replace": "Innrly's A/P module is built for multi-property hotels: email-in capture per property, hotel-tuned OCR, GL-coding suggestions that learn from your history, multi-level approval routing, and Innrly Pay for check payments through a third-party provider. Innrly is an M3 Associate Partner, and GL-coded invoices can be pushed into M3. QuickBooks and Sage Intacct connections are also available; confirm supported features for your setup with our team."
+      },
+      {
+        "num": "9",
+        "find": "How long until auto-coding accuracy reaches 80%? Typically 30–60 days, depending on invoice volume.",
+        "replace": "How long until auto-coding improves? It depends on your invoice volume and how consistent your coding history is. We can review a sample of your invoices during a pilot."
+      },
+      {
+        "num": "10",
+        "find": "Does it work with M3? Yes — Innrly is an officially certified M3 integration partner. Invoices push directly with GL coding intact.",
+        "replace": "Does it work with M3? Yes. Innrly is an M3 Associate Partner. GL-coded invoices captured in Innrly can be pushed into M3, and M3 remains the system of record."
+      }
+    ]
+  },
+  {
+    "page_num": 3,
+    "slug": "hotel-back-office-automation",
+    "header": "Page 3 of 21: /blog/hotel-back-office-automation",
+    "why": "M3 certification wording, competitor (Otelier) onboarding/pricing claims and hours/dollar savings tables have no evidence.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update FAQPage JSON-LD with the 3 new answers. Remove '40 to 180 hours', '$540,000', '8-15x', '8-16 weeks', '$400-$1,200' and 'certified' from title, description, social preview text and schema."
+    ],
+    "paragraphs": [
+      "Page 3 of 21: /blog/hotel-back-office-automation",
+      "Live URL: https://www.innrly.com/blog/hotel-back-office-automation",
+      "Why: M3 certification wording, competitor (Otelier) onboarding/pricing claims and hours/dollar savings tables have no evidence.",
+      "Also update: Update FAQPage JSON-LD with the 3 new answers. Remove '40 to 180 hours', '$540,000', '8-15x', '8-16 weeks', '$400-$1,200' and 'certified' from title, description, social preview text and schema."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "If you run more than two hotels, your back office is probably the most expensive cost center nobody talks about. Night auditors keying numbers into spreadsheets. A/P clerks re-typing invoices into M3 or QuickBooks. Revenue managers chasing OTA reconciliation differences at month-end. A controller burning 40 hours on close.",
+        "replace": "If you run more than two hotels, your back office can be one of the most expensive cost centers nobody talks about. Night auditors keying numbers into spreadsheets. A/P clerks re-typing invoices into an accounting system. Revenue managers chasing OTA reconciliation differences at month-end. A controller spending long days on close."
+      },
+      {
+        "num": "2",
+        "find": "Hotel back-office automation replaces those manual workflows with software that captures, codes, reconciles, and posts the data for you. Done right, it saves a multi-property operator 40 to 180 hours per property per month. This guide explains exactly what it covers, what to look for, and where most platforms fall short.",
+        "replace": "Hotel back-office automation replaces those manual workflows with software that captures, codes, reconciles and posts data for you. Done right, it can give a multi-property team meaningful time back each month. This guide explains what it covers, what to look for and where platforms differ."
+      },
+      {
+        "num": "3",
+        "find": "Pulling the daily PMS flash report, normalizing it across brands (Choice, Wyndham, Hilton, IHG), and pushing clean GL-coded entries into your accounting system. Without automation: 20–40 minutes per property per night × 30 nights × N properties.",
+        "replace": "Pulling the daily PMS flash report, normalizing it across brands, and pushing clean GL-coded entries into your accounting system. Without automation: someone does this by hand for every property, every night."
+      },
+      {
+        "num": "4",
+        "find": "Invoice capture (OCR + email-in), header and line extraction, GL coding, approval routing, and push to your accounting system. Without automation: A/P clerks spend 4–8 hours per property per week keying invoices.",
+        "replace": "Invoice capture (OCR + email-in), header and line extraction, GL coding, approval routing and push to your accounting system. Without automation: A/P clerks spend hours every week keying invoices."
+      },
+      {
+        "num": "5",
+        "find": "Matching Expedia, Booking.com, and direct OTA statements to PMS bookings and bank deposits, then flagging variances. Without automation: revenue managers find variances weeks late — often after the dispute window closes.",
+        "replace": "Matching Expedia, Booking.com and direct OTA statements to PMS bookings and bank deposits, then flagging variances. Without automation: variances are often found late, sometimes after the channel's dispute window has passed."
+      },
+      {
+        "num": "6",
+        "find": "The whole 'Hours saved / property / month' table (rows: 1-3 properties 40-60, 4-10 properties 80-120, 11-25 properties 120-180, 25+ 150-200+, and the 'Annual hours saved' column)",
+        "replace": "DELETE completely."
+      },
+      {
+        "num": "7",
+        "find": "At a fully loaded back-office cost of ~$45/hour, a 10-property operator saving 100 hours per property per month recoups $540,000 per year — typically 8–15× the platform cost.",
+        "replace": "To estimate value for your portfolio, measure the hours your team spends on these tasks today, then compare after a pilot. Time released is not the same as cash saved unless you change staffing or redeploy that time."
+      },
+      {
+        "num": "8",
+        "find": "Single-platform automation (one login, one data model, one set of integrations). Innrly is built this way. Pricing is transparent and onboarding is 2–4 weeks because there is one product to learn.",
+        "replace": "Single-platform automation: one login, one data model and one set of integrations. Innrly is built this way. See current pricing at /pricing."
+      },
+      {
+        "num": "9",
+        "find": "Acquired-suite automation (Otelier is the example here — Datavision + Inntelligent + myDigitalOffice + HelloGM rolled into one brand). Each module retains its own data model, login flow, and support team. Onboarding is 8–16 weeks and pricing is per-module quotes.",
+        "replace": "Multi-product suites: some vendors offer several products under one brand. Ask each vendor how their modules share data, how many logins your team needs, and what onboarding looks like for your portfolio."
+      },
+      {
+        "num": "10",
+        "find": "Accounting integration — is it certified by M3, two-way with QuickBooks, real with Sage Intacct? Push-only or bi-directional?",
+        "replace": "Accounting integration: which accounting systems are supported, what data moves, and in which direction? Ask for documentation, not just a logo."
+      },
+      {
+        "num": "11",
+        "find": "Onboarding — 2–4 weeks or 8–16?",
+        "replace": "Onboarding: ask for a written timeline for your portfolio size and brands."
+      },
+      {
+        "num": "12",
+        "find": "Innrly is the single-platform option. Officially certified M3 integration partner, two-way QuickBooks sync, support for Sage Intacct, full OTA reconciliation, Innrly Pay for Bill Pay, Innrly Shift for labor, and a BI layer that matches what most controllers already build by hand. Transparent pricing at $199 per property per month. 90-day free trial. 2–4 week onboarding.",
+        "replace": "Innrly is the single-platform option. Innrly is an M3 Associate Partner (GL-coded invoices can be pushed into M3) and also connects with QuickBooks and Sage Intacct. It covers OTA reconciliation flags, Innrly Pay for check payments through a third-party provider, Innrly Shift for labor, and portfolio reporting. See /pricing for current plans and trial options."
+      },
+      {
+        "num": "13",
+        "find": "How much time does it save? For a 10-property operator, typically 80–120 hours per property per month, depending on current process maturity.",
+        "replace": "How much time does it save? It depends on your current process. We recommend measuring today's hours, running a pilot, and comparing."
+      },
+      {
+        "num": "14",
+        "find": "How long does it take to deploy? A real single-platform vendor onboards a property in 2–4 weeks. Multi-module suites take 8–16 weeks because each module is a separate implementation.",
+        "replace": "How long does it take to deploy? It depends on the number of properties, brands and integrations. We give a written timeline after a short discovery call."
+      },
+      {
+        "num": "15",
+        "find": "What does it cost? Innrly is $199 per property per month, transparent and published. Multi-module suites quote per module, typically $400–$1,200 per property per month all-in.",
+        "replace": "What does it cost? See current Innrly pricing at /pricing. When comparing vendors, compare the same scope of modules and services."
+      }
+    ]
+  },
+  {
+    "page_num": 4,
+    "slug": "multi-property-accounting-software",
+    "header": "Page 4 of 21: /blog/multi-property-accounting-software",
+    "why": "M3 certification wording; Otelier described as a general-ledger suite; invented competitor cost table; unsupported close-time claim.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update FAQPage JSON-LD with the 2 new answers. Remove 'certified', 'from 15 days to 4', 'Bundles general ledger' and all dollar figures from description and schema."
+    ],
+    "paragraphs": [
+      "Page 4 of 21: /blog/multi-property-accounting-software",
+      "Live URL: https://www.innrly.com/blog/multi-property-accounting-software",
+      "Why: M3 certification wording; Otelier described as a general-ledger suite; invented competitor cost table; unsupported close-time claim.",
+      "Also update: Update FAQPage JSON-LD with the 2 new answers. Remove 'certified', 'from 15 days to 4', 'Bundles general ledger' and all dollar figures from description and schema."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "If you are running 5+ hotels, your accounting stack is the most important software decision in the company. Get it wrong and you spend the next three years duct-taping integrations and explaining variances to your lender. Get it right and your close shrinks from 15 days to 4.",
+        "replace": "If you are running 5+ hotels, your accounting stack is one of the most important software decisions in the company. The wrong setup can mean years of patching integrations and explaining variances. The right setup can make close faster and reporting cleaner."
+      },
+      {
+        "num": "2",
+        "find": "M3 is the dominant hotel-specific accounting platform in North America. Strongest for portfolios of 10+ branded hotels. Innrly is an officially certified M3 integration partner — capture, code, and push invoices into M3 as the system of record.",
+        "replace": "M3 is a widely used hotel-specific accounting platform in North America. Innrly is an M3 Associate Partner: GL-coded invoices captured in Innrly can be pushed into M3, and M3 remains the system of record."
+      },
+      {
+        "num": "3",
+        "find": "QuickBooks Online is the right answer for portfolios of 1–15 properties that want a low total cost of ownership. Two-way sync with Innrly handles invoice capture, GL coding, OTA reconciliation, and BI — QuickBooks stays the accounting system of record.",
+        "replace": "QuickBooks Online can suit smaller portfolios that want a lower total cost of ownership. Innrly connects with QuickBooks for invoice capture, GL coding, OTA reconciliation and reporting, and QuickBooks stays the accounting system of record. Confirm supported sync features for your setup with our team."
+      },
+      {
+        "num": "4",
+        "find": "4. All-in-one suites (Otelier, Inn-Flow, etc.)",
+        "replace": "4. Hotel finance and back-office suites"
+      },
+      {
+        "num": "5",
+        "find": "Bundles general ledger + back-office automation + BI + labor in one platform. Sounds attractive; in practice these are usually acquired-product suites (Datavision + Inntelligent + myDigitalOffice + HelloGM for Otelier) with separate logins and data models stitched together.",
+        "replace": "Some vendors offer hotel finance, reconciliation, business intelligence and planning tools that work alongside an accounting system. Otelier, for example, offers hotel finance, reconciliation, BI and planning products. Inn-Flow is an established hotel accounting and back-office platform; Innrly positions itself as an automation layer that can work alongside it."
+      },
+      {
+        "num": "6",
+        "find": "Best for: Operators who genuinely need everything from one vendor and have the budget for 8–16 week onboarding.",
+        "replace": "Best for: operators who want several finance and operations tools from one vendor. Ask each vendor for a written onboarding plan and a like-for-like quote."
+      },
+      {
+        "num": "7",
+        "find": "The whole cost-comparison table (rows with $42K + $24K, $15K, $60K, $141K, $90K + $24K, $40K, $214K, $3K + $24K, $5K, $92K, 'Otelier (all-in-one)' $144K+ $60K+ $80K $284K+, 'Inn-Flow (all-in-one)' $120K+ $50K $75K $245K+) and its heading/caption",
+        "replace": "DELETE completely."
+      },
+      {
+        "num": "8",
+        "find": "(add where the table was)",
+        "replace": "Total cost depends on your portfolio, modules, implementation scope and contract terms. Ask every vendor for a written quote covering the same scope, then compare."
+      },
+      {
+        "num": "9",
+        "find": "5–15 properties, branded: M3 + Innrly. Hotel-specific GL with deep brand integrations.",
+        "replace": "Branded portfolios on M3: M3 + Innrly. M3 stays the system of record; Innrly pushes GL-coded invoices as an M3 Associate Partner."
+      },
+      {
+        "num": "10",
+        "find": "15–25 properties, mixed: Sage Intacct + Innrly. Multi-entity consolidation, GAAP-ready.",
+        "replace": "Mixed portfolios needing multi-entity consolidation: Sage Intacct + Innrly."
+      },
+      {
+        "num": "11",
+        "find": "Innrly is the back-office automation layer that sits in front of M3 (certified), QuickBooks (two-way), or Sage Intacct. One platform handles invoice capture, GL coding, OTA reconciliation, night audit, Bill Pay, BI, and labor. Your accounting system stays the system of record.",
+        "replace": "Innrly is the back-office automation layer that sits in front of M3 (as an M3 Associate Partner), QuickBooks or Sage Intacct. It handles invoice capture, GL coding, OTA reconciliation flags, night audit reporting, check payments through a third-party provider, reporting and labor. Your accounting system stays the system of record."
+      },
+      {
+        "num": "12",
+        "find": "Can we move from QuickBooks to M3 later? Yes. Operators commonly start on QuickBooks + Innrly and migrate the GL to M3 at 10–15 properties. Innrly carries forward — invoices, vendors, GL mappings.",
+        "replace": "Can we move from QuickBooks to M3 later? Many operators change accounting systems as they grow. Talk to us about how vendors, GL mappings and history carry over in your case."
+      },
+      {
+        "num": "13",
+        "find": "How long does Innrly onboarding take? 2–4 weeks for the first property, 1–2 weeks marginal for each additional property.",
+        "replace": "How long does Innrly onboarding take? It depends on your number of properties, brands and integrations. We give a written timeline after discovery."
+      }
+    ]
+  },
+  {
+    "page_num": 5,
+    "slug": "multi-property-hotel-accounting-software",
+    "header": "Page 5 of 21: /blog/multi-property-hotel-accounting-software",
+    "why": "M3 certification wording.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 5 of 21: /blog/multi-property-hotel-accounting-software",
+      "Live URL: https://www.innrly.com/blog/multi-property-hotel-accounting-software",
+      "Why: M3 certification wording.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "The legacy gold standard for US multi-brand hotel portfolios. Deep brand-specific chart of accounts. Innrly provides certified push-only automation for M3 customers.",
+        "replace": "A long-established choice for US multi-brand hotel portfolios, with a hotel-specific chart of accounts. Innrly is an M3 Associate Partner and can push GL-coded invoices into M3."
+      },
+      {
+        "num": "2",
+        "find": "Cost-effective powerhouse for 3 to 15 property operators who want enterprise-grade automated back-office workflows without enterprise ERP software licensing fees.",
+        "replace": "A cost-effective option for smaller portfolios that want automated back-office workflows without enterprise ERP licensing."
+      },
+      {
+        "num": "3",
+        "find": "4. All-in-One Hotel Suites (Inn-Flow, Otelier, Nimble)",
+        "replace": "4. Hotel Finance and Back-Office Suites"
+      }
+    ]
+  },
+  {
+    "page_num": 6,
+    "slug": "night-audit-automation",
+    "header": "Page 6 of 21: /blog/night-audit-automation",
+    "why": "M3 certification wording; HotSOS wrongly listed as a PMS export; time/dollar and onboarding claims unsupported; 'every major brand' absolute.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update FAQPage JSON-LD with the 3 new answers. Update title to the new H1. Remove 'Eliminate', 'certified', 'every major US brand' and '$4,500-$9,000' from description and schema."
+    ],
+    "paragraphs": [
+      "Page 6 of 21: /blog/night-audit-automation",
+      "Live URL: https://www.innrly.com/blog/night-audit-automation",
+      "Why: M3 certification wording; HotSOS wrongly listed as a PMS export; time/dollar and onboarding claims unsupported; 'every major brand' absolute.",
+      "Also update: Update FAQPage JSON-LD with the 3 new answers. Update title to the new H1. Remove 'Eliminate', 'certified', 'every major US brand' and '$4,500-$9,000' from description and schema."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Night Audit Automation: Eliminate the 2 AM Excel Marathon",
+        "replace": "Night Audit Automation: Replace the 2 AM Spreadsheet Routine"
+      },
+      {
+        "num": "2",
+        "find": "Marriott (FOSSE / HotSOS): PDF, requires OCR + parsing",
+        "replace": "Marriott (FOSSE): export format depends on property setup; confirm during onboarding. (Note: HotSOS is operations / service-optimization software, not a PMS.)"
+      },
+      {
+        "num": "3",
+        "find": "Manual night audit consolidation: 20–40 minutes per property per night × 30 nights × 10 properties = 100–200 hours / month",
+        "replace": "Manual night audit consolidation takes time every night for every property, and it adds up quickly across a portfolio."
+      },
+      {
+        "num": "4",
+        "find": "Automated: 0 hours (exception flagging only — ~2 hours / month)",
+        "replace": "Automated: your team reviews flagged exceptions instead of keying every number."
+      },
+      {
+        "num": "5",
+        "find": "At $45/hour fully loaded, that is $4,500–$9,000 / month recovered, plus management gets RevPAR by 6 AM instead of 3 PM three days later.",
+        "replace": "The benefit is time back for your team and earlier visibility into RevPAR and other daily numbers. Measure your current hours to estimate the value for your portfolio."
+      },
+      {
+        "num": "6",
+        "find": "Most operators complete a 10-property, 3-brand deployment in 2–4 weeks. Multi-module suites take 8–16 weeks because each brand goes through a separate implementation team.",
+        "replace": "Deployment time depends on your number of properties, brands and PMS exports. We provide a written timeline after discovery."
+      },
+      {
+        "num": "7",
+        "find": "What if my brand isn't supported? Innrly supports every major US brand and most independents. New brands are typically added in 1–2 weeks if there is an exportable format.",
+        "replace": "What if my brand isn't supported? Tell us which PMS and export you use. If an exportable report is available, we will confirm whether and when we can support it."
+      },
+      {
+        "num": "8",
+        "find": "Does it push directly to M3? Yes. Innrly is an officially certified M3 integration partner. GL-coded entries push automatically.",
+        "replace": "Does it push directly to M3? Innrly is an M3 Associate Partner and pushes GL-coded invoices into M3. Contact us to confirm whether night audit journal entries are supported for your setup."
+      },
+      {
+        "num": "9",
+        "find": "How long to deploy 10 properties across 3 brands? 2–4 weeks for a single-platform vendor like Innrly. 8–16 weeks for multi-module suites.",
+        "replace": "How long to deploy 10 properties across 3 brands? It depends on the brands and exports involved. We provide a written timeline after discovery."
+      }
+    ]
+  },
+  {
+    "page_num": 7,
+    "slug": "hyperpersonalization-20-leveraging-ai-and-biometric-data-for-bespoke-guest-experiences",
+    "header": "Page 7 of 21: /blog/hyperpersonalization-20-leveraging-ai-and-biometric-data-for-bespoke-guest-experiences",
+    "why": "Innrly does not process guest health/biometric data (no-PHI policy). Remove the product link and the dated '2025' framing.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Change title to: 'Guest Personalization and Biometric Data: Opportunities and Privacy Limits'. Description: 'An industry look at AI personalization, why biometric and health data need explicit consent, and where hotels should draw the line.' Do not change the URL."
+    ],
+    "paragraphs": [
+      "Page 7 of 21: /blog/hyperpersonalization-20-leveraging-ai-and-biometric-data-for-bespoke-guest-experiences",
+      "Live URL: https://www.innrly.com/blog/hyperpersonalization-20-leveraging-ai-and-biometric-data-for-bespoke-guest-experiences",
+      "Why: Innrly does not process guest health/biometric data (no-PHI policy). Remove the product link and the dated '2025' framing.",
+      "Also update: Change title to: 'Guest Personalization and Biometric Data: Opportunities and Privacy Limits'. Description: 'An industry look at AI personalization, why biometric and health data need explicit consent, and where hotels should draw the line.' Do not change the URL."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "By 2025, AI-driven personalization in the hospitality industry will transcend conventional preferences like room temperature or pillow choices. The next evolution integrates biometric data.",
+        "replace": "AI-driven personalization in hospitality is moving beyond simple preferences like room temperature or pillow choice. Some in the industry are exploring wearable and sensor data, which raises serious consent and privacy questions."
+      },
+      {
+        "num": "2",
+        "find": "By 2025, AI-driven personalization in the hospitality industry will transcend conventional preferences like room temperature or pillow choices. The next evolution-Hyper-Personalization 2.0-will integrate biometric data for truly bespoke guest experiences.",
+        "replace": "DELETE completely."
+      },
+      {
+        "num": "3",
+        "find": "Sleep Optimization Smart rooms that: - Monitor sleep patterns - Adjust temperature and lighting automatically - Wake guests at optimal sleep cycle points",
+        "replace": "Sleep comfort: some smart-room concepts adjust temperature and lighting based on guest-set preferences."
+      },
+      {
+        "num": "4",
+        "find": "Wellness Integration - Fitness tracking integration - Personalized spa recommendations - Dietary adjustments based on health data",
+        "replace": "Wellness options: personalized spa or fitness suggestions based on preferences guests choose to share."
+      },
+      {
+        "num": "5",
+        "find": "Stress Detection - Ambient adjustments for stressed guests - Proactive comfort offerings - Spa and relaxation suggestions",
+        "replace": "Comfort cues: offering quiet rooms, relaxation options or late checkout when a guest requests it."
+      },
+      {
+        "num": "6",
+        "find": "Explicit consent for biometric data",
+        "replace": "Explicit, opt-in consent before collecting any sensitive data, clear retention limits, and an easy way to opt out. Many hotels will decide not to collect biometric or health data at all."
+      },
+      {
+        "num": "7",
+        "find": "The future of hospitality is deeply personal. INNRLY's platform provides the data foundation for hyper-personalization.",
+        "replace": "Personalization works best when it respects guest privacy. Note: Innrly is a back-office finance and operations platform. It does not collect or process guest biometric, health or medical data."
+      }
+    ]
+  },
+  {
+    "page_num": 8,
+    "slug": "smarter-timeclock-system-innrly",
+    "header": "Page 8 of 21: /blog/smarter-timeclock-system-innrly",
+    "why": "Absolute claims (eliminates buddy punching, ensures compliance), invented percentages, and unconfirmed GPS/payroll features.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Remove '5-15%', '95%', 'Complete elimination', 'GPS' and 'ensure compliance' from title, description, social text and any schema."
+    ],
+    "paragraphs": [
+      "Page 8 of 21: /blog/smarter-timeclock-system-innrly",
+      "Live URL: https://www.innrly.com/blog/smarter-timeclock-system-innrly",
+      "Why: Absolute claims (eliminates buddy punching, ensures compliance), invented percentages, and unconfirmed GPS/payroll features.",
+      "Also update: Remove '5-15%', '95%', 'Complete elimination', 'GPS' and 'ensure compliance' from title, description, social text and any schema."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Basic punch clocks without integration to payroll",
+        "replace": "Basic punch clocks that don't connect to scheduling or payroll"
+      },
+      {
+        "num": "2",
+        "find": "Key Features - **Biometric verification** prevents buddy punching - **GPS-enabled mobile clock-in** for off-site staff - **Automatic overtime calculations** ensure compliance - **Real-time labor cost tracking** against budgets - **Seamless payroll integration** eliminates manual data entry",
+        "replace": "Key features - Face-ID timeclock punches to help reduce unauthorized clock-ins (Face ID only - no fingerprints) - Overtime alerts to help managers act before thresholds are reached - Real-time labor cost tracking against budget - Payroll export (confirm supported payroll providers with our team)"
+      },
+      {
+        "num": "3",
+        "find": "(add right after the features list)",
+        "replace": "Innrly Shift uses Face-ID timeclock punches to help reduce unauthorized clock-ins and support labor reporting. Employers are responsible for configuring lawful timekeeping practices and for giving required notices and obtaining each employee's consent on the tablet before biometric enrollment."
+      },
+      {
+        "num": "4",
+        "find": "5-15% reduction in labor costs",
+        "replace": "Clearer view of labor cost against budget"
+      },
+      {
+        "num": "5",
+        "find": "95% reduction in timesheet errors",
+        "replace": "Fewer manual timesheet corrections"
+      },
+      {
+        "num": "6",
+        "find": "Complete elimination of buddy punching",
+        "replace": "Helps reduce buddy punching"
+      },
+      {
+        "num": "7",
+        "find": "Hours saved weekly on payroll processing",
+        "replace": "Less time spent preparing payroll"
+      }
+    ]
+  },
+  {
+    "page_num": 9,
+    "slug": "labor-cost-blind-spots",
+    "header": "Page 9 of 21: /blog/labor-cost-blind-spots",
+    "why": "'Tamper-proof' and 'exact' are absolute; consent statement missing; labor % range unsourced.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 9 of 21: /blog/labor-cost-blind-spots",
+      "Live URL: https://www.innrly.com/blog/labor-cost-blind-spots",
+      "Why: 'Tamper-proof' and 'exact' are absolute; consent statement missing; labor % range unsourced.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Labor represents 25% to 40% of hotel operating revenue. Small inefficiencies in scheduling, overtime tracking, and timekeeping compound into massive profit leaks across multi-property portfolios.",
+        "replace": "Labor is one of the largest costs in hotel operations. Small inefficiencies in scheduling, overtime tracking and timekeeping can add up across a multi-property portfolio."
+      },
+      {
+        "num": "2",
+        "find": "Buddy Punching: Traditional badge cards and PIN codes allow staff to clock in for absent colleagues.",
+        "replace": "Buddy punching: badge cards and PIN codes can let staff clock in for absent colleagues."
+      },
+      {
+        "num": "3",
+        "find": "Innrly Shift combines tamper-proof biometric Face-ID timeclocks with live PMS occupancy integration to track exact Minutes Per Occupied Room (MPOR) and alert managers before overtime thresholds are breached.",
+        "replace": "Innrly Shift combines Face-ID timeclock punches (Face ID only - no fingerprints) with PMS occupancy data to calculate Minutes Per Occupied Room (MPOR) and alert managers as overtime thresholds approach. Employers give required notices and collect each employee's consent on the tablet before biometric enrollment."
+      }
+    ]
+  },
+  {
+    "page_num": 10,
+    "slug": "hotel-labor-cost-percentage",
+    "header": "Page 10 of 21: /blog/hotel-labor-cost-percentage",
+    "why": "Formula missing x100; unsourced benchmarks and savings; 'eliminates buddy-punching' is absolute.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update FAQPage JSON-LD with the 2 new answers. Remove 'real benchmarks', all segment % ranges and 'Typical savings' figures from description and schema. Change H2 'Industry benchmarks (US, 2025-2026)' as shown above."
+    ],
+    "paragraphs": [
+      "Page 10 of 21: /blog/hotel-labor-cost-percentage",
+      "Live URL: https://www.innrly.com/blog/hotel-labor-cost-percentage",
+      "Why: Formula missing x100; unsourced benchmarks and savings; 'eliminates buddy-punching' is absolute.",
+      "Also update: Update FAQPage JSON-LD with the 2 new answers. Remove 'real benchmarks', all segment % ranges and 'Typical savings' figures from description and schema. Change H2 'Industry benchmarks (US, 2025-2026)' as shown above."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Labor is the largest controllable cost in every hotel. For most multi-property operators it is 25%–40% of revenue, and it is the line that swings GOPPAR the most quarter to quarter. This guide gives you the right formula, real benchmarks by segment, and the seven levers that lower the number without crushing guest scores.",
+        "replace": "Labor is one of the largest controllable costs in a hotel, and it can swing GOPPAR from quarter to quarter. This guide covers the formula, how to choose your benchmark, and practical levers that can lower the number without hurting guest scores."
+      },
+      {
+        "num": "2",
+        "find": "Labor cost % = Total labor cost / Total revenue",
+        "replace": "Labor cost % = (Total labor cost / Total revenue) x 100"
+      },
+      {
+        "num": "3",
+        "find": "(add right after the formula)",
+        "replace": "Decide with your accountant which revenue you use (total vs rooms revenue, gross vs net) and whether labor is wages-only or fully loaded. Use the same definition every month and across every property."
+      },
+      {
+        "num": "4",
+        "find": "Most operators report the simpler version (wages + payroll taxes / rooms revenue) — that's fine for property-level operating reviews but understates true cost by 15%–25%.",
+        "replace": "Many operators report a simpler version (wages + payroll taxes / rooms revenue). That can be fine for property reviews, but it will read lower than a fully loaded figure. Label which version you use."
+      },
+      {
+        "num": "5",
+        "find": "Industry benchmarks (US, 2025–2026)",
+        "replace": "Setting your benchmark"
+      },
+      {
+        "num": "6",
+        "find": "The whole benchmark table by segment (22%-28%, 24%-30%, 28%-34%, 32%-38%, 36%-42%, 40%-48%, 35%-45%)",
+        "replace": "DELETE completely."
+      },
+      {
+        "num": "7",
+        "find": "(add where the table was)",
+        "replace": "Benchmarks vary by segment, market, service level and how labor is defined. Use your own history, your management company's targets or a paid benchmark report, and compare like for like."
+      },
+      {
+        "num": "8",
+        "find": "Benefits inflation. Health premiums rose 8%–12% in 2024–2025 and most operators didn't reprice schedules.",
+        "replace": "Benefits inflation. When health premiums rise, labor cost % rises even if schedules stay the same. Review schedules when benefits renew."
+      },
+      {
+        "num": "9",
+        "find": "Re-publish schedule 72 hours out using actual booked-on-the-books occupancy. Typical savings: 2–4% of labor cost.",
+        "replace": "Re-publish the schedule close to the date using on-the-books occupancy."
+      },
+      {
+        "num": "10",
+        "find": "Most scheduling systems can hard-cap OT before the schedule publishes. Typical savings: 1–3%.",
+        "replace": "Many scheduling systems can flag or cap overtime before the schedule is published."
+      },
+      {
+        "num": "11",
+        "find": "Bridges shoulder periods without adding heads. Typical savings: 1–2%.",
+        "replace": "Cross-training can bridge shoulder periods without adding headcount."
+      },
+      {
+        "num": "12",
+        "find": "Set MPOR targets per property and flag outliers weekly. See MPOR Explained. Typical savings on housekeeping line: 8–15%.",
+        "replace": "Set MPOR targets per property and flag outliers weekly. See MPOR Explained."
+      },
+      {
+        "num": "13",
+        "find": "Geofenced clock-in eliminates buddy-punching and early-clock-in drift. Typical savings: 0.5–1.5%.",
+        "replace": "Location checks and Face-ID punches can help reduce early clock-ins and buddy punching. A location check alone does not confirm who is punching."
+      },
+      {
+        "num": "14",
+        "find": "Re-shop carriers annually. Most hotels overpay 8%–15% by auto-renewing.",
+        "replace": "Re-shop benefit and workers' comp carriers regularly instead of auto-renewing."
+      },
+      {
+        "num": "15",
+        "find": "What is a good hotel labor cost percentage? Depends on segment: 22%–28% economy, 28%–34% upper midscale, 32%–38% upscale, 40%–48% luxury.",
+        "replace": "What is a good hotel labor cost percentage? It depends on segment, market, service level and how you define labor and revenue. Compare against your own history and like-for-like properties."
+      },
+      {
+        "num": "16",
+        "find": "Should I include benefits and payroll taxes? Yes for true cost. Wages-only understates by 15%–25%.",
+        "replace": "Should I include benefits and payroll taxes? For true cost, yes. Wages-only figures read lower. Label which version you report."
+      }
+    ]
+  },
+  {
+    "page_num": 11,
+    "slug": "mpor-explained",
+    "header": "Page 11 of 21: /blog/mpor-explained",
+    "why": "Unsourced benchmarks, 8-15% overpayment and 15% rule; denominator not defined.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update FAQPage JSON-LD with the 3 new answers. Remove '8%-15%', 'benchmarks' and segment minute ranges from description and schema."
+    ],
+    "paragraphs": [
+      "Page 11 of 21: /blog/mpor-explained",
+      "Live URL: https://www.innrly.com/blog/mpor-explained",
+      "Why: Unsourced benchmarks, 8-15% overpayment and 15% rule; denominator not defined.",
+      "Also update: Update FAQPage JSON-LD with the 3 new answers. Remove '8%-15%', 'benchmarks' and segment minute ranges from description and schema."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Most hotel operators track RevPAR, ADR, occupancy, GOPPAR, and labor cost percentage. Very few track MPOR — Minutes Per Occupied Room — and as a result, most multi-property portfolios overpay for housekeeping by 8%–15%.",
+        "replace": "Most hotel operators track RevPAR, ADR, occupancy, GOPPAR and labor cost percentage. Fewer track MPOR (Minutes Per Occupied Room), which can show where housekeeping time is going across a portfolio."
+      },
+      {
+        "num": "2",
+        "find": "This guide explains what MPOR is, the formula, the benchmarks, and how to track it across a portfolio.",
+        "replace": "This guide explains what MPOR is, the formula, how to set your own targets and how to track it across a portfolio."
+      },
+      {
+        "num": "3",
+        "find": "It is the cleanest productivity measure for the largest variable labor line in your hotel. Lower MPOR (within quality standards) = better labor productivity. Higher MPOR = either better service or operational waste — usually waste.",
+        "replace": "It is a useful productivity measure for one of the largest variable labor lines in a hotel. A higher MPOR can mean a higher service level or wasted time, so review it alongside quality scores."
+      },
+      {
+        "num": "4",
+        "find": "MPOR = Total housekeeping minutes worked / Number of occupied rooms",
+        "replace": "MPOR = Total housekeeping minutes worked / Number of occupied room-nights"
+      },
+      {
+        "num": "5",
+        "find": "(add right after the formula)",
+        "replace": "Choose your denominator and keep it consistent. Occupied room-nights and rooms actually cleaned are different numbers when stayovers are not serviced every day. Some operators track both."
+      },
+      {
+        "num": "6",
+        "find": "Example: - 8 housekeepers × 8 hours × 60 minutes = 3,840 minutes worked - 120 rooms occupied - MPOR = 3,840 / 120 = 32 minutes per occupied room",
+        "replace": "Hypothetical example: - 8 housekeepers x 8 hours x 60 minutes = 3,840 minutes worked - 120 occupied room-nights - MPOR = 3,840 / 120 = 32 minutes per occupied room-night"
+      },
+      {
+        "num": "7",
+        "find": "Industry benchmarks (US, 2025–2026)",
+        "replace": "Setting MPOR targets"
+      },
+      {
+        "num": "8",
+        "find": "The whole benchmark table (Segment / Brand examples / MPOR benchmark: Economy 18-22, Midscale 22-28, Upper midscale 26-32, Upscale 30-38, Upper upscale 36-45, Luxury 50-70)",
+        "replace": "DELETE completely."
+      },
+      {
+        "num": "9",
+        "find": "If your portfolio MPOR is more than 15% above the segment benchmark, you have a productivity problem.",
+        "replace": "Set targets from your own history, brand standards and room mix, then investigate properties that move well above their own target."
+      },
+      {
+        "num": "10",
+        "find": "Stayovers (5–10 min) are faster than checkouts (25–40 min). High-checkout days = higher MPOR.",
+        "replace": "Stayovers usually take less time than checkouts, so high-checkout days raise MPOR."
+      },
+      {
+        "num": "11",
+        "find": "Suites take 1.5–2x the time of standard rooms.",
+        "replace": "Suites and larger rooms take longer than standard rooms."
+      },
+      {
+        "num": "12",
+        "find": "Daily service vs every-other-day vs on-request changes MPOR by 20%+.",
+        "replace": "Service frequency (daily, every other day or on request) changes MPOR noticeably."
+      },
+      {
+        "num": "13",
+        "find": "Housekeepers idle between assignments is the silent killer. Bad scheduling adds 4–8 minutes per occupied room.",
+        "replace": "Idle time between assignments is a hidden driver. Poor scheduling adds minutes to every room."
+      },
+      {
+        "num": "14",
+        "find": "Flag properties >15% over benchmark",
+        "replace": "Flag properties that are well above their own target"
+      },
+      {
+        "num": "15",
+        "find": "Doing this manually across 10 properties = 8–12 hours / month. Doing it in software = 0 hours.",
+        "replace": "Doing this manually across many properties takes hours each month. Software can do the calculation automatically."
+      },
+      {
+        "num": "16",
+        "find": "What is MPOR? Minutes Per Occupied Room — the average housekeeping minutes spent cleaning each occupied room per day.",
+        "replace": "What is MPOR? Minutes Per Occupied Room: housekeeping minutes worked divided by occupied room-nights (or rooms cleaned, if that is the denominator you choose)."
+      },
+      {
+        "num": "17",
+        "find": "How is MPOR calculated? Total housekeeping minutes worked divided by occupied rooms.",
+        "replace": "How is MPOR calculated? Total housekeeping minutes worked divided by occupied room-nights. Use the same denominator every time."
+      },
+      {
+        "num": "18",
+        "find": "What is a good MPOR? Depends on segment: 18–22 min for economy, 22–28 for midscale, 26–32 for upper midscale, 30–38 for upscale, 50–70 for luxury.",
+        "replace": "What is a good MPOR? It depends on segment, room mix, service standards and stayover policy. Set targets from your own history and brand standards."
+      }
+    ]
+  },
+  {
+    "page_num": 12,
+    "slug": "backofhouse-robotics-solving-labor-shortages-with-ai-chefs-and-automated-housekeeping",
+    "header": "Page 12 of 21: /blog/backofhouse-robotics-solving-labor-shortages-with-ai-chefs-and-automated-housekeeping",
+    "why": "Wrong statistic (BLS 1.2m was not a 2025 hotel deficit); no Innrly robotics integration exists; '24/7 without breaks' is absolute.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 12 of 21: /blog/backofhouse-robotics-solving-labor-shortages-with-ai-chefs-and-automated-housekeeping",
+      "Live URL: https://www.innrly.com/blog/backofhouse-robotics-solving-labor-shortages-with-ai-chefs-and-automated-housekeeping",
+      "Why: Wrong statistic (BLS 1.2m was not a 2025 hotel deficit); no Innrly robotics integration exists; '24/7 without breaks' is absolute.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "The U.S. hospitality industry faces a projected 1.2 million job deficit by 2025. Labor shortages have put immense pressure on hotel operations, particularly in back-of-house functions.",
+        "replace": "Hotels continue to report staffing shortages. In an AHLA survey released in February 2025, 65% of responding hotels said they were experiencing staffing shortages."
+      },
+      {
+        "num": "2",
+        "find": "The U.S. hospitality industry faces a projected 1.2 million job deficit by 2025 (U.S. Bureau of Labor Statistics, 2023). Labor shortages have put immense pressure on hotel operations, particularly in back-of-house functions.",
+        "replace": "Hotels continue to report staffing shortages. In an American Hotel & Lodging Association survey released in February 2025, 65% of responding hotels said they were experiencing staffing shortages (source: https://www.ahla.com/news/65-surveyed-hotels-report-staffing-shortages). That pressure is felt most in back-of-house functions."
+      },
+      {
+        "num": "3",
+        "find": "Housekeeping Robots Modern housekeeping robots can: - Vacuum and mop floors autonomously - Deliver linens and supplies to floors - Dispose of trash and recycling - Work 24/7 without breaks",
+        "replace": "Housekeeping robots: some models can vacuum and mop floors, deliver linens and supplies, and move trash. They still need charging, maintenance, safety checks and staff supervision."
+      },
+      {
+        "num": "4",
+        "find": "Laundry Automation Automated laundry systems offer: - Sorting and washing without human intervention - Folding and stacking robots - Real-time inventory tracking - Significant labor cost reduction",
+        "replace": "Laundry automation: automated sorting, washing, folding and inventory tracking can reduce manual handling. Results depend on volume, layout and investment."
+      },
+      {
+        "num": "5",
+        "find": "Costs vs. Benefits - High upfront investment - Significant long-term savings - Improved consistency - 24/7 availability",
+        "replace": "Costs vs benefits: high upfront investment; possible long-term savings depending on use; more consistent output; extended operating hours, subject to charging and maintenance."
+      },
+      {
+        "num": "6",
+        "find": "Learn how INNRLY integrates with robotic systems to track and optimize automated operations.",
+        "replace": "Innrly does not integrate with robotics systems. Innrly Shift can help you track labor hours and MPOR so you can measure the effect of any operational change."
+      }
+    ]
+  },
+  {
+    "page_num": 13,
+    "slug": "ota-commission-audit",
+    "header": "Page 13 of 21: /blog/ota-commission-audit",
+    "why": "Universal 30-day deadline is not true for every channel; 'dozens of hours' unsupported.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 13 of 21: /blog/ota-commission-audit",
+      "Live URL: https://www.innrly.com/blog/ota-commission-audit",
+      "Why: Universal 30-day deadline is not true for every channel; 'dozens of hours' unsupported.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Submit Dispute Claims within 30 Days: File standardized variance reports with OTA partner portals before dispute windows close.",
+        "replace": "Submit dispute claims on time: file variance reports through each OTA's partner portal within the window set by your current agreement with that channel."
+      },
+      {
+        "num": "2",
+        "find": "Innrly automates this entire audit cycle, saving dozens of hours each month and directly protecting hotel operating margins.",
+        "replace": "Innrly helps automate this audit cycle so your team spends less time matching statements by hand. Commission rights and deadlines depend on each channel's agreement, rate and stay or cancellation facts."
+      }
+    ]
+  },
+  {
+    "page_num": 14,
+    "slug": "ota-reconciliation-guide",
+    "header": "Page 14 of 21: /blog/ota-reconciliation-guide",
+    "why": "Loss/recovery ranges, dispute-window rule and month-one margin recovery are unsupported.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update FAQPage JSON-LD with the 2 new answers. Remove '0.5%-2%', '$125,000 to $500,000', '$8,000-$40,000' and '0.4-1.5%' from description and schema."
+    ],
+    "paragraphs": [
+      "Page 14 of 21: /blog/ota-reconciliation-guide",
+      "Live URL: https://www.innrly.com/blog/ota-reconciliation-guide",
+      "Why: Loss/recovery ranges, dispute-window rule and month-one margin recovery are unsupported.",
+      "Also update: Update FAQPage JSON-LD with the 2 new answers. Remove '0.5%-2%', '$125,000 to $500,000', '$8,000-$40,000' and '0.4-1.5%' from description and schema."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Most multi-property hotels lose 0.5%–2% of OTA revenue every month to reconciliation variances they never catch. Across a 10-property portfolio doing $25M in OTA revenue, that is $125,000 to $500,000 a year, gone — usually because the dispute window closes before anyone notices.",
+        "replace": "Many multi-property hotels carry OTA reconciliation variances they never review. Some are real errors, some are timing differences. Without a regular process, issues can be found too late to act on."
+      },
+      {
+        "num": "2",
+        "find": "Sounds simple. In practice, with three channels × 30 days × 10 properties, you are reconciling 900+ transactions a month. Most operators do this in Excel, manually, weeks after close.",
+        "replace": "It sounds simple. In practice, with several channels, many properties and a month of stays, you are reconciling a large number of transactions, often in spreadsheets weeks after close."
+      },
+      {
+        "num": "3",
+        "find": "For 1–2 properties, a controller can do this in a half-day a month with Excel. For 5+ properties:",
+        "replace": "For one or two properties, a controller may manage this in spreadsheets. For 5+ properties:"
+      },
+      {
+        "num": "4",
+        "find": "Dispute windows close in 30–60 days",
+        "replace": "Dispute windows are set by each channel's agreement, so late reviews can mean lost chances to correct errors"
+      },
+      {
+        "num": "5",
+        "find": "Innrly's reconciliation module does exactly this. On a typical 10-property portfolio, it surfaces $8,000–$40,000 a month in variances that the operator was previously eating.",
+        "replace": "Innrly's reconciliation module is built to do this matching and flag variances for review. A flag is a reason to review, not proof of an overcharge."
+      },
+      {
+        "num": "6",
+        "find": "Historical reconciliation — can backfill the last 6–12 months on day one",
+        "replace": "Historical reconciliation: review past periods to find items that may still be within each channel's window"
+      },
+      {
+        "num": "7",
+        "find": "Innrly's reconciliation module ingests OTA statements automatically, pulls PMS data via direct integrations to Choice, Wyndham, Hilton, IHG, and others, and matches against bank deposits the night the ACH hits. Variances are categorized, dollar-weighted, and ready for dispute. Most operators see 0.4–1.5% margin recovery in month one.",
+        "replace": "Innrly's reconciliation module ingests OTA statements, pulls PMS data where a connection is available, and matches against bank deposits. Variances are categorized and dollar-weighted so your team can decide what to dispute."
+      },
+      {
+        "num": "8",
+        "find": "How much does manual reconciliation cost us? For a 10-property operator: roughly 40 hours per month of analyst time, plus 0.5%–2% of OTA revenue in missed disputes.",
+        "replace": "How much does manual reconciliation cost us? Measure the hours your team spends today and the value of variances found. That gives you your own baseline."
+      },
+      {
+        "num": "9",
+        "find": "Can we backfill historical reconciliation? Yes. Innrly can reconcile the trailing 6–12 months on day one to recover unfiled disputes still inside the window.",
+        "replace": "Can we review historical periods? Yes. Innrly can help review past periods; whether you can still dispute an item depends on each channel's agreement."
+      }
+    ]
+  },
+  {
+    "page_num": 15,
+    "slug": "hotel-ota-commission-reconciliation",
+    "header": "Page 15 of 21: /blog/hotel-ota-commission-reconciliation",
+    "why": "Title and body present unverified loss figures and a universal dispute window as fact.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update title, description and social preview text to the new H1. Remove '0.5%-2%' and '$375,000' everywhere, including schema."
+    ],
+    "paragraphs": [
+      "Page 15 of 21: /blog/hotel-ota-commission-reconciliation",
+      "Live URL: https://www.innrly.com/blog/hotel-ota-commission-reconciliation",
+      "Why: Title and body present unverified loss figures and a universal dispute window as fact.",
+      "Also update: Update title, description and social preview text to the new H1. Remove '0.5%-2%' and '$375,000' everywhere, including schema."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Hotel OTA Commission Reconciliation: Stop Losing 0.5%–2% of Revenue",
+        "replace": "Hotel OTA Commission Reconciliation: How to Find and Review Variances"
+      },
+      {
+        "num": "2",
+        "find": "For multi-property hotel operators, Online Travel Agencies (Expedia, Booking.com, Agoda) account for 20% to 45% of total bookings. Yet, most operators lose between 0.5% and 2% of top-line OTA revenue every month due to undetected reconciliation errors.",
+        "replace": "For multi-property hotel operators, online travel agencies such as Expedia, Booking.com and Agoda can be a large share of bookings. Without regular reconciliation, commission and payment errors can go unnoticed."
+      },
+      {
+        "num": "3",
+        "find": "Across a 10-property portfolio generating $25M in annual OTA bookings, a 1.5% variance rate equals $375,000 in lost revenue each year . Why does this leak occur?",
+        "replace": "Even a small variance rate adds up across a portfolio. Why do variances happen?"
+      },
+      {
+        "num": "4",
+        "find": "Rate & Commission Percentage Discrepancies: Invoicing at standard 18% commission rates when special promotion or package rates contracted for 15%.",
+        "replace": "Rate and commission discrepancies: for example, a statement applies a standard commission rate when a promotion or package was contracted at a different rate."
+      },
+      {
+        "num": "5",
+        "find": "Short Dispute Windows: Major OTAs restrict dispute submissions to 30–60 days from invoice issuance. Manual teams rarely finish auditing before the deadline expires.",
+        "replace": "Dispute windows: each OTA sets its own dispute window in its agreement. If reviews happen late, the window may pass."
+      },
+      {
+        "num": "6",
+        "find": "To eliminate OTA variance, operators must execute 3-way matching on every individual reservation:",
+        "replace": "To find OTA variances, operators match each reservation across three sources:"
+      }
+    ]
+  },
+  {
+    "page_num": 16,
+    "slug": "hotels-losing-thousands-clc-mistakes",
+    "header": "Page 16 of 21: /blog/hotels-losing-thousands-clc-mistakes",
+    "why": "'Real results' numbers with no customer evidence.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 16 of 21: /blog/hotels-losing-thousands-clc-mistakes",
+      "Live URL: https://www.innrly.com/blog/hotels-losing-thousands-clc-mistakes",
+      "Why: 'Real results' numbers with no customer evidence.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Reduces manual data entry by 90%",
+        "replace": "Reduces manual data entry"
+      },
+      {
+        "num": "2",
+        "find": "Real Results",
+        "replace": "What to expect"
+      },
+      {
+        "num": "3",
+        "find": "40% reduction in billing disputes",
+        "replace": "Fewer billing disputes caught late"
+      },
+      {
+        "num": "4",
+        "find": "15% increase in collected commissions",
+        "replace": "Better visibility into commissions owed and collected"
+      },
+      {
+        "num": "5",
+        "find": "180+ hours saved monthly on reconciliation",
+        "replace": "Less time spent on monthly reconciliation"
+      },
+      {
+        "num": "6",
+        "find": "(add after the list)",
+        "replace": "Results vary by property and process. We recommend a measured pilot on your own data."
+      }
+    ]
+  },
+  {
+    "page_num": 17,
+    "slug": "ditching-excel-budgeting-software",
+    "header": "Page 17 of 21: /blog/ditching-excel-budgeting-software",
+    "why": "'88% of spreadsheets' study is uncited; 70%/90% results unsupported.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 17 of 21: /blog/ditching-excel-budgeting-software",
+      "Live URL: https://www.innrly.com/blog/ditching-excel-budgeting-software",
+      "Why: '88% of spreadsheets' study is uncited; 70%/90% results unsupported.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Formula Errors - Studies show 88% of spreadsheets contain errors - One wrong formula can cascade through your entire budget - Errors often go undetected until it's too late",
+        "replace": "Formula errors - Spreadsheet errors are common and easy to miss - One wrong formula can cascade through your entire budget - Errors often go undetected until it's too late"
+      },
+      {
+        "num": "2",
+        "find": "70% faster budget creation",
+        "replace": "Faster budget creation"
+      },
+      {
+        "num": "3",
+        "find": "90% reduction in errors",
+        "replace": "Fewer manual errors"
+      }
+    ]
+  },
+  {
+    "page_num": 18,
+    "slug": "select-service-back-office-savings",
+    "header": "Page 18 of 21: /blog/select-service-back-office-savings",
+    "why": "Title and body promise specific hour savings with no evidence.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update title, description, social preview text and schema to the new H1. Remove '40-180 Hours'."
+    ],
+    "paragraphs": [
+      "Page 18 of 21: /blog/select-service-back-office-savings",
+      "Live URL: https://www.innrly.com/blog/select-service-back-office-savings",
+      "Why: Title and body promise specific hour savings with no evidence.",
+      "Also update: Update title, description, social preview text and schema to the new H1. Remove '40-180 Hours'."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Select-Service Hotel Back-Office Savings: How to Cut 40–180 Hours Per Month",
+        "replace": "Select-Service Hotel Back-Office Savings: Where the Hours Go"
+      },
+      {
+        "num": "2",
+        "find": "A/P Invoice Processing: Auto-coding and routing 200–400 vendor invoices per property saves 15–25 hours per month.",
+        "replace": "A/P invoice processing: auto-coding and routing vendor invoices can cut hours of manual keying each month."
+      },
+      {
+        "num": "3",
+        "find": "Daily Night Audit Reporting: Eliminating manual spreadsheet data entry saves 20–30 hours per month.",
+        "replace": "Daily night audit reporting: removing manual spreadsheet entry gives time back every night."
+      },
+      {
+        "num": "4",
+        "find": "OTA Commission Auditing: Automated 3-way matching recovers 10–15 hours of manual audit time and thousands in lost commissions.",
+        "replace": "OTA commission auditing: automated 3-way matching reduces manual audit time and flags commission variances for review."
+      },
+      {
+        "num": "5",
+        "find": "(add after the list)",
+        "replace": "Your results depend on volume and current process. Measure today's hours and compare after a pilot."
+      }
+    ]
+  },
+  {
+    "page_num": 19,
+    "slug": "hospitality-accounting-services-vs-software",
+    "header": "Page 19 of 21: /blog/hospitality-accounting-services-vs-software",
+    "why": "Unsourced competitor service prices and close-time claim; not like-for-like.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 19 of 21: /blog/hospitality-accounting-services-vs-software",
+      "Live URL: https://www.innrly.com/blog/hospitality-accounting-services-vs-software",
+      "Why: Unsourced competitor service prices and close-time claim; not like-for-like.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Cost: Outsourced services typically charge $800 to $1,500 per property per month. Automation software costs $199 per property per month.",
+        "replace": "Cost: outsourced accounting services and automation software cover different scopes. Ask each provider for a written quote for the same scope of work. See current Innrly pricing at /pricing."
+      },
+      {
+        "num": "2",
+        "find": "Turnaround Time: Agencies close books 15–20 days after month-end. Automated software provides real-time daily financials.",
+        "replace": "Turnaround time: close timing depends on the provider, your data and your process. Automation software can give you daily visibility into financials between closes."
+      }
+    ]
+  },
+  {
+    "page_num": 20,
+    "slug": "regenerative-tourism-sustainability",
+    "header": "Page 20 of 21: /blog/regenerative-tourism-sustainability",
+    "why": "Implies Innrly has sustainability/carbon reporting; duplicate step 6.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "paragraphs": [
+      "Page 20 of 21: /blog/regenerative-tourism-sustainability",
+      "Live URL: https://www.innrly.com/blog/regenerative-tourism-sustainability",
+      "Why: Implies Innrly has sustainability/carbon reporting; duplicate step 6.",
+      "Also update: Check the title, meta description, social preview text and any FAQ schema. If any of the FIND text above appears there, replace it the same way."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "Steps to begin your regenerative journey: 1. Assess your current environmental impact 2. Identify local restoration opportunities 3. Partner with environmental organizations 4. Engage guests and staff in the mission 5. Measure and communicate progress 6. Measure and communicate progress",
+        "replace": "Steps to begin your regenerative journey: 1. Assess your current environmental impact 2. Identify local restoration opportunities 3. Partner with environmental organizations 4. Engage guests and staff in the mission 5. Measure and communicate progress"
+      },
+      {
+        "num": "2",
+        "find": "INNRLY helps hotels track and report on their sustainability and regenerative initiatives.",
+        "replace": "This article is industry commentary. Innrly does not offer sustainability, carbon, water or biodiversity reporting."
+      }
+    ]
+  },
+  {
+    "page_num": 21,
+    "slug": "us-hospitality-2025",
+    "header": "Page 21 of 21: /blog/us-hospitality-2025",
+    "why": "Written as if 2025 is upcoming; it is now 2026.",
+    "page_title": null,
+    "meta_description": null,
+    "also_update": [
+      "Update page title and social preview text to the new H1. Keep the same URL."
+    ],
+    "paragraphs": [
+      "Page 21 of 21: /blog/us-hospitality-2025",
+      "Live URL: https://www.innrly.com/blog/us-hospitality-2025",
+      "Why: Written as if 2025 is upcoming; it is now 2026.",
+      "Also update: Update page title and social preview text to the new H1. Keep the same URL.",
+      "Also do (no new copy needed)",
+      "Publication dates: 11 posts all show 'August 20, 2026'. Ask the founder for the real dates, then set them. On every page edited from this document, show 'Updated: [today's date]'.",
+      "Short posts: /blog/best-hotel-accounting-software, /blog/hospitality-accounting-services-vs-software and /blog/quickbooks-for-hotels-limits have very little text. Check whether the body got cut off when published. If it did, restore the full text and send it to the founder for review before republishing.",
+      "/blog index: update the card titles and descriptions for every page whose title changed above.",
+      "Sitemap: no URL changes, so nothing to add or remove.",
+      "After publishing: in Google Search Console, use URL Inspection > Request Indexing for each edited URL (founder can do this).",
+      "Final checklist (tick when live)",
+      "If something on the live page doesn't match the FIND text exactly (for example, it was already edited), stop and send a screenshot to the founder instead of guessing."
+    ],
+    "rows": [
+      {
+        "num": "1",
+        "find": "(add at the very top, above the H1)",
+        "replace": "Editor's note: This article was written as a 2025 outlook and is kept for reference. Some trends and figures may have changed."
+      },
+      {
+        "num": "2",
+        "find": "Where is US Hospitality headed in 2025?",
+        "replace": "Where US Hospitality Was Headed in 2025 (Outlook Archive)"
+      },
+      {
+        "num": "3",
+        "find": "INNRLY provides the platform to execute on these strategic priorities across your portfolio.",
+        "replace": "Innrly helps multi-property operators with back-office priorities such as cost management and portfolio reporting."
+      }
+    ]
+  }
+]
