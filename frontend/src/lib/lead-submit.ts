@@ -34,23 +34,68 @@ export type LeadPayload = Record<string, unknown> & {
 
 const RECAPTCHA_SITE_KEY = "6LcVJrkkAAAAABsSLGi1FDOjAtIyby9UNsBQPUCd";
 
+let recaptchaLoadPromise: Promise<boolean> | null = null;
+
+/**
+ * Lazy loads Google reCAPTCHA v3 on-demand so it doesn't block initial page load
+ * on non-form routes across the marketing site.
+ */
+export function loadRecaptcha(): Promise<boolean> {
+  if (typeof window === "undefined") return Promise.resolve(false);
+  const win = window as unknown as { grecaptcha?: { execute?: unknown } };
+  if (win.grecaptcha && typeof win.grecaptcha.execute === "function") {
+    return Promise.resolve(true);
+  }
+  if (recaptchaLoadPromise) return recaptchaLoadPromise;
+
+  recaptchaLoadPromise = new Promise((resolve) => {
+    const existing = document.querySelector('script[src*="recaptcha/api.js"]');
+    if (existing) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}&ver=3.0`;
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.head.appendChild(script);
+  });
+
+  return recaptchaLoadPromise;
+}
+
 export async function getRecaptchaToken(action: string = "lead_submit"): Promise<string | null> {
   if (typeof window === "undefined") return null;
-  const grecaptcha = (window as unknown as { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } }).grecaptcha;
-  if (!grecaptcha || typeof grecaptcha.execute !== "function") return null;
 
-  return new Promise((resolve) => {
-    try {
-      grecaptcha.ready(() => {
-        grecaptcha
-          .execute(RECAPTCHA_SITE_KEY, { action })
-          .then((token) => resolve(token))
-          .catch(() => resolve(null));
-      });
-    } catch {
-      resolve(null);
-    }
-  });
+  try {
+    const loaded = await loadRecaptcha();
+    if (!loaded) return null;
+
+    const win = window as unknown as {
+      grecaptcha?: {
+        ready: (cb: () => void) => void;
+        execute: (key: string, opts: { action: string }) => Promise<string>;
+      };
+    };
+    const grecaptcha = win.grecaptcha;
+    if (!grecaptcha || typeof grecaptcha.execute !== "function") return null;
+
+    return new Promise((resolve) => {
+      try {
+        grecaptcha.ready(() => {
+          grecaptcha
+            .execute(RECAPTCHA_SITE_KEY, { action })
+            .then((token) => resolve(token))
+            .catch(() => resolve(null));
+        });
+      } catch {
+        resolve(null);
+      }
+    });
+  } catch {
+    return null;
+  }
 }
 
 export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; error?: string; message?: string; data?: unknown }> {

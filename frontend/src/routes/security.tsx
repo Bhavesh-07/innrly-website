@@ -69,6 +69,14 @@ const faqs = [
     a: "Guest PII stays within the PMS unless explicitly required. Innrly minimizes the PII surface and never sells or shares your data with third parties.",
   },
   {
+    q: "How does Innrly protect biometric Face-ID timeclock data?",
+    a: "Innrly never stores raw employee facial photos or images on the device or server. Instead, our on-device algorithm generates an encrypted mathematical vector hash that cannot be reverse-engineered into an image, complying with strict state biometric privacy regulations (including BIPA).",
+  },
+  {
+    q: "What is your document retention and backup schedule?",
+    a: "Night-audit packs, OCR invoices, and GL reconciliation logs are stored with AES-256 encryption. We maintain automated daily geo-redundant backups with a 99.9% uptime SLA and customizable data retention periods to match your audit requirements.",
+  },
+  {
     q: "Can I get a custom DPA or BAA?",
     a: "Yes. We sign standard data processing agreements and accommodate enterprise legal review on request.",
   },
@@ -148,7 +156,81 @@ function Page() {
         </div>
       </Section>
 
-      <Section className="py-12">
+      <Section className="py-12 border-t border-border/40">
+        <SectionHeading
+          eyebrow="Data Architecture"
+          title="Tenant isolation & cryptographic controls."
+        />
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="aurora-card rounded-2xl p-6">
+            <h3 className="text-base font-semibold text-foreground">Logical & Cryptographic Tenant Isolation</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Every hotel management company and property operates in isolated data partitions. Cross-tenant access is structurally barred at the database query layer through row-level security and strict tenant context verification on every API request.
+            </p>
+          </div>
+          <div className="aurora-card rounded-2xl p-6">
+            <h3 className="text-base font-semibold text-foreground">Zero-Trust Network & Secret Management</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              All internal services communicate over encrypted mTLS networks. Database credentials, API tokens for PMS connections, and sensitive encryption keys are rotated automatically and managed in dedicated hardware security modules (HSM).
+            </p>
+          </div>
+          <div className="aurora-card rounded-2xl p-6">
+            <h3 className="text-base font-semibold text-foreground">Continuous Vulnerability Scanning & Pen-Testing</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Innrly codebases undergo automated static analysis (SAST), software composition analysis (SCA) for dependencies, and dynamic vulnerability assessment. Third-party independent penetration tests are conducted annually.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <Section className="py-12 border-t border-border/40">
+        <SectionHeading
+          eyebrow="Governance"
+          title="Compliance alignment & trusted infrastructure."
+        />
+        <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-border bg-muted/30 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <tr>
+                  <th className="px-6 py-4">Domain / Provider</th>
+                  <th className="px-6 py-4">Purpose</th>
+                  <th className="px-6 py-4">Security Certification</th>
+                  <th className="px-6 py-4">Data Residency</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border text-foreground">
+                <tr>
+                  <td className="px-6 py-4 font-medium">Cloud Infrastructure (AWS / Azure)</td>
+                  <td className="px-6 py-4 text-muted-foreground">Application hosting, distributed database, and object storage</td>
+                  <td className="px-6 py-4 text-muted-foreground">SOC 1, SOC 2 Type II, ISO 27001, FedRAMP</td>
+                  <td className="px-6 py-4 text-muted-foreground">United States (Multi-Region)</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-medium">OCR & Document Processing</td>
+                  <td className="px-6 py-4 text-muted-foreground">Automated invoice and night audit document parsing</td>
+                  <td className="px-6 py-4 text-muted-foreground">SOC 2 Type II, HIPAA, ISO 27001</td>
+                  <td className="px-6 py-4 text-muted-foreground">United States (Zero Retention)</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-medium">Transactional Email & Notifications</td>
+                  <td className="px-6 py-4 text-muted-foreground">System alerts, audit summaries, and MFA verification</td>
+                  <td className="px-6 py-4 text-muted-foreground">SOC 2 Type II, GDPR, CCPA Compliant</td>
+                  <td className="px-6 py-4 text-muted-foreground">United States</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-medium">Telemetry & Error Monitoring</td>
+                  <td className="px-6 py-4 text-muted-foreground">Real-time application performance and error diagnostics</td>
+                  <td className="px-6 py-4 text-muted-foreground">SOC 2 Type II, ISO 27001</td>
+                  <td className="px-6 py-4 text-muted-foreground">United States (PII Scrubbed)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Section>
+
+      <Section className="py-12 border-t border-border/40">
         <SectionHeading eyebrow="FAQ" title="What security teams ask us." />
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {faqs.map((f) => (

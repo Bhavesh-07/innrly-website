@@ -122,6 +122,13 @@ const coreSuites: {
   tag?: string;
 }[] = [
   {
+    variant: "reconciliation",
+    displayVariant: "control",
+    name: "Reconciliation",
+    to: "/solutions/reconciliation",
+    body: "PMS, bank, credit card, and OTA reconciliation — matched daily with automated exception handling.",
+  },
+  {
     variant: "intelligence",
     displayVariant: "intelligence",
     name: "Business Intelligence",
@@ -140,7 +147,7 @@ const coreSuites: {
     displayVariant: "shift",
     name: "Innrly Shift",
     to: "/solutions/innrly-shift",
-    body: "Scheduling, Face-ID TimeClock, housekeeping productivity, and payroll — one mobile-first product for GMs.",
+    body: "Scheduling, Face-ID TimeClock, housekeeping productivity (MPOR), and real-time labor snapshots.",
   },
   {
     variant: "ops",
@@ -156,14 +163,6 @@ const coreSuites: {
     to: "/solutions/innrly-pay",
     body: "Replace paper checks with Virtual Cards & ACH. Faster settlement, fraud protection built in.",
     tag: "Included free",
-  },
-  {
-    variant: "labor",
-    displayVariant: "shift",
-    name: "Labor & Workforce",
-    to: "/solutions/labor-workforce",
-    body: "5-minute labor snapshots that surface hidden overtime before it hits payroll.",
-    tag: "New",
   },
 ];
 

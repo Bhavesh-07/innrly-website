@@ -14,90 +14,67 @@ export const Route = createFileRoute("/sitemap.xml")({
         const base = (process.env.SITE_URL || "https://innrly.com").replace(/\/+$/, "");
         const legalDate = "2026-06-06";
 
-        // Default static entries
+        // Default static marketing entries (blogs are dynamically loaded from DB)
         const defaultEntries: SitemapEntry[] = [
           // Core Marketing Pages
-          { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/features", changefreq: "monthly", priority: "0.9" },
-          { path: "/pricing", changefreq: "monthly", priority: "0.9" },
-          { path: "/contact", changefreq: "monthly", priority: "0.9" },
-          { path: "/onboarding", changefreq: "monthly", priority: "0.9" },
-          { path: "/about", changefreq: "monthly", priority: "0.7" },
-          { path: "/security", changefreq: "monthly", priority: "0.7" },
-          { path: "/developers", changefreq: "monthly", priority: "0.6" },
-          { path: "/roi-calculator", changefreq: "monthly", priority: "0.8" },
-          { path: "/case-studies", changefreq: "monthly", priority: "0.8" },
-          { path: "/blog", changefreq: "weekly", priority: "0.8" },
-          { path: "/blog/innrly-joins-m3-partner-ecosystem-hotel-accounting-automation", changefreq: "monthly", priority: "0.9", lastmod: "2026-09-30" },
-          { path: "/blog/best-hotel-accounting-software", changefreq: "monthly", priority: "0.9", lastmod: "2026-06-06" },
-          { path: "/blog/hotel-back-office-automation", changefreq: "monthly", priority: "0.85", lastmod: "2026-05-25" },
-          { path: "/blog/night-audit-automation", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-24" },
-          { path: "/blog/multi-property-accounting-software", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-23" },
-          { path: "/blog/ap-automation-hotels", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-22" },
-          { path: "/blog/hotel-labor-cost-percentage", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-21" },
-          { path: "/blog/innrly-vs-inn-flow", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-20" },
-          { path: "/blog/hotel-budgeting-software-2026", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-19" },
-          { path: "/blog/ota-reconciliation-guide", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-18" },
-          { path: "/blog/select-service-back-office-savings", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-17" },
-          { path: "/blog/mpor-explained", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-15" },
-          { path: "/blog/hotel-night-audit-software-guide", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-14" },
-          { path: "/blog/five-back-office-wins", changefreq: "yearly", priority: "0.6", lastmod: "2026-05-12" },
-          { path: "/blog/quickbooks-for-hotels-limits", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-11" },
-          { path: "/blog/hospitality-accounting-services-vs-software", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-09" },
-          { path: "/blog/multi-property-hotel-accounting-software", changefreq: "monthly", priority: "0.8", lastmod: "2026-05-08" },
-          { path: "/blog/labor-cost-blind-spots", changefreq: "yearly", priority: "0.6", lastmod: "2026-04-28" },
-          { path: "/blog/ota-commission-audit", changefreq: "yearly", priority: "0.6", lastmod: "2026-04-04" },
-          { path: "/blog/pms-vs-back-office-automation", changefreq: "monthly", priority: "0.85", lastmod: "2026-05-26" },
-          { path: "/blog/hotel-night-audit-checklist", changefreq: "monthly", priority: "0.85", lastmod: "2026-05-28" },
-          { path: "/blog/hotel-ota-commission-reconciliation", changefreq: "monthly", priority: "0.85", lastmod: "2026-05-27" },
+          { path: "/", changefreq: "weekly", priority: "1.0", lastmod: legalDate },
+          { path: "/features", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
+          { path: "/pricing", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
+          { path: "/contact", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
+          { path: "/onboarding", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
+          { path: "/about", changefreq: "monthly", priority: "0.7", lastmod: legalDate },
+          { path: "/security", changefreq: "monthly", priority: "0.7", lastmod: legalDate },
+          { path: "/developers", changefreq: "monthly", priority: "0.6", lastmod: legalDate },
+          { path: "/roi-calculator", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/case-studies", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/blog", changefreq: "weekly", priority: "0.8", lastmod: legalDate },
 
           // Comparison Pages
-          { path: "/compare", changefreq: "monthly", priority: "0.7" },
-          { path: "/compare/innrly-vs-otelier", changefreq: "monthly", priority: "0.8" },
-          { path: "/compare/innrly-vs-nimble", changefreq: "monthly", priority: "0.8" },
-          { path: "/compare/innrly-vs-aptech", changefreq: "monthly", priority: "0.8" },
-          { path: "/compare/innrly-vs-profitsage", changefreq: "monthly", priority: "0.8" },
-          { path: "/compare/innrly-vs-actabl", changefreq: "monthly", priority: "0.8" },
-          { path: "/compare/innrly-vs-hotel-effectiveness", changefreq: "monthly", priority: "0.8" },
+          { path: "/compare", changefreq: "monthly", priority: "0.7", lastmod: legalDate },
+          { path: "/compare/innrly-vs-otelier", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/compare/innrly-vs-nimble", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/compare/innrly-vs-aptech", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/compare/innrly-vs-profitsage", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/compare/innrly-vs-actabl", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/compare/innrly-vs-hotel-effectiveness", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
 
           // Solutions
-          { path: "/solutions/document-vault", changefreq: "monthly", priority: "0.8" },
-          { path: "/solutions/expense-entries", changefreq: "monthly", priority: "0.8" },
-          { path: "/solutions/business-intelligence", changefreq: "monthly", priority: "0.85" },
-          { path: "/solutions/financial-control", changefreq: "monthly", priority: "0.85" },
-          { path: "/solutions/operations-automation", changefreq: "monthly", priority: "0.85" },
-          { path: "/solutions/innrly-pay", changefreq: "monthly", priority: "0.85" },
-          { path: "/solutions/innrly-shift", changefreq: "monthly", priority: "0.85" },
-          { path: "/solutions/reconciliation", changefreq: "monthly", priority: "0.9" },
-          { path: "/solutions/labor-workforce", changefreq: "monthly", priority: "0.85" },
+          { path: "/solutions/document-vault", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/solutions/expense-entries", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/solutions/business-intelligence", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
+          { path: "/solutions/financial-control", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
+          { path: "/solutions/operations-automation", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
+          { path: "/solutions/innrly-pay", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
+          { path: "/solutions/innrly-shift", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
+          { path: "/solutions/reconciliation", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
 
           // Services
-          { path: "/services/accountability-pack", changefreq: "monthly", priority: "0.8" },
+          { path: "/services/accountability-pack", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
 
           // Integrations
-          { path: "/integrations", changefreq: "monthly", priority: "0.85" },
-          { path: "/integrations/m3", changefreq: "monthly", priority: "0.9" },
-          { path: "/integrations/quickbooks", changefreq: "monthly", priority: "0.9" },
-          { path: "/integrations/sage-intacct", changefreq: "monthly", priority: "0.8" },
-          { path: "/integrations/inn-flow", changefreq: "monthly", priority: "0.9" },
-          { path: "/integrations/opera", changefreq: "monthly", priority: "0.85" },
-          { path: "/integrations/cloudbeds", changefreq: "monthly", priority: "0.8" },
-          { path: "/integrations/mews", changefreq: "monthly", priority: "0.8" },
+          { path: "/integrations", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
+          { path: "/integrations/m3", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
+          { path: "/integrations/quickbooks", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
+          { path: "/integrations/sage-intacct", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/integrations/inn-flow", changefreq: "monthly", priority: "0.9", lastmod: legalDate },
+          { path: "/integrations/opera", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
+          { path: "/integrations/cloudbeds", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/integrations/mews", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
 
           // Industries
-          { path: "/industries/select-service", changefreq: "monthly", priority: "0.8" },
-          { path: "/industries/full-service", changefreq: "monthly", priority: "0.8" },
-          { path: "/industries/extended-stay", changefreq: "monthly", priority: "0.8" },
+          { path: "/industries/select-service", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/industries/full-service", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/industries/extended-stay", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
 
           // Case Studies
-          { path: "/case-studies/midwest-portfolio", changefreq: "yearly", priority: "0.75" },
-          { path: "/case-studies/urban-full-service", changefreq: "yearly", priority: "0.75" },
-          { path: "/case-studies/hilton-management-company", changefreq: "yearly", priority: "0.75" },
-          { path: "/case-studies/extended-stay-portfolio", changefreq: "yearly", priority: "0.75" },
-          { path: "/case-studies/boutique-group", changefreq: "yearly", priority: "0.75" },
+          { path: "/case-studies/midwest-portfolio", changefreq: "yearly", priority: "0.75", lastmod: legalDate },
+          { path: "/case-studies/urban-full-service", changefreq: "yearly", priority: "0.75", lastmod: legalDate },
+          { path: "/case-studies/hilton-management-company", changefreq: "yearly", priority: "0.75", lastmod: legalDate },
+          { path: "/case-studies/extended-stay-portfolio", changefreq: "yearly", priority: "0.75", lastmod: legalDate },
+          { path: "/case-studies/boutique-group", changefreq: "yearly", priority: "0.75", lastmod: legalDate },
 
           // Glossary
-          { path: "/glossary", changefreq: "monthly", priority: "0.7" },
+          { path: "/glossary", changefreq: "monthly", priority: "0.7", lastmod: legalDate },
 
           // Legal
           { path: "/legal/privacy", changefreq: "yearly", priority: "0.3", lastmod: legalDate },
@@ -108,7 +85,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/legal/accessibility", changefreq: "yearly", priority: "0.3", lastmod: legalDate },
         ];
 
-        let finalEntries: SitemapEntry[] = [];
+        const entryMap = new Map<string, SitemapEntry>();
 
         try {
           const backendUrl = process.env.BACKEND_URL || "http://127.0.0.1:8005";
@@ -126,11 +103,11 @@ export const Route = createFileRoute("/sitemap.xml")({
                 return; // Excluded by admin
               }
 
-              finalEntries.push({
+              entryMap.set(entry.path, {
                 path: entry.path,
                 changefreq: (dbRow && dbRow.changefreq) || entry.changefreq,
                 priority: (dbRow && dbRow.priority) || entry.priority,
-                lastmod: entry.lastmod
+                lastmod: entry.lastmod || legalDate
               });
             });
 
@@ -139,20 +116,27 @@ export const Route = createFileRoute("/sitemap.xml")({
               if (b.in_sitemap === 0 || b.in_sitemap === false) {
                 return; // Excluded by admin
               }
-              const lastmod = b.updated_at ? String(b.updated_at).slice(0, 10) : (b.created_at ? String(b.created_at).slice(0, 10) : undefined);
-              finalEntries.push({
-                path: `/blog/${b.slug}`,
+              const lastmod = b.updated_at ? String(b.updated_at).slice(0, 10) : (b.created_at ? String(b.created_at).slice(0, 10) : legalDate);
+              const blogPath = `/blog/${b.slug}`;
+              entryMap.set(blogPath, {
+                path: blogPath,
                 changefreq: "monthly",
                 priority: "0.8",
                 lastmod
               });
             });
           } else {
-            finalEntries = defaultEntries;
+            defaultEntries.forEach((entry) => {
+              entryMap.set(entry.path, { ...entry, lastmod: entry.lastmod || legalDate });
+            });
           }
         } catch (e) {
-          finalEntries = defaultEntries;
+          defaultEntries.forEach((entry) => {
+            entryMap.set(entry.path, { ...entry, lastmod: entry.lastmod || legalDate });
+          });
         }
+
+        const finalEntries = Array.from(entryMap.values());
 
         const urls = finalEntries.map((e) =>
           [

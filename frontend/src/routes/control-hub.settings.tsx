@@ -42,7 +42,7 @@ function ControlHubSettings() {
   const [emailFrom, setEmailFrom] = useState("donotreply@innrly.com");
   const [enableTrialPopup, setEnableTrialPopup] = useState(true);
   const [loginLink, setLoginLink] = useState("https://app.innrly.com");
-  const [facebookUrl, setFacebookUrl] = useState("https://www.facebook.com/Innrlyy/");
+  const [facebookUrl, setFacebookUrl] = useState("https://www.facebook.com/Innrly/");
   const [instagramUrl, setInstagramUrl] = useState("https://www.instagram.com/innrly/");
   const [linkedinUrl, setLinkedinUrl] = useState("https://www.linkedin.com/company/innrly/");
   const [twitterUrl, setTwitterUrl] = useState("https://x.com/innrly");
@@ -397,7 +397,7 @@ function ControlHubSettings() {
                   type="url"
                   value={facebookUrl}
                   onChange={(e) => setFacebookUrl(e.target.value)}
-                  placeholder="https://www.facebook.com/Innrlyy/"
+                  placeholder="https://www.facebook.com/Innrly/"
                   className="w-full px-3.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-sm focus:outline-none focus:bg-white focus:border-indigo-500 transition-colors font-mono"
                 />
               </div>

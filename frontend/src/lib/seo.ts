@@ -46,7 +46,7 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/": {
     "title": "Innrly - Hotel Management Software | Back-Office Automation",
-    "description": "Streamline hotel operations with Innrly. Automate night audit, financial control, labor, reconciliation and business intelligence across your hotel portfolio.",
+    "description": "Automate hotel night audit, financial control, labor, reconciliation, and business intelligence across your multi-property portfolio with Innrly.",
     "keywords": "Hotel Management Software, Back-Office Automation, Hotel BI, Labor Management, Hotel Back-Office Automation",
     "ogTitle": "Innrly | Hotel Back-Office Automation Made Simple",
     "ogDescription": "Simplify hotel back-office operations with Innrly. Automate audits, financial controls, labor management, reconciliation and business intelligence.",
@@ -58,8 +58,8 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "1.0"
   },
   "/features": {
-    "title": "Innrly Features - Automated Night Audit, OTA Assurance & Labor tracking",
-    "description": "Explore Innrly hotel management software features for business intelligence, financial control, labor management, night audit, reconciliation and automation.",
+    "title": "Innrly Features — Hotel Back-Office Automation",
+    "description": "Explore Innrly features for business intelligence, financial control, labor management, night audit, and automated accounting reconciliation.",
     "keywords": "Innrly features, night audit automation, ota reconciliation, Hotel Back-Office Automation, Hotel Financial Control, Hotel Business Intelligence, Hotel Night Audit, Hotel Labor Management, Hotel Management Software Features",
     "ogTitle": "Innrly Hotel Management Software Features",
     "ogDescription": "Discover Innrly features built for hotel owners and operators, including BI, financial control, labor management, night audit, reconciliation and automation.",
@@ -124,7 +124,7 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/developers": {
     "title": "Hotel Management APIs & Integrations | Developers | Innrly",
-    "description": "Build hotel integrations with Innrly APIs and webhooks for invoices, GL, labor, reservations and reconciliation. Connect PMS, accounting, payroll and banking.",
+    "description": "Build hotel integrations with Innrly APIs and webhooks for invoices, GL, labor, and reconciliation. Connect PMS, accounting, payroll, and banking.",
     "keywords": "innrly developer api, hotel software api, webhook integration, Hotel Management APIs, Hotel PMS API, Hotel Accounting API, Hotel REST API, Hotel Webhooks, Hotel Software Integrations, Hotel Developer Platform.",
     "ogTitle": "Innrly Hotel Management APIs & Developer Platform",
     "ogDescription": "Build powerful hotel integrations with Innrly REST APIs, webhooks and partner tools for PMS, accounting, payroll, banking, invoices and reconciliation.",
@@ -136,7 +136,7 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/integrations": {
-    "title": "Hotel Integrations — PMS, Accounting, Payroll & More | Innrly",
+    "title": "Hotel Integrations: PMS, Accounting & Payroll | Innrly",
     "description": "Integrate Innrly with hotel PMS, accounting, payroll, banking and OTA platforms. Streamline data flow, reconciliation and back-office operations.",
     "keywords": "hotel pms integrations, hotel accounting integrations, opera, onq, fosse, m3, Hotel Software Integrations, Hotel PMS Integrations, Hotel Accounting Integrations, Hotel Payroll Integration, Hotel Banking Integration, Hotel API Integrations",
     "ogTitle": "Hotel PMS & Accounting Integrations | Innrly",
@@ -175,7 +175,7 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/solutions/innrly-shift": {
-    "title": "Hotel Labor Management Software | Scheduling & Payroll | Innrly",
+    "title": "Hotel Labor Management Software | Innrly Shift",
     "description": "Simplify hotel labor management with Innrly Shift. Manage scheduling, TimeClock, housekeeping productivity, overtime and payroll from one platform.",
     "keywords": "Hotel Labor Management Software, Hotel Workforce Management, Hotel Employee Scheduling Software, Hotel Time Clock Software, Hotel Payroll Management, Hotel Overtime Management, hotel labor management, face-id timeclock, hotel scheduling, mpor tracking",
     "ogTitle": "Innrly Shift | Hotel Labor Management Made Simple",
@@ -214,8 +214,8 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/solutions/operations-automation": {
-    "title": "Hotel Night Audit & Back - Office Automation Software | Innrly",
-    "description": "Automate hotel night audits, OTA and bank reconciliation, invoices and accounting with Innrly. Reduce manual work and manage every property from one platform.",
+    "title": "Hotel Night Audit & Back-Office Automation | Innrly",
+    "description": "Automate hotel night audits, OTA & bank reconciliation, invoices, and accounting. Reduce manual work and manage every property from one platform.",
     "keywords": "Hotel Back-Office Automation Software, Hotel Operations Automation, Hotel Night Audit Software, Hotel Reconciliation Software, Hotel Invoice Automation, Hotel Accounting Automation, Hotel Back-Office Software, hotel night audit automation, back office automation, audit packs, eod automation",
     "ogTitle": "Innrly | Hotel Back-Office Operations Automation",
     "ogDescription": "Automate night audits, OTA and bank reconciliation, invoice processing and accounting across your hotel portfolio with Innrly's unified back-office platform.",
@@ -240,8 +240,8 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/solutions/expense-entries": {
-    "title": "Expense Entries - Receipts to Your Accounting System | Innrly",
-    "description": "Record expense tickets, credit card charges, and auto-paid invoices in Innrly - synced straight to your accounting system (QuickBooks, M3, Sage Intacct, and others).",
+    "title": "Hotel Expense Entries & GL Automation | Innrly",
+    "description": "Record hotel expense tickets, credit card charges, and invoices in Innrly — synced straight to your GL (QuickBooks, M3, Sage Intacct).",
     "keywords": "Hotel Expense Management Software, Hotel Expense Automation, Hotel Expense Tracking, Hotel GL Automation, Hotel Accounting Automation, Credit Card Expense Management, Hotel Expense Entries, hotel expense management, receipt capture, gl coding, credit card coding",
     "ogTitle": "Innrly | Hotel Expense Management & GL Automation",
     "ogDescription": "Simplify hotel expense management with automated entries, vendor coding and GL sync. Capture card charges and auto-debits and keep your accounting current.",
@@ -254,7 +254,7 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/solutions/document-vault": {
     "title": "Hotel Document Management Software | Document Vault | Innrly",
-    "description": "Organize hotel documents automatically with Innrly Document Vault. Capture night-audit files, search records, manage retention and simplify audit preparation.",
+    "description": "Organize hotel documents with Innrly Document Vault. Capture night-audit files, search records, manage retention, and simplify audit preparation.",
     "keywords": "Hotel Document Management Software, Hotel Document Management, Hotel Document Storage, Hotel Document Automation, Hotel Audit Document Management, Hotel Records Management, Hotel Document Vault, hotel document vault, night audit storage, tax document vault, audit archive",
     "ogTitle": "Innrly Document Vault | Hotel Document Management",
     "ogDescription": "Automatically organize hotel night-audit packs, invoices and supporting documents by date and property. Search your portfolio and prepare audits faster.",
@@ -267,7 +267,7 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/services/accountability-pack": {
     "title": "Hotel Back-Office Services | Accountability Pack | Innrly",
-    "description": "Outsource hotel back-office tasks with Innrly's Accountability Pack. Get data verification, franchise reporting, CLC reconciliation and manual entries handled.",
+    "description": "Outsource hotel back office tasks with Innrly Accountability Pack. Data verification, franchise reporting, CLC reconciliation, and manual entries handled.",
     "keywords": "Hotel Back-Office Services, Hotel Accounting Support, Hotel Back-Office Automation, Hotel Data Verification, Hotel Franchise Reporting, CLC Reconciliation, Hotel Accounting Services, franchise reporting, clc reconciliation",
     "ogTitle": "Innrly Accountability Pack | Hotel Back-Office Support",
     "ogDescription": "Extend your hotel back office with Innrly's team. We handle data verification, franchise reporting, Green Engage, CLC reconciliation and manual entries.",
@@ -292,8 +292,8 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.9"
   },
   "/glossary": {
-    "title": "Hotel Operations Glossary | Finance & Hospitality Terms | Innrly",
-    "description": "Explore the Innrly hotel operations glossary with plain-English definitions for finance, labor, accounting, revenue and hospitality terms used by hotel operators.",
+    "title": "Hotel Operations & Finance Glossary | Innrly",
+    "description": "Explore the Innrly hotel operations glossary with plain-English definitions for hospitality finance, labor, accounting, and revenue management terms.",
     "keywords": "Hotel Operations Glossary, Hotel Management Glossary, Hospitality Glossary, Hotel Finance Terms, Hotel Accounting Terms, Hotel Operations Terms, Hotel Revenue Terms, hotel glossary, adr, revpar, mpor, usali, hotel accounting terms",
     "ogTitle": "Innrly Hotel Operations Glossary & Hospitality Terms",
     "ogDescription": "Learn essential hotel finance, labor, accounting, revenue and operations terms with Innrly's easy-to-understand glossary for hotel owners and operators.",
@@ -306,7 +306,7 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/case-studies": {
     "title": "Hotel Operator Case Studies | Innrly Success Stories",
-    "description": "Explore Innrly hotel operator case studies showing how multi-property teams improve back-office efficiency, reconciliation, financial control and hotel operations.",
+    "description": "Explore Innrly case studies showing how multi-property hotel operators improve back-office efficiency, reconciliation, and financial control.",
     "keywords": "Hotel Operator Case Studies, Hotel Management Case Studies, Hotel Software Case Studies, Hotel Back-Office Automation, Hotel Financial Control, Hotel Reconciliation, Hotel Operations, hotel case studies, hotel back office results, operator stories",
     "ogTitle": "Innrly Hotel Operator Case Studies & Success Stories",
     "ogDescription": "See how hotel operators use Innrly to automate back-office work, improve reconciliation, accelerate financial close and protect revenue across portfolios.",
@@ -318,8 +318,8 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/roi-calculator": {
-    "title": "Hotel Back-Office ROI Calculator | Calculate Savings | Innrly",
-    "description": "Calculate your hotel back-office ROI with Innrly. Estimate labor savings, revenue recovery and annual returns from automation across your hotel portfolio.",
+    "title": "Hotel Back-Office ROI Calculator | Innrly",
+    "description": "Calculate your hotel back-office ROI with Innrly. Estimate labor savings, revenue recovery, and annual returns from back-office automation.",
     "keywords": "Hotel Back-Office ROI Calculator, Hotel ROI Calculator, Hotel Software ROI Calculator, Hotel Automation ROI, Hotel Labor Savings, Hotel Back-Office Savings, Hotel Software ROI, hotel back office savings, labor savings calculator",
     "ogTitle": "Innrly Hotel Back-Office ROI Calculator",
     "ogDescription": "Calculate potential savings from hotel back-office automation. See labor savings, revenue recovery and total annual ROI based on your hotel portfolio.",
@@ -371,7 +371,7 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/industries/select-service": {
     "title": "Hotel Management Software for Select-Service Hotels | Innrly",
-    "description": "Streamline select-service hotel operations with Innrly. Automate night audit, accounting, reconciliation, labor and back-office workflows across properties.",
+    "description": "Streamline select-service hotel operations. Automate night audit, accounting, reconciliation, labor, and back-office workflows across properties.",
     "keywords": "Hotel Management Software for Select-Service Hotels, Select-Service Hotel Software, Select-Service Hotel Management, Hotel Back-Office Automation, Hotel Accounting Software, Hotel Reconciliation, Hotel Labor Management, hampton inn back office, holiday inn express accounting",
     "ogTitle": "Innrly Hotel Software for Select-Service Hotels",
     "ogDescription": "Simplify select-service hotel operations with Innrly's back-office automation, financial control, labor management, reconciliation and business intelligence.",
@@ -734,11 +734,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/compare/innrly-vs-otelier": {
-    "title": "Innrly: alternative to Otelier: How They Compare (2026) | Innrly",
-    "description": "How Innrly and Otelier compare for multi-property hotel operators — commercial terms, deployment, TimeClock with built-in housekeeping productivity matrix, and integrations.",
+    "title": "Innrly vs Otelier: 2026 Comparison | Innrly",
+    "description": "Compare Innrly and Otelier for multi-property hotels: pricing, deployment, Face-ID TimeClock, and housekeeping productivity.",
     "keywords": "",
-    "ogTitle": "Innrly: alternative to Otelier: How They Compare (2026) | Innrly",
-    "ogDescription": "How Innrly and Otelier compare for multi-property hotel operators — commercial terms, deployment, TimeClock with built-in housekeeping productivity matrix, and integrations.",
+    "ogTitle": "Innrly vs Otelier: 2026 Comparison | Innrly",
+    "ogDescription": "Compare Innrly and Otelier for multi-property hotels: pricing, deployment, Face-ID TimeClock, and housekeeping productivity.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/compare/innrly-vs-otelier",
@@ -747,11 +747,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/compare/innrly-vs-nimble": {
-    "title": "Innrly: alternative to Nimble Property: How They Compare (2026) | Innrly",
-    "description": "Side-by-side comparison of Innrly and Nimble Property for multi-property hotel operators — pricing, deployment, TimeClock, housekeeping productivity, and A/P automation.",
+    "title": "Innrly vs Nimble Property: 2026 Comparison | Innrly",
+    "description": "Side-by-side comparison of Innrly and Nimble Property: pricing, TimeClock, housekeeping productivity matrix, and automated A/P.",
     "keywords": "nimble property alternative, innrly vs nimble, hotel accounting software, hotel ap automation",
-    "ogTitle": "Innrly: alternative to Nimble Property: How They Compare (2026) | Innrly",
-    "ogDescription": "Side-by-side comparison of Innrly and Nimble Property for multi-property hotel operators — pricing, deployment, TimeClock, housekeeping productivity, and A/P automation.",
+    "ogTitle": "Innrly vs Nimble Property: 2026 Comparison | Innrly",
+    "ogDescription": "Side-by-side comparison of Innrly and Nimble Property: pricing, TimeClock, housekeeping productivity matrix, and automated A/P.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/compare/innrly-vs-nimble",
@@ -760,11 +760,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/compare/innrly-vs-aptech": {
-    "title": "Innrly: alternative to Aptech (Profitvue, Execuvue, Targetvue): 2026 Comparison | Innrly",
-    "description": "How Innrly and Aptech's Profitvue / Execuvue / Targetvue suite compare for multi-property hotel operators — single platform vs multi-module, pricing, deployment, and USALI reporting.",
+    "title": "Innrly vs Aptech Suite: 2026 Comparison | Innrly",
+    "description": "Innrly vs Aptech Profitvue, Execuvue & Targetvue: modern single platform vs legacy multi-module suites for hotel operators.",
     "keywords": "",
-    "ogTitle": "Innrly: alternative to Aptech (Profitvue, Execuvue, Targetvue): 2026 Comparison | Innrly",
-    "ogDescription": "How Innrly and Aptech's Profitvue / Execuvue / Targetvue suite compare for multi-property hotel operators — single platform vs multi-module, pricing, deployment, and USALI reporting.",
+    "ogTitle": "Innrly vs Aptech Suite: 2026 Comparison | Innrly",
+    "ogDescription": "Innrly vs Aptech Profitvue, Execuvue & Targetvue: modern single platform vs legacy multi-module suites for hotel operators.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/compare/innrly-vs-aptech",
@@ -773,11 +773,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/compare/innrly-vs-profitsage": {
-    "title": "Innrly: alternative to ProfitSage: 2026 Comparison | Innrly",
-    "description": "How Innrly and ProfitSage compare for multi-property hotel operators — BI dashboards, forecasting, and what each platform covers beyond reporting.",
+    "title": "Innrly vs ProfitSage: 2026 Comparison | Innrly",
+    "description": "Compare Innrly and ProfitSage for multi-property hotel operators — BI dashboards, forecasting, and back-office sync.",
     "keywords": "",
-    "ogTitle": "Innrly: alternative to ProfitSage: 2026 Comparison | Innrly",
-    "ogDescription": "How Innrly and ProfitSage compare for multi-property hotel operators — BI dashboards, forecasting, and what each platform covers beyond reporting.",
+    "ogTitle": "Innrly vs ProfitSage: 2026 Comparison | Innrly",
+    "ogDescription": "Compare Innrly and ProfitSage for multi-property hotel operators — BI dashboards, forecasting, and back-office sync.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/compare/innrly-vs-profitsage",
@@ -786,11 +786,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/compare/innrly-vs-actabl": {
-    "title": "Innrly: alternative to Actabl / Hotel Effectiveness: How They Compare (2026) | Innrly",
-    "description": "How Innrly Shift compares to Actabl's labor suite (PerfectLabor, PerfectTime, Hotel Effectiveness) — pricing, Face-ID TimeClock, keep-your-existing-clock, and integrated back office.",
+    "title": "Innrly vs Actabl: 2026 Labor Comparison | Innrly",
+    "description": "Compare Innrly Shift with Actabl's labor suite: pricing, Face-ID TimeClock, MPOR housekeeping tracking, and PMS automation.",
     "keywords": "",
-    "ogTitle": "Innrly: alternative to Actabl / Hotel Effectiveness: How They Compare (2026) | Innrly",
-    "ogDescription": "How Innrly Shift compares to Actabl's labor suite (PerfectLabor, PerfectTime, Hotel Effectiveness) — pricing, Face-ID TimeClock, keep-your-existing-clock, and integrated back office.",
+    "ogTitle": "Innrly vs Actabl: 2026 Labor Comparison | Innrly",
+    "ogDescription": "Compare Innrly Shift with Actabl's labor suite: pricing, Face-ID TimeClock, MPOR housekeeping tracking, and PMS automation.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/compare/innrly-vs-actabl",
@@ -812,11 +812,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/integrations/inn-flow": {
-    "title": "Innrly + Inn-flow — Automate A/P, OTA Recon & Audit Into Inn-flow | Innrly",
-    "description": "Innrly is the automation layer for Inn-flow customers — auto-coded invoices, OTA reconciliation, night audit, and labor data pushed into your Inn-flow GL. API integration on the roadmap.",
+    "title": "Innrly + Inn-flow Integration | Hotel Automation",
+    "description": "Innrly automates invoice coding, OTA reconciliation, and night audit workflows pushed directly to your Inn-flow GL system.",
     "keywords": "",
-    "ogTitle": "Innrly + Inn-flow — Automate A/P, OTA Recon & Audit Into Inn-flow | Innrly",
-    "ogDescription": "Innrly is the automation layer for Inn-flow customers — auto-coded invoices, OTA reconciliation, night audit, and labor data pushed into your Inn-flow GL. API integration on the roadmap.",
+    "ogTitle": "Innrly + Inn-flow Integration | Hotel Automation",
+    "ogDescription": "Innrly automates invoice coding, OTA reconciliation, and night audit workflows pushed directly to your Inn-flow GL system.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/integrations/inn-flow",
@@ -826,7 +826,7 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/integrations/opera": {
     "title": "Innrly + Oracle Opera Integration | Innrly",
-    "description": "Pull Opera night-audit packs, folios, and manager reports into Innrly. Reconcile, audit, and push to your accounting system — across Opera Cloud and Opera PMS.",
+    "description": "Pull Opera night-audit packs, folios, and manager reports into Innrly. Reconcile, audit, and push to your GL across Opera Cloud and Opera PMS.",
     "keywords": "",
     "ogTitle": "Innrly + Oracle Opera Integration | Innrly",
     "ogDescription": "Pull Opera night-audit packs, folios, and manager reports into Innrly. Reconcile, audit, and push to your accounting system — across Opera Cloud and Opera PMS.",
@@ -864,11 +864,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/industries/full-service": {
-    "title": "Full-Service Hotels — Innrly",
-    "description": "Innrly for full-service and resort hotels: F&B GL coding, banquet revenue reconciliation, multi-outlet labor, and USALI-aligned owner reporting — across OPERA, Infor, and Maestro.",
+    "title": "Full-Service Hotel Automation & Accounting | Innrly",
+    "description": "Automate full-service hotel back office: F&B GL coding, banquet reconciliation, multi-outlet labor, and USALI owner reporting across PMS platforms.",
     "keywords": "",
-    "ogTitle": "Full-Service Hotels — Innrly",
-    "ogDescription": "Innrly for full-service and resort hotels: F&B GL coding, banquet revenue reconciliation, multi-outlet labor, and USALI-aligned owner reporting — across OPERA, Infor, and Maestro.",
+    "ogTitle": "Full-Service Hotel Automation & Accounting | Innrly",
+    "ogDescription": "Automate full-service hotel back office: F&B GL coding, banquet reconciliation, multi-outlet labor, and USALI owner reporting across PMS platforms.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/industries/full-service",
@@ -877,11 +877,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/industries/extended-stay": {
-    "title": "Extended-Stay Hotels — Innrly",
-    "description": "Innrly for extended-stay portfolios: long-stay folio handling, weekly housekeeping cycles, low-labor models, and corporate-account reconciliation across Residence Inn, Homewood, WoodSpring, and Candlewood.",
+    "title": "Extended-Stay Hotel Management Software | Innrly",
+    "description": "Innrly for extended-stay hotels: long folios, weekly clean cycles, low-labor models, and corporate account reconciliation.",
     "keywords": "",
-    "ogTitle": "Extended-Stay Hotels — Innrly",
-    "ogDescription": "Innrly for extended-stay portfolios: long-stay folio handling, weekly housekeeping cycles, low-labor models, and corporate-account reconciliation across Residence Inn, Homewood, WoodSpring, and Candlewood.",
+    "ogTitle": "Extended-Stay Hotel Management Software | Innrly",
+    "ogDescription": "Innrly for extended-stay hotels: long folios, weekly clean cycles, low-labor models, and corporate account reconciliation.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/industries/extended-stay",
@@ -903,11 +903,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/case-studies/urban-full-service": {
-    "title": "Case Study: Urban Full-Service Recovers OTA Commission Every Quarter | Innrly",
-    "description": "How a 4-property urban full-service operator uses Innrly to reconcile OTA commissions, F&B, and banquets — recovering $7K-15K per quarter and closing books in about a week.",
+    "title": "Case Study: Full-Service OTA Recovery | Innrly",
+    "description": "How a 4-property full-service operator uses Innrly to reconcile OTA commissions and banquet revenue, recovering $7K-$15K/quarter.",
     "keywords": "",
-    "ogTitle": "Case Study: Urban Full-Service Recovers OTA Commission Every Quarter | Innrly",
-    "ogDescription": "How a 4-property urban full-service operator uses Innrly to reconcile OTA commissions, F&B, and banquets — recovering $7K-15K per quarter and closing books in about a week.",
+    "ogTitle": "Case Study: Full-Service OTA Recovery | Innrly",
+    "ogDescription": "How a 4-property full-service operator uses Innrly to reconcile OTA commissions and banquet revenue, recovering $7K-$15K/quarter.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/case-studies/urban-full-service",
@@ -916,11 +916,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/case-studies/hilton-management-company": {
-    "title": "Case Study: Hilton Management Company Cuts Month-End from 14 to ~6 Days | Innrly",
-    "description": "How a 28-property Hilton-focused management company uses Innrly to consolidate OnQ and OPERA data, automate AP, and shrink month-end close from roughly two weeks to under one.",
+    "title": "Case Study: Hilton Operator Cuts Close to 6 Days | Innrly",
+    "description": "How a 28-property Hilton management company consolidates OnQ and OPERA data, automates AP, and cuts month-end close in half.",
     "keywords": "",
-    "ogTitle": "Case Study: Hilton Management Company Cuts Month-End from 14 to ~6 Days | Innrly",
-    "ogDescription": "How a 28-property Hilton-focused management company uses Innrly to consolidate OnQ and OPERA data, automate AP, and shrink month-end close from roughly two weeks to under one.",
+    "ogTitle": "Case Study: Hilton Operator Cuts Close to 6 Days | Innrly",
+    "ogDescription": "How a 28-property Hilton management company consolidates OnQ and OPERA data, automates AP, and cuts month-end close in half.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/case-studies/hilton-management-company",
@@ -929,11 +929,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/case-studies/extended-stay-portfolio": {
-    "title": "Case Study: 18-Hotel Extended-Stay Portfolio Tightens MPOR & Close | Innrly",
-    "description": "How an 18-property extended-stay operator (Marriott + Hilton flags) uses Innrly to manage long-folio revenue, model weekly-clean MPOR correctly, and shorten month-end close.",
+    "title": "Case Study: Extended-Stay Portfolio MPOR | Innrly",
+    "description": "How an 18-hotel extended-stay portfolio manages long folios, tracks weekly-clean MPOR, and accelerates monthly financial close.",
     "keywords": "",
-    "ogTitle": "Case Study: 18-Hotel Extended-Stay Portfolio Tightens MPOR & Close | Innrly",
-    "ogDescription": "How an 18-property extended-stay operator (Marriott + Hilton flags) uses Innrly to manage long-folio revenue, model weekly-clean MPOR correctly, and shorten month-end close.",
+    "ogTitle": "Case Study: Extended-Stay Portfolio MPOR | Innrly",
+    "ogDescription": "How an 18-hotel extended-stay portfolio manages long folios, tracks weekly-clean MPOR, and accelerates monthly financial close.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/case-studies/extended-stay-portfolio",
@@ -942,11 +942,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/case-studies/boutique-group": {
-    "title": "Case Study: Independent Boutique Group Consolidates 7 PMSes | Innrly",
-    "description": "How a 6-property independent boutique group uses Innrly to consolidate 7 different PMSes, run unified P&L reporting, and replace a fractional CFO's manual workbook.",
+    "title": "Case Study: Boutique Group Consolidates 7 PMSes | Innrly",
+    "description": "How a 6-property boutique group uses Innrly to consolidate 7 PMSes, run unified P&L reporting, and replace manual workbooks.",
     "keywords": "",
-    "ogTitle": "Case Study: Independent Boutique Group Consolidates 7 PMSes | Innrly",
-    "ogDescription": "How a 6-property independent boutique group uses Innrly to consolidate 7 different PMSes, run unified P&L reporting, and replace a fractional CFO's manual workbook.",
+    "ogTitle": "Case Study: Boutique Group Consolidates 7 PMSes | Innrly",
+    "ogDescription": "How a 6-property boutique group uses Innrly to consolidate 7 PMSes, run unified P&L reporting, and replace manual workbooks.",
     "ogImage": "https://innrly.com/uploads/innrly-logo.png",
     "ogType": "website",
     "canonical": "https://innrly.com/case-studies/boutique-group",
@@ -1098,8 +1098,8 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.8"
   },
   "/compare/innrly-vs-hotel-effectiveness": {
-    "title": "Innrly vs Hotel Effectiveness: Labor & TimeClock Compared (2026) | Innrly",
-    "description": "Innrly vs Hotel Effectiveness for hotel labor management — Face-ID TimeClock, scheduling, MPOR, and how an all-in-one back office compares to a dedicated labor platform.",
+    "title": "Innrly vs Hotel Effectiveness: 2026 Comparison | Innrly",
+    "description": "Innrly vs Hotel Effectiveness: compare Face-ID TimeClock, scheduling, MPOR tracking, and unified back-office capabilities.",
     "keywords": "hotel effectiveness alternative, innrly vs hotel effectiveness, hotel timeclock, labor management",
     "ogTitle": "Innrly vs Hotel Effectiveness — How They Compare",
     "ogDescription": "Face-ID TimeClock, scheduling, and housekeeping productivity inside a full back-office platform — vs a dedicated labor tool.",

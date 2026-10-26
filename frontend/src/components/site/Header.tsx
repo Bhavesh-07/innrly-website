@@ -142,10 +142,10 @@ export function Header() {
             </a>
           </Button>
           <Button size="sm" onClick={openTrialModal} className="bg-cta hover:opacity-90">
-            Start free trial
+            Start 90-day free trial
           </Button>
           <Button asChild variant="outline" size="sm">
-            <Link to="/contact">See it live</Link>
+            <Link to="/contact">Book a demo</Link>
           </Button>
         </div>
 
@@ -197,7 +197,7 @@ export function Header() {
                 </a>
               </Button>
               <Button
-                variant="outline"
+                className="bg-cta"
                 onClick={() => {
                   setOpen(false);
                   openTrialModal();
@@ -205,9 +205,9 @@ export function Header() {
               >
                 Start 90-day free trial
               </Button>
-              <Button asChild className="bg-cta">
+              <Button asChild variant="outline">
                 <Link to="/contact" onClick={() => setOpen(false)}>
-                  See it live
+                  Book a demo
                 </Link>
               </Button>
             </div>

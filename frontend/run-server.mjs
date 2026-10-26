@@ -87,10 +87,23 @@ const server = http.createServer(async (req, res) => {
     const pathname = url.pathname;
     console.log(`[SSR] ${method} ${pathname} (Host: ${effectiveHost}, Proto: ${protocol})`);
 
+    // Canonical Domain & Protocol Enforcement (Audit Item 1)
+    const isWww = effectiveHost === 'www.innrly.com';
+    const isHttp = protocol === 'http' && (effectiveHost === 'innrly.com' || isWww);
+
+    if (isWww || isHttp) {
+      const canonicalTarget = `https://innrly.com${req.url}`;
+      console.log(`[SSR] 301 Redirecting non-canonical request to: ${canonicalTarget}`);
+      res.writeHead(301, {
+        Location: canonicalTarget,
+        'Cache-Control': 'public, max-age=31536000'
+      });
+      res.end();
+      return;
+    }
+
     // Only these hosts are production hosts
-    const isProductionHost =
-      effectiveHost === 'innrly.com' ||
-      effectiveHost === 'innrly.com';
+    const isProductionHost = effectiveHost === 'innrly.com';
 
     // HSTS should only be sent for HTTPS production traffic
     if (isProductionHost && protocol === 'https') {

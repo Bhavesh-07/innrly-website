@@ -31,8 +31,27 @@ import { cn } from "@/lib/utils";
 import { useFormGuard, honeypotFieldProps } from "@/lib/form-guard";
 import { track } from "@/lib/analytics";
 import { submitLead } from "@/lib/lead-submit";
-import { defaultSeoData, fetchSeoData, getMetaTags } from "@/lib/seo";
+import { defaultSeoData, fetchSeoData, getMetaTags, breadcrumbLd } from "@/lib/seo";
 import { isDisposableEmail } from "@/lib/disposable-domains";
+
+const onboardingFaqs = [
+  {
+    q: "How fast will my hotel portfolio be live on Innrly?",
+    a: "Most properties are fully onboarded and live within one business day. Our implementation team validates your property data and establishes your PMS connection immediately upon review.",
+  },
+  {
+    q: "What do I need to prepare before onboarding?",
+    a: "All you need are your property details (rooms, PMS name, property codes) and your company billing address. If you're setting up accounting integrations, having your chart of accounts or a sample night-audit pack speeds up mapping.",
+  },
+  {
+    q: "Can I add more properties later?",
+    a: "Yes. You can onboard initial pilot properties today and easily add additional hotels, management accounts, and team members at any time from your Innrly Control Hub.",
+  },
+  {
+    q: "Is there a long-term contract or setup fee?",
+    a: "No. Innrly includes a 90-day free trial with zero setup fees and zero cancellation penalties. You can evaluate the entire suite with your real hotel operations risk-free.",
+  },
+];
 
 export const Route = createFileRoute("/onboarding")({
   component: OnboardingPage,
@@ -49,6 +68,24 @@ export const Route = createFileRoute("/onboarding")({
       ),
     ],
     links: [{ rel: "canonical", href: "https://innrly.com/onboarding" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: onboardingFaqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+      breadcrumbLd([
+        { name: "Home", url: "/" },
+        { name: "Onboarding", url: "/onboarding" },
+      ]),
+    ],
   }),
 });
 
@@ -503,6 +540,65 @@ function OnboardingPage() {
           <ShieldCheck className="h-3.5 w-3.5 text-accent" />
           Your data is encrypted in transit and never shared with third parties.
         </p>
+      </div>
+
+      {/* Onboarding Overview & FAQ Section */}
+      <div className="border-t border-border/40 bg-card/20 py-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+              What happens next
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
+              From application to live hotel operations.
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+              A white-glove onboarding experience designed by veteran hotel operators.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="aurora-card rounded-2xl p-6">
+              <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-sm font-bold text-accent">
+                1
+              </div>
+              <h3 className="mt-3 text-base font-semibold text-foreground">Account Provisioning & PMS Pairing</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Our solutions team verifies your property records, configures your secure workspace, and initiates your PMS and accounting connections.
+              </p>
+            </div>
+            <div className="aurora-card rounded-2xl p-6">
+              <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-sm font-bold text-accent">
+                2
+              </div>
+              <h3 className="mt-3 text-base font-semibold text-foreground">Tailored Walkthrough & GL Mapping</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                We schedule a 20-minute kickoff with your general managers or corporate controllers to verify chart of accounts mapping and approval tiers.
+              </p>
+            </div>
+            <div className="aurora-card rounded-2xl p-6">
+              <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-sm font-bold text-accent">
+                3
+              </div>
+              <h3 className="mt-3 text-base font-semibold text-foreground">Go-Live & 90-Day Free Trial</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Automated night audit ingestion, OCR invoice coding, and labor tracking begin immediately with live chat and operator support.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-16">
+            <h3 className="text-center text-xl font-bold text-foreground">Frequently asked onboarding questions</h3>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {onboardingFaqs.map((f) => (
+                <div key={f.q} className="aurora-card rounded-2xl p-6">
+                  <p className="text-sm font-semibold text-foreground">{f.q}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

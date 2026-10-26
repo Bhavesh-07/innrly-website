@@ -695,7 +695,7 @@ export const Route = createFileRoute("/blog/$slug")({
               })()
             : []),
           { property: "og:type", content: "article" },
-          { property: "og:url", content: `/blog/${loaderData.slug}` },
+          { property: "og:url", content: `https://innrly.com/blog/${loaderData.slug}` },
         ]
       : [],
     links: loaderData ? [{ rel: "canonical", href: `https://innrly.com/blog/${loaderData.slug}` }] : [],
@@ -709,11 +709,11 @@ export const Route = createFileRoute("/blog/$slug")({
               headline: loaderData.post.title,
               datePublished: loaderData.post.date,
               dateModified: loaderData.post.date,
-              author: { "@type": "Organization", name: loaderData.post.author || "The Innrly Team", url: "/about" },
+              author: { "@type": "Organization", name: loaderData.post.author || "The Innrly Team", url: "https://innrly.com/about" },
               publisher: {
                 "@type": "Organization",
                 name: "Innrly",
-                logo: { "@type": "ImageObject", url: "/favicon.svg" },
+                logo: { "@type": "ImageObject", url: "https://innrly.com/favicon.svg" },
               },
               mainEntityOfPage: { "@type": "WebPage", "@id": `https://innrly.com/blog/${loaderData.slug}` },
             }),
