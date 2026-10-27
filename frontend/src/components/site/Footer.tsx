@@ -211,41 +211,42 @@ export function Footer() {
 
         {/* Mobile apps row */}
         <div className="mt-12 border-t border-border/60 pt-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Innrly mobile apps
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">
-                iOS and Android apps currently in private beta for active customers.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent/60"
-              >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <path d="M17.05 12.5a4.27 4.27 0 0 1 2.04-3.59 4.38 4.38 0 0 0-3.45-1.87c-1.45-.15-2.85.86-3.6.86-.76 0-1.9-.84-3.13-.82a4.6 4.6 0 0 0-3.87 2.36c-1.66 2.88-.42 7.13 1.19 9.46.79 1.14 1.72 2.42 2.94 2.38 1.18-.05 1.63-.76 3.06-.76 1.42 0 1.83.76 3.08.74 1.27-.02 2.08-1.16 2.86-2.31a10.2 10.2 0 0 0 1.3-2.66 4.13 4.13 0 0 1-2.42-3.79zM14.78 5.6a4.2 4.2 0 0 0 .96-3.02 4.27 4.27 0 0 0-2.77 1.43 3.99 3.99 0 0 0-.99 2.91 3.53 3.53 0 0 0 2.8-1.32z" />
-                </svg>
-                <span className="flex items-center gap-1.5 leading-tight">
-                  <span>App Store</span>
-                  <span className="rounded bg-accent/15 px-1.5 py-0.5 text-[10px] font-semibold text-accent uppercase tracking-wider">Beta</span>
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Innrly mobile apps
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <a
+              href="https://apps.apple.com/app/innrly/id1575666312"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download Innrly on the App Store"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent/60"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M17.05 12.5a4.27 4.27 0 0 1 2.04-3.59 4.38 4.38 0 0 0-3.45-1.87c-1.45-.15-2.85.86-3.6.86-.76 0-1.9-.84-3.13-.82a4.6 4.6 0 0 0-3.87 2.36c-1.66 2.88-.42 7.13 1.19 9.46.79 1.14 1.72 2.42 2.94 2.38 1.18-.05 1.63-.76 3.06-.76 1.42 0 1.83.76 3.08.74 1.27-.02 2.08-1.16 2.86-2.31a10.2 10.2 0 0 0 1.3-2.66 4.13 4.13 0 0 1-2.42-3.79zM14.78 5.6a4.2 4.2 0 0 0 .96-3.02 4.27 4.27 0 0 0-2.77 1.43 3.99 3.99 0 0 0-.99 2.91 3.53 3.53 0 0 0 2.8-1.32z" />
+              </svg>
+              <span className="flex flex-col leading-tight">
+                <span className="text-[10px] font-normal text-muted-foreground">
+                  Download on the
                 </span>
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent/60"
-              >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <path d="M3.6 2.1c-.3.3-.5.7-.5 1.2v17.4c0 .5.2.9.5 1.2l9.3-9.9L3.6 2.1zm10.4 11l2.8 2.9-9.5 5.4 6.7-8.3zm0-2.2L7.3 2.6l9.5 5.4-2.8 2.9zm6.8 1.1c0 .5-.3 1-.8 1.3l-2.5 1.4-3-3.2 3-3.2 2.5 1.4c.5.3.8.8.8 1.3z" />
-                </svg>
-                <span className="flex items-center gap-1.5 leading-tight">
-                  <span>Google Play</span>
-                  <span className="rounded bg-accent/15 px-1.5 py-0.5 text-[10px] font-semibold text-accent uppercase tracking-wider">Beta</span>
-                </span>
-              </Link>
-            </div>
+                <span>App Store</span>
+              </span>
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.mystic.innrly"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Get Innrly on Google Play"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent/60"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M3.6 2.1c-.3.3-.5.7-.5 1.2v17.4c0 .5.2.9.5 1.2l9.3-9.9L3.6 2.1zm10.4 11l2.8 2.9-9.5 5.4 6.7-8.3zm0-2.2L7.3 2.6l9.5 5.4-2.8 2.9zm6.8 1.1c0 .5-.3 1-.8 1.3l-2.5 1.4-3-3.2 3-3.2 2.5 1.4c.5.3.8.8.8 1.3z" />
+              </svg>
+              <span className="flex flex-col leading-tight">
+                <span className="text-[10px] font-normal text-muted-foreground">Get it on</span>
+                <span>Google Play</span>
+              </span>
+            </a>
           </div>
         </div>
 
