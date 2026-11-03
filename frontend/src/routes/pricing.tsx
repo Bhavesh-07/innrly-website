@@ -284,7 +284,7 @@ const TILES: Tile[] = [
   {
     id: "accounting",
     title: "Accounting Integration",
-    blurb: "Two-way sync with Sage Intacct, QuickBooks, M3.",
+    blurb: "Sync with QuickBooks and Sage Intacct; push to M3 as an M3 Associate Partner.",
     icon: BarChart3,
     inPlan: "pro",
     span: "md:col-span-3 md:row-span-2",

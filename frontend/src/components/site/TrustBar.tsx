@@ -4,7 +4,7 @@ const ITEMS = [
   { icon: ShieldCheck, label: "SOC 2 aligned" },
   { icon: Lock, label: "Bank-grade encryption" },
   { icon: Building2, label: "Trusted across hotel portfolios" },
-  { icon: Activity, label: "99.9% uptime target" },
+  { icon: Activity, label: "Continuously monitored" },
 ];
 
 export function TrustBar() {

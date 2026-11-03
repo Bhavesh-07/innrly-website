@@ -74,11 +74,11 @@ const faqs = [
   },
   {
     q: "What is your document retention and backup schedule?",
-    a: "Night-audit packs, OCR invoices, and GL reconciliation logs are stored with AES-256 encryption. We maintain automated daily geo-redundant backups with a 99.9% uptime SLA and customizable data retention periods to match your audit requirements.",
+    a: "Night-audit packs, OCR invoices, and GL reconciliation logs are stored with AES-256 encryption. We maintain automated daily geo-redundant backups and customizable data retention periods to match your audit requirements.",
   },
   {
     q: "Can I get a custom DPA or BAA?",
-    a: "Yes. We sign standard data processing agreements and accommodate enterprise legal review on request.",
+    a: "We sign standard data processing agreements and accommodate enterprise legal review on request. Innrly is not built for health data, so we do not sign BAAs.",
   },
 ];
 
