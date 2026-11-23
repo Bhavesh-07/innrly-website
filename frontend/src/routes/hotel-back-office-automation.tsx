@@ -26,6 +26,7 @@ const faqs = [
 ];
 
 export const Route = createFileRoute("/hotel-back-office-automation")({
+  component: Page,
   loader: async () => {
     const seo = await fetchSeoData("/hotel-back-office-automation");
     return { seo };
