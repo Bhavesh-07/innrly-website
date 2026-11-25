@@ -53,8 +53,20 @@ const REDIRECTS = {
   '/ninety-day-free-trial': '/onboarding',
   '/privacy-policy.html': '/legal/privacy',
   '/privacy-policy': '/legal/privacy',
+  '/privacy': '/legal/privacy',
+  '/privacy/': '/legal/privacy',
   '/terms-of-service.html': '/legal/terms',
   '/terms-of-service': '/legal/terms',
+  '/terms': '/legal/terms',
+  '/terms/': '/legal/terms',
+  '/login': 'https://app.innrly.com/',
+  '/login/': 'https://app.innrly.com/',
+  '/feed': '/rss.xml',
+  '/feed/': '/rss.xml',
+  '/blog/ota-reconciliation': '/blog/ota-reconciliation-guide',
+  '/blog/ota-reconciliation/': '/blog/ota-reconciliation-guide',
+  '/blog/Select-Service%20Hotels': '/industries/select-service',
+  '/blog/Select-Service Hotels': '/industries/select-service',
   '/cookie-policy.html': '/legal/cookies',
   '/cookie-policy': '/legal/cookies',
   '/expertlink.html': '/services/accountability-pack',
@@ -151,10 +163,62 @@ const server = http.createServer(async (req, res) => {
       } catch (e) {}
     }
 
+    // Handle /rss.xml
+    if (pathname === '/rss.xml') {
+      try {
+        const BACKEND_URL = process.env.BACKEND_URL || 'http://127.0.0.1:8005';
+        let posts = [];
+        try {
+          const response = await fetch(`${BACKEND_URL}/blog`);
+          if (response.ok) {
+            const data = await response.json();
+            posts = (data || []).filter(p => p.status === 'published' || !p.status);
+          }
+        } catch (err) {}
+
+        const rssItems = posts.slice(0, 50).map(p => {
+          const pubDate = p.created_at ? new Date(p.created_at).toUTCString() : new Date().toUTCString();
+          const cleanTitle = (p.title || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const cleanSummary = (p.summary || p.excerpt || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          return `    <item>
+      <title>${cleanTitle}</title>
+      <link>https://innrly.com/blog/${p.slug}</link>
+      <guid isPermaLink="true">https://innrly.com/blog/${p.slug}</guid>
+      <pubDate>${pubDate}</pubDate>
+      <description>${cleanSummary}</description>
+    </item>`;
+        }).join('\n');
+
+        const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Innrly Blog</title>
+    <link>https://innrly.com/blog</link>
+    <description>Hotel back-office software, night audit automation, and financial control insights.</description>
+    <language>en-us</language>
+    <atom:link href="https://innrly.com/rss.xml" rel="self" type="application/rss+xml"/>
+${rssItems}
+  </channel>
+</rss>`;
+
+        res.writeHead(200, {
+          'Content-Type': 'application/rss+xml; charset=utf-8',
+          'Cache-Control': 'public, max-age=3600'
+        });
+        res.end(rssXml);
+        return;
+      } catch (err) {
+        console.error('RSS error:', err);
+      }
+    }
+
     // Handle 301 Redirects for Legacy URLs
-    if (REDIRECTS[pathname]) {
-      res.writeHead(301, { 'Location': REDIRECTS[pathname], 'Content-Type': 'text/plain' });
-      res.end(`Redirecting to ${REDIRECTS[pathname]}`);
+    let decodedPath = pathname;
+    try { decodedPath = decodeURIComponent(pathname); } catch (e) {}
+    const redirectTarget = REDIRECTS[pathname] || REDIRECTS[decodedPath];
+    if (redirectTarget) {
+      res.writeHead(301, { 'Location': redirectTarget, 'Content-Type': 'text/plain' });
+      res.end(`Redirecting to ${redirectTarget}`);
       return;
     }
 
@@ -223,7 +287,8 @@ const server = http.createServer(async (req, res) => {
                            pathname === '/sitemap.xml' ||
                            pathname === '/robots.txt' ||
                            pathname === '/llms.txt' ||
-                           pathname === '/llms-full.txt';
+                           pathname === '/llms-full.txt' ||
+                           pathname === '/rss.xml';
 
     if (!isDynamicRoute) {
       const searchDirs = [

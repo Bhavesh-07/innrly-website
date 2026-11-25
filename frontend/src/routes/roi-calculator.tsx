@@ -69,12 +69,7 @@ export const Route = createFileRoute("/roi-calculator")({
   }),
 });
 
-const fmtUSD = (n: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(n);
+const fmtUSD = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 
 function Page() {
   const [properties, setProperties] = useState(8);
@@ -258,7 +253,7 @@ function Field({
     <div>
       <div className="flex items-baseline justify-between">
         <label className="text-sm font-medium text-foreground">{label}</label>
-        <span className="text-sm font-semibold text-accent">
+        <span className="text-sm font-semibold text-accent" suppressHydrationWarning>
           {prefix}
           {value.toLocaleString()}
           {suffix ? ` ${suffix}` : ""}
@@ -296,9 +291,9 @@ function Stat({
       <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cta">
         <Icon className="h-5 w-5 text-primary-foreground" aria-hidden />
       </div>
-      <div>
+      <div suppressHydrationWarning>
         <p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p>
-        <p className="mt-0.5 text-2xl font-bold text-foreground">{value}</p>
+        <p className="mt-0.5 text-2xl font-bold text-foreground" suppressHydrationWarning>{value}</p>
       </div>
     </div>
   );

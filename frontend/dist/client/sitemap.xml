@@ -46,6 +46,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://innrly.com/hotel-back-office-automation</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://innrly.com/case-studies</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

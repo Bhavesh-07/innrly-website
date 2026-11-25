@@ -125,7 +125,7 @@ function Page() {
           "You want one platform, one login, one data model — not three products to license and integrate",
           "You want published pricing and a real 90-day trial",
           "You want Face-ID TimeClock + housekeeping productivity built into the same product as labor",
-          "You want a 2–4 week deployment with budgeting, BI, A/P, and labor included from day one",
+          "You want BI, A/P and night audit on top of your existing GL, with labor available as an add-on",
         ],
         competitor: [
           "You specifically need a hospitality-native general ledger and want to keep Profitvue as your GL",

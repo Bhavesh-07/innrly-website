@@ -137,13 +137,6 @@ export const INTEGRATIONS: Integration[] = [
   { name: "Paycom", initials: "PC", category: "payroll", hue: 220, domain: "paycom.com" },
   { name: "Paylocity", initials: "PL", category: "payroll", hue: 145, domain: "paylocity.com" },
   { name: "Heartland", initials: "HL", category: "payroll", hue: 0, domain: "heartland.us" },
-  {
-    name: "Hotel Effectiveness",
-    initials: "HE",
-    category: "payroll",
-    hue: 215,
-    domain: "hoteleffectiveness.com",
-  },
 
   // ─────────── Guest Survey ───────────
   { name: "Medallia", initials: "ME", category: "guest", hue: 350, domain: "medallia.com" },

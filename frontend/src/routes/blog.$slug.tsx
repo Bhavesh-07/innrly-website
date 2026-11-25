@@ -697,24 +697,36 @@ export const Route = createFileRoute("/blog/$slug")({
           { property: "og:url", content: `https://innrly.com/blog/${loaderData.slug}` },
         ]
       : [],
-    links: loaderData ? [{ rel: "canonical", href: `https://innrly.com/blog/${loaderData.slug}` }] : [],
+    links: loaderData
+      ? [
+          { rel: "canonical", href: `https://innrly.com/blog/${loaderData.slug}` },
+          { rel: "alternate", type: "application/rss+xml", title: "Innrly Blog", href: "/rss.xml" },
+        ]
+      : [],
     scripts: loaderData
       ? [
           {
             type: "application/ld+json",
             children: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Article",
+              "@type": "BlogPosting",
               headline: loaderData.post.title,
+              description: loaderData.post.summary || loaderData.post.title,
+              image: loaderData.post.featured_image ? (loaderData.post.featured_image.startsWith("http") ? loaderData.post.featured_image : `https://innrly.com${loaderData.post.featured_image}`) : undefined,
               datePublished: loaderData.post.date,
-              dateModified: loaderData.post.date,
-              author: { "@type": "Organization", name: loaderData.post.author || "The Innrly Team", url: "https://innrly.com/about" },
-              publisher: {
-                "@type": "Organization",
-                name: "Innrly",
-                logo: { "@type": "ImageObject", url: "https://innrly.com/favicon.svg" },
+              dateModified: loaderData.post.updated_at || loaderData.post.date,
+              author: {
+                "@type": "Person",
+                name: loaderData.post.author || "The Innrly Team",
+                url: "https://innrly.com/about",
               },
-              mainEntityOfPage: { "@type": "WebPage", "@id": `https://innrly.com/blog/${loaderData.slug}` },
+              publisher: {
+                "@id": "https://innrly.com/#organization",
+              },
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `https://innrly.com/blog/${loaderData.slug}`,
+              },
             }),
           },
           {
@@ -723,9 +735,14 @@ export const Route = createFileRoute("/blog/$slug")({
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
               itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-                { "@type": "ListItem", position: 2, name: "Blog", item: "/blog" },
-                { "@type": "ListItem", position: 3, name: loaderData.post.title, item: `/blog/${loaderData.slug}` },
+                { "@type": "ListItem", position: 1, name: "Home", item: "https://innrly.com/" },
+                { "@type": "ListItem", position: 2, name: "Blog", item: "https://innrly.com/blog" },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: loaderData.post.title,
+                  item: `https://innrly.com/blog/${loaderData.slug}`,
+                },
               ],
             }),
           },
@@ -885,10 +902,39 @@ const RELATED_BY_SLUG: Record<string, RelatedLink[]> = {
   ],
 };
 
+function getRelatedLinks(slug: string, post: any): RelatedLink[] {
+  if (RELATED_BY_SLUG[slug]) {
+    return RELATED_BY_SLUG[slug];
+  }
+  const text = `${slug} ${post?.title || ""} ${post?.categoryName || ""} ${post?.summary || ""}`.toLowerCase();
+  if (text.includes("labor") || text.includes("shift") || text.includes("overtime") || text.includes("timeclock") || text.includes("mpor") || text.includes("housekeeping")) {
+    return [
+      { to: "/solutions/innrly-shift", label: "Innrly Shift & TimeClock", kind: "Solution" },
+      { to: "/solutions/labor-workforce", label: "Labor & workforce overview", kind: "Solution" },
+      { to: "/blog/mpor-explained", label: "MPOR explained", kind: "Guide" },
+    ];
+  }
+  if (text.includes("ap") || text.includes("payable") || text.includes("invoice") || text.includes("bill") || text.includes("expense") || text.includes("payment")) {
+    return [
+      { to: "/solutions/innrly-pay", label: "Innrly Pay (Virtual Card + ACH)", kind: "Solution" },
+      { to: "/integrations/m3", label: "Innrly + M3 accounting sync", kind: "Solution" },
+      { to: "/solutions/expense-entries", label: "Expense entries & invoice capture", kind: "Solution" },
+    ];
+  }
+  if (text.includes("night audit") || text.includes("audit") || text.includes("daily report")) {
+    return [
+      { to: "/solutions/operations-automation", label: "Operations & night audit automation", kind: "Solution" },
+      { to: "/solutions/reconciliation", label: "Daily reconciliation engine", kind: "Solution" },
+      { to: "/blog/hotel-night-audit-software-guide", label: "Night audit buyer's guide", kind: "Guide" },
+    ];
+  }
+  return DEFAULT_RELATED;
+}
+
 function BlogPost() {
   const { post, slug } = Route.useLoaderData();
   const minutes = readingTime(post.body, post.contentHtml);
-  const related = RELATED_BY_SLUG[slug] ?? DEFAULT_RELATED;
+  const related = getRelatedLinks(slug, post);
   return (
     <div className="bg-background">
       <Breadcrumbs

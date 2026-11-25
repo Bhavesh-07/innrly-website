@@ -80,7 +80,7 @@ const comparisons = [
     readTime: "6 min read",
     highlights: [
       "BI on the same data model",
-      "A/P + audit + labor included",
+      "A/P + audit in one platform; labor via the Innrly Shift add-on",
       "Native TimeClock + MPOR",
     ],
     available: true,
@@ -128,7 +128,7 @@ export const Route = createFileRoute("/compare/")({
           hasPart: comparisons.map((c) => ({
             "@type": "WebPage",
             name: c.title,
-            url: c.to,
+            url: `https://innrly.com${c.to}`,
           })),
         }),
       },

@@ -50,21 +50,77 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
+          "@id": "https://innrly.com/#software",
           name: "Innrly",
+          url: "https://innrly.com/",
           applicationCategory: "BusinessApplication",
-          operatingSystem: "Web",
+          applicationSubCategory: "Hotel back-office software",
+          operatingSystem: "Web, iOS, Android",
           description:
-            "Hotel back-office automation, business intelligence, and labor management for multi-property operators.",
-          offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-            description: "90-day free trial",
+            "Hotel back-office automation and business intelligence for multi-property operators. Works with the hotel's existing PMS and accounting system (M3, QuickBooks, Sage Intacct).",
+          publisher: {
+            "@id": "https://innrly.com/#organization",
           },
-          // NOTE: aggregateRating intentionally omitted — Google penalizes
-          // unverified review schema. Add back once you have a real review
-          // source (G2 / Capterra / your own collection). See
-          // docs/DEVELOPER_HANDOFF_CONTENT.md
+          offers: [
+            {
+              "@type": "Offer",
+              name: "Starter",
+              price: "199",
+              priceCurrency: "USD",
+              url: "https://innrly.com/pricing",
+              description:
+                "Starter plan, $199 per property per month. One-time $299 setup fee on monthly billing; setup waived and 25% saved on annual billing. 90-day free trial.",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "199",
+                priceCurrency: "USD",
+                billingDuration: "P1M",
+                unitText: "per property per month",
+                referenceQuantity: {
+                  "@type": "QuantitativeValue",
+                  value: 1,
+                  unitText: "property",
+                },
+              },
+            },
+            {
+              "@type": "Offer",
+              name: "Professional",
+              price: "299",
+              priceCurrency: "USD",
+              url: "https://innrly.com/pricing",
+              description:
+                "Professional plan, $299 per month. One-time $299 setup fee on monthly billing; setup waived and 25% saved on annual billing. 90-day free trial.",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "299",
+                priceCurrency: "USD",
+                billingDuration: "P1M",
+                unitText: "per month",
+              },
+            },
+            {
+              "@type": "Offer",
+              name: "Innrly Shift add-on",
+              price: "149",
+              priceCurrency: "USD",
+              url: "https://innrly.com/pricing",
+              description:
+                "Labor add-on for Starter or Professional: scheduling, Face-ID TimeClock, housekeeping productivity and payroll export. $149 per property per month.",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "149",
+                priceCurrency: "USD",
+                billingDuration: "P1M",
+                unitText: "per property per month",
+                referenceQuantity: {
+                  "@type": "QuantitativeValue",
+                  value: 1,
+                  unitText: "property",
+                },
+              },
+            },
+          ],
         }),
       },
       {

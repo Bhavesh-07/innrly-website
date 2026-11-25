@@ -1,73 +1,39 @@
+# robots.txt for https://innrly.com
+# Final, November 24, 2026. Policy: the public marketing site is open to search engines
+# and AI assistants so Innrly can be found and cited. Private areas stay blocked.
+
 User-agent: *
+Allow: /
+Disallow: /control-hub
+Disallow: /control-hub/
+Disallow: /api/admin/
 
-User-agent: Google
-Disallow:
-Disallow: /cgi-bin/
+# AI search and answer engines: explicitly allowed (these power ChatGPT search,
+# Claude, Perplexity, Copilot/Bing and Apple answers that cite websites).
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /control-hub
+Disallow: /control-hub/
+Disallow: /api/admin/
 
-User-agent: Bing
-Disallow:
-
-User-agent: Yahoo
-Disallow:
-
-User-agent: Baidu
-Disallow:
-
-User-agent: AdsBot
-Disallow:
-
-User-agent: Google-Extended
-Disallow:
-
+# AI model-training crawlers: ALLOW (confirmed by Vimal).
 User-agent: GPTBot
-Disallow:
-
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
 User-agent: CCBot
-Disallow:
-
-User-agent: Googlebot
-Disallow: 
-
-User-agent: googlebot-image
-Disallow: 
-
-User-agent: googlebot-mobile
-Disallow: 
-
-User-agent: MSNBot
-Disallow: 
-
-User-agent: Slurp
-Disallow: 
-
-User-agent: Teoma
-Disallow: 
-
-User-agent: Gigabot
-Disallow: 
-
-User-agent: Robozilla
-Disallow: 
-
-User-agent: Nutch
-Disallow: 
-
-User-agent: ia_archiver
-Disallow: 
-
-User-agent: baiduspider
-Disallow: 
-
-User-agent: naverbot
-Disallow: 
-
-User-agent: yeti
-Disallow: 
-
-User-agent: yahoo-mmcrawler
-Disallow: 
-
-User-agent: psbot
-Disallow: 
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /control-hub
+Disallow: /control-hub/
+Disallow: /api/admin/
 
 Sitemap: https://innrly.com/sitemap.xml

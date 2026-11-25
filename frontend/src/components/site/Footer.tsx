@@ -9,7 +9,7 @@ const columns = [
     links: [
       { to: "/features", label: "Features" },
       { to: "/pricing", label: "Pricing" },
-      { to: "/integrations", label: "Integrations" },
+      { to: "/hotel-back-office-automation", label: "Platform overview" },
       { to: "/onboarding", label: "Get started" },
       { to: "/solutions/innrly-pay", label: "Innrly Pay" },
       { to: "/solutions/innrly-shift", label: "Innrly Shift" },
@@ -29,16 +29,27 @@ const columns = [
     ],
   },
   {
-    title: "Resources",
+    title: "Works with",
     links: [
-      { to: "/blog", label: "Blog" },
-      { to: "/glossary", label: "Glossary" },
-      { to: "/case-studies", label: "Case studies" },
-      { to: "/roi-calculator", label: "ROI calculator" },
-      { to: "/compare", label: "Compare" },
-      { to: "/integrations/m3", label: "Innrly + M3" },
-      { to: "/integrations/quickbooks", label: "Innrly + QuickBooks" },
+      { to: "/integrations", label: "All integrations" },
+      { to: "/integrations/m3", label: "M3 Accounting" },
+      { to: "/integrations/quickbooks", label: "QuickBooks" },
+      { to: "/integrations/sage-intacct", label: "Sage Intacct" },
+      { to: "/integrations/inn-flow", label: "Inn-Flow" },
+      { to: "/integrations/opera", label: "Oracle Opera" },
       { to: "/industries/select-service", label: "Select-Service Hotels" },
+    ],
+  },
+  {
+    title: "Compare",
+    links: [
+      { to: "/compare", label: "All comparisons" },
+      { to: "/compare/innrly-vs-actabl", label: "vs Actabl" },
+      { to: "/compare/innrly-vs-otelier", label: "vs Otelier" },
+      { to: "/compare/innrly-vs-hotel-effectiveness", label: "vs Hotel Effectiveness" },
+      { to: "/compare/innrly-vs-aptech", label: "vs Aptech" },
+      { to: "/compare/innrly-vs-nimble", label: "vs Nimble" },
+      { to: "/compare/innrly-vs-profitsage", label: "vs ProfitSage" },
     ],
   },
   {
@@ -46,15 +57,18 @@ const columns = [
     links: [
       { to: "/about", label: "About" },
       { to: "/contact", label: "Contact" },
+      { to: "/blog", label: "Blog" },
+      { to: "/case-studies", label: "Case studies" },
+      { to: "/roi-calculator", label: "ROI calculator" },
+      { to: "/glossary", label: "Glossary" },
       { to: "/security", label: "Security & trust" },
-      { to: "/developers", label: "Developers" },
     ],
   },
   {
     title: "Legal",
     links: [
       { to: "/legal/privacy", label: "Privacy Policy" },
-      { to: "/legal/privacy#do-not-sell", label: "Do Not Sell My Personal Information" },
+      { to: "/legal/privacy#do-not-sell", label: "Do Not Sell My Info" },
       { to: "/legal/terms", label: "Terms" },
       { to: "/legal/subscription", label: "Subscription Agreement" },
       { to: "/legal/security", label: "Security" },
@@ -95,7 +109,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border/60 bg-surface/40">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 xl:grid-cols-[minmax(13rem,1.25fr)_repeat(5,minmax(0,1fr))] xl:gap-x-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 xl:grid-cols-[minmax(13rem,1.25fr)_repeat(6,minmax(0,1fr))] xl:gap-x-12">
           <div className="col-span-2 min-w-0 md:col-span-1">
             <Link to="/" className="flex items-center" aria-label="Innrly home">
               <Wordmark size="md" />
@@ -251,27 +265,32 @@ export function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-8 sm:flex-row sm:items-center">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} Innrly. All rights reserved.</p>
-            <button
-              type="button"
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  if (typeof (window as unknown as { openCookieConsent?: () => void }).openCookieConsent === "function") {
-                    (window as unknown as { openCookieConsent?: () => void }).openCookieConsent?.();
+          <div className="flex flex-col gap-2">
+            <p className="text-xs text-muted-foreground">
+              Innrly, 4276 Hwy 51, LaPlace, LA 70068 · <a href="mailto:contact@innrly.com" className="hover:text-foreground hover:underline">contact@innrly.com</a>
+            </p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+              <p>© {new Date().getFullYear()} Innrly. All rights reserved.</p>
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    if (typeof (window as unknown as { openCookieConsent?: () => void }).openCookieConsent === "function") {
+                      (window as unknown as { openCookieConsent?: () => void }).openCookieConsent?.();
+                    }
+                    window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
                   }
-                  window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
-                }
-              }}
-              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition hover:text-foreground hover:underline cursor-pointer"
-              aria-label="Do Not Sell or Share My Personal Information and manage privacy choices"
-              id="do-not-sell-link"
-            >
-              <svg className="h-3.5 w-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-              <span>Your Privacy Choices | Do Not Sell My Info</span>
-            </button>
+                }}
+                className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition hover:text-foreground hover:underline cursor-pointer"
+                aria-label="Do Not Sell or Share My Personal Information and manage privacy choices"
+                id="do-not-sell-link"
+              >
+                <svg className="h-3.5 w-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>Your Privacy Choices | Do Not Sell My Info</span>
+              </button>
+            </div>
           </div>
           <p className="text-xs text-muted-foreground">Built for hotel owners and operators.</p>
         </div>

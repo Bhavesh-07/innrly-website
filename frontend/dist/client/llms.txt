@@ -1,69 +1,70 @@
 # Innrly
 
-> Hotel management software for back-office automation, business intelligence, and labor management. One platform for owners and operators to save 20–40 hours per property each month.
+> Innrly is hotel back-office software for owners, management companies and multi-property operators. It automates the night audit pack, OTA, bank and credit card reconciliation, and vendor invoice capture and GL coding, then syncs to the accounting system the hotel already uses (M3, QuickBooks Online, Sage Intacct). An optional module, Innrly Shift, covers labor scheduling, a Face-ID TimeClock, housekeeping productivity (MPOR) and payroll export. Innrly was built inside Q Hotels Management's own hotels starting in 2007, released to other operators in 2023, and runs at 200+ properties.
 
-## Pages
+Key facts (from https://innrly.com/pricing, checked 2026-11-24):
+- Starter: $199 per property per month. Professional: $299/month. One-time setup fee $299 on monthly plans, waived on annual plans; annual billing saves 25%.
+- 90-day free trial, no credit card. Unlimited users. Onboarding included.
+- Innrly Shift add-on: $149/month per property. Innrly Pay (virtual cards and ACH): free with annual Professional.
+- Accounting integration and A/P automation are included in Professional.
+- Innrly is not a PMS and not a general ledger. It works with the hotel's existing PMS and accounting system.
+- M3 Associate Partner (announced by M3 on 2026-09-29).
+- Official address: 4276 Hwy 51, LaPlace, LA 70068, United States.
+- Contact: contact@innrly.com, sales@innrly.com. No public phone number.
+- Hotel Effectiveness (an Actabl product) is a competitor, not an Innrly integration.
 
-- [Home](/): Overview of the Innrly platform for hotel back office, BI, and labor.
-- [Features](/features): Full feature breakdown across automation, reporting, and document vault.
-- [Pricing](/pricing): Plans and pricing for portfolios of any size.
-- [About](/about): Built by hotel operators for hotel operators.
-- [Contact](/contact): Talk to sales or request a demo.
-- [Onboarding](/onboarding): What the 14-day onboarding looks like.
-
-## Solutions
-
-- [Business intelligence](/solutions/business-intelligence): Multi-property dashboards and reporting.
-- [Financial control](/solutions/financial-control): Back-office accounting, reconciliation, and close.
-- [Labor & workforce](/solutions/labor-workforce): Labor cost, scheduling, and productivity.
-- [Operations automation](/solutions/operations-automation): Automated daily ops and night audit flows.
-- [Innrly Pay](/solutions/innrly-pay): Payments and disbursements built for hotels.
-- [Innrly Shift](/solutions/innrly-shift): Shift management for hotel teams.
-- [Reconciliation](/solutions/reconciliation): Daily PMS-to-bank, credit card, and OTA reconciliation.
-
-## Services
-
-- [Accountability Pack](/services/accountability-pack): Done-for-you data verification, franchise reporting, Green Engage, CLC reconciliation, and manual entries.
-
-## Industries
-
-- [Select service hotels](/industries/select-service): Back-office savings for select-service portfolios.
+## Product
+- [Pricing](https://innrly.com/pricing): Plans, add-ons and the 90-day free trial.
+- [Features](https://innrly.com/features): All modules on one page.
+- [Hotel back-office automation](https://innrly.com/hotel-back-office-automation): Overview of the full back-office platform.
+- [Night audit automation](https://innrly.com/solutions/operations-automation): Night Audit+, overnight OTA, bank and card reconciliation, invoice auto-pull.
+- [Hotel reconciliation](https://innrly.com/solutions/reconciliation): PMS, bank, card and OTA matching.
+- [Accounting reconciliation for controllers](https://innrly.com/solutions/financial-control): Exception-based financial control across properties.
+- [Hotel AP automation and Innrly Pay](https://innrly.com/solutions/innrly-pay): Invoice capture, approvals, virtual cards and ACH.
+- [Expense entries](https://innrly.com/solutions/expense-entries): Record once, sync to the GL.
+- [Labor management: Innrly Shift](https://innrly.com/solutions/innrly-shift): Scheduling, TimeClock, MPOR, payroll export.
+- [Business intelligence](https://innrly.com/solutions/business-intelligence): Portfolio dashboards and STR benchmarking.
+- [Document Vault](https://innrly.com/solutions/document-vault): Night audit packs and invoices filed by date.
+- [Accountability Pack](https://innrly.com/services/accountability-pack): Done-for-you back-office services.
 
 ## Integrations
+- [All integrations](https://innrly.com/integrations)
+- [M3](https://innrly.com/integrations/m3): Push-only; GL-coded invoices into M3.
+- [QuickBooks](https://innrly.com/integrations/quickbooks): Two-way sync with QuickBooks Online.
+- [Sage Intacct](https://innrly.com/integrations/sage-intacct)
+- [Inn-Flow](https://innrly.com/integrations/inn-flow)
+- [Oracle Opera](https://innrly.com/integrations/opera)
+- [Cloudbeds](https://innrly.com/integrations/cloudbeds)
+- [Mews](https://innrly.com/integrations/mews)
 
-- [Integrations overview](/integrations): All supported PMS, accounting, and payroll integrations.
-- [M3](/integrations/m3): Innrly + M3 accounting.
-- [QuickBooks](/integrations/quickbooks): Innrly + QuickBooks.
-- [Sage Intacct](/integrations/sage-intacct): Innrly + Sage Intacct.
+## Who it is for
+- [Select-service hotels](https://innrly.com/industries/select-service)
+- [Full-service hotels](https://innrly.com/industries/full-service)
+- [Extended-stay hotels](https://innrly.com/industries/extended-stay)
 
+## Comparisons
+- [All comparisons](https://innrly.com/compare)
+- [Innrly vs Actabl](https://innrly.com/compare/innrly-vs-actabl)
+- [Innrly vs Otelier](https://innrly.com/compare/innrly-vs-otelier)
+- [Innrly vs Hotel Effectiveness](https://innrly.com/compare/innrly-vs-hotel-effectiveness)
+- [Innrly vs Aptech](https://innrly.com/compare/innrly-vs-aptech)
+- [Innrly vs Nimble Property](https://innrly.com/compare/innrly-vs-nimble)
+- [Innrly vs ProfitSage](https://innrly.com/compare/innrly-vs-profitsage)
 
-## Compare
+## Guides
+- [Best hotel accounting software (2026)](https://innrly.com/blog/best-hotel-accounting-software)
+- [Hotel night audit software buyer's guide](https://innrly.com/blog/hotel-night-audit-software-guide)
+- [QuickBooks for hotels: limits and what to do](https://innrly.com/blog/quickbooks-for-hotels-limits)
+- [Hotel back-office automation: complete guide](https://innrly.com/blog/hotel-back-office-automation)
+- [Night audit automation](https://innrly.com/blog/night-audit-automation)
+- [OTA reconciliation guide](https://innrly.com/blog/ota-reconciliation-guide)
+- [Hotel AP automation](https://innrly.com/blog/ap-automation-hotels)
+- [Hotel labor cost percentage](https://innrly.com/blog/hotel-labor-cost-percentage)
+- [MPOR explained](https://innrly.com/blog/mpor-explained)
+- [Innrly joins M3's partner ecosystem](https://innrly.com/blog/innrly-joins-m3-partner-ecosystem-hotel-accounting-automation)
+- [Glossary](https://innrly.com/glossary)
 
-- [Compare overview](/compare): How Innrly compares to competing platforms.
-- [Innrly: alternative to Otelier](/compare/innrly-vs-otelier): Feature and pricing comparison.
-- [Innrly vs Hotel Effectiveness](/compare/innrly-vs-hotel-effectiveness): Labor, TimeClock, and full back office compared.
-
-## Blog
-
-- [Blog index](/blog): Guides and insights for hotel operators.
-- [INNRLY joins M3 partner ecosystem](/blog/innrly-joins-m3-partner-ecosystem-hotel-accounting-automation): M3 Associate Partner announcement; invoice capture and GL coding into M3 Accounting Core.
-- [OTA reconciliation guide](/blog/ota-reconciliation-guide): How to reconcile OTA commissions accurately.
-- [Hotel night audit software guide](/blog/hotel-night-audit-software-guide): Modern night audit automation.
-- [Multi-property hotel accounting software](/blog/multi-property-hotel-accounting-software): What to look for in multi-property accounting.
-- [Hotel budgeting software 2026](/blog/hotel-budgeting-software-2026): Budgeting tools and approaches.
-- [Select-service back-office savings](/blog/select-service-back-office-savings): Where select-service hotels save the most.
-- [MPOR explained](/blog/mpor-explained): Manager's Productivity Operating Report explained.
-- [QuickBooks for hotels: limits](/blog/quickbooks-for-hotels-limits): Where QuickBooks falls short for hotel groups.
-- [Hospitality accounting services vs software](/blog/hospitality-accounting-services-vs-software): When to use each.
-
-## Case studies
-
-- [Midwest portfolio](/case-studies/midwest-portfolio): A multi-property operator's results with Innrly.
-
-## Optional
-
-- [Glossary](/glossary): Hotel back-office and accounting terms.
-- [Privacy](/legal/privacy)
-- [Terms](/legal/terms)
-- [Security](/legal/security)
-- [Cookies](/legal/cookies)
+## Company
+- [About](https://innrly.com/about)
+- [Security](https://innrly.com/security)
+- [Contact and demo](https://innrly.com/contact)

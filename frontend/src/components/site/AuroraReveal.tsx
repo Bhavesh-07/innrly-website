@@ -47,43 +47,6 @@ export function AuroraReveal({
       ref={ref}
       className={cn("aurora-reveal relative inline-block", revealed && "is-revealed", className)}
     >
-      <style>{`
-        .aurora-reveal::after {
-          content: "";
-          position: absolute;
-          inset: -8% -6%;
-          pointer-events: none;
-          background: linear-gradient(
-            105deg,
-            transparent 0%,
-            transparent 38%,
-            oklch(0.82 0.16 195 / 0.55) 46%,
-            oklch(0.62 0.22 260 / 0.65) 50%,
-            oklch(0.70 0.20 310 / 0.55) 54%,
-            transparent 62%,
-            transparent 100%
-          );
-          background-size: 260% 100%;
-          background-position: 120% 0;
-          mix-blend-mode: screen;
-          filter: blur(14px);
-          opacity: 0;
-          transition: opacity 0.4s ease;
-        }
-        .aurora-reveal.is-revealed::after {
-          opacity: 1;
-          animation: aurora-reveal-sweep 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        @keyframes aurora-reveal-sweep {
-          0% { background-position: 120% 0; opacity: 0; }
-          18% { opacity: 1; }
-          82% { opacity: 1; }
-          100% { background-position: -40% 0; opacity: 0; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .aurora-reveal::after { display: none; }
-        }
-      `}</style>
       {children}
     </span>
   );

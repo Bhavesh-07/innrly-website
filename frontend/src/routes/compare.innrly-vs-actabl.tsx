@@ -150,7 +150,7 @@ function Page() {
       whenToChoose={{
         innrly: [
           "You want to keep your current TimeClock and still get scheduling, MPOR, OT guardrails, and payroll export",
-          "You want published, predictable pricing — labor included in the back-office price, not billed per module",
+          "You want published, predictable pricing: back office from $199 per property per month, labor as a $149-per-property add-on",
           "You want Face-ID biometric punch-in as an option, in the same product as scheduling and payroll",
           "You want labor inside the same product as A/P, OTA reconciliation, BI, and night audit — one login, one data model",
           "You want a real 90-day trial on your own data before you commit",

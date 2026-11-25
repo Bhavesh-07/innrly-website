@@ -37,7 +37,7 @@ import { isDisposableEmail } from "@/lib/disposable-domains";
 const onboardingFaqs = [
   {
     q: "How fast will my hotel portfolio be live on Innrly?",
-    a: "Most properties are fully onboarded and live within one business day. Our implementation team validates your property data and establishes your PMS connection immediately upon review.",
+    a: "Our implementation team validates your property data and pairs your PMS connection directly upon review.",
   },
   {
     q: "What do I need to prepare before onboarding?",
@@ -48,8 +48,8 @@ const onboardingFaqs = [
     a: "Yes. You can onboard initial pilot properties today and easily add additional hotels, management accounts, and team members at any time from your Innrly Control Hub.",
   },
   {
-    q: "Is there a long-term contract or setup fee?",
-    a: "No. Innrly includes a 90-day free trial with zero setup fees and zero cancellation penalties. You can evaluate the entire suite with your real hotel operations risk-free.",
+    q: "Is there a setup fee?",
+    a: "There is a $299 one-time setup fee on monthly plans. Annual plans waive the setup fee and save 25%. Every plan includes a 90-day free trial.",
   },
 ];
 
@@ -397,7 +397,7 @@ function OnboardingPage() {
             Let's get your portfolio <span className="text-gradient">onboarded.</span>
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground">
-            Takes about 5 minutes. You'll be live on Innrly within one business day.
+            Takes about 5 minutes. Start your Innrly 90-day free trial.
           </p>
         </div>
       </section>
@@ -1129,8 +1129,7 @@ function SuccessScreen() {
           Application received.
         </h2>
         <p className="mt-3 max-w-md text-base text-muted-foreground">
-          Thanks — our onboarding team will reach out within one business day to schedule kickoff
-          and confirm your PMS integration.
+          Thanks — our onboarding team will reach out to schedule kickoff and confirm your PMS integration.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Button asChild size="lg" className="bg-cta hover:opacity-90">

@@ -40,7 +40,7 @@ Innrly is an **official certified integration partner** with:
 
 - **PMS**: Opera (Oracle), Choice Advantage, Marriott FOSSE, Hilton OnQ, Best Western WHG, Wyndham Wynguest, IHG HMS, Stayntouch, Cloudbeds, Mews, RoomKeyPMS, Visual Matrix, Maestro, innRoad, HotelKey, Jonas Chorum
 - **Accounting**: M3, QuickBooks, Sage Intacct, Xero, NetSuite
-- **Payroll & TimeClock**: ADP, Paychex, Gusto, Paycom, Paylocity, Heartland, Hotel Effectiveness
+- **Payroll & TimeClock**: ADP, Paychex, Gusto, Paycom, Paylocity, Heartland
 - **Guest survey & reputation**: Medallia, Revinate, GuestRevu, TrustYou, ReviewPro
 - **Banking (via Plaid)**: Chase, Bank of America, Wells Fargo, Truist, U.S. Bank, PNC, Capital One — any Plaid-supported bank
 - **Invoice payments & A/P**: Innrly Pay, Virtual Cards, ACH, Repay, Melio, AvidXchange, Stripe

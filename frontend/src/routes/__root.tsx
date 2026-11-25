@@ -147,11 +147,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": "https://innrly.com/#organization",
           name: "Innrly",
-          url: SITE_URL,
-          logo: `${SITE_URL}/favicon.svg`,
+          url: "https://innrly.com/",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://innrly.com/innrly-logo.png",
+            width: 512,
+            height: 512,
+          },
           description:
-            "Hotel management software for back-office automation, business intelligence, and labor management.",
+            "Hotel back-office software for owners, management companies and multi-property operators: night audit automation, OTA, bank and card reconciliation, AP automation and business intelligence. Labor scheduling is available through the Innrly Shift add-on.",
+          email: "contact@innrly.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "4276 Hwy 51",
+            addressLocality: "LaPlace",
+            addressRegion: "LA",
+            postalCode: "70068",
+            addressCountry: "US",
+          },
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              contactType: "sales",
+              email: "sales@innrly.com",
+              url: "https://innrly.com/contact",
+              areaServed: "US",
+              availableLanguage: "en",
+            },
+          ],
           sameAs: ["https://www.linkedin.com/company/innrly", "https://x.com/innrly"],
         }),
       },
@@ -160,15 +185,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
+          "@id": "https://innrly.com/#website",
           name: "Innrly",
-          url: SITE_URL,
-          potentialAction: {
-            "@type": "SearchAction",
-            target: {
-              "@type": "EntryPoint",
-              urlTemplate: `${SITE_URL}/glossary?q={search_term_string}`,
-            },
-            "query-input": "required name=search_term_string",
+          url: "https://innrly.com/",
+          publisher: {
+            "@id": "https://innrly.com/#organization",
           },
         }),
       }

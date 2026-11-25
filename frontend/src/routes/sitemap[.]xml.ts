@@ -12,7 +12,7 @@ export const Route = createFileRoute("/sitemap.xml")({
     handlers: {
       GET: async () => {
         const base = (process.env.SITE_URL || "https://innrly.com").replace(/\/+$/, "");
-        const legalDate = "2026-06-06";
+        const legalDate = "2026-11-24";
 
         // Default static marketing entries (blogs are dynamically loaded from DB)
         const defaultEntries: SitemapEntry[] = [
@@ -26,6 +26,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/security", changefreq: "monthly", priority: "0.7", lastmod: legalDate },
           { path: "/developers", changefreq: "monthly", priority: "0.6", lastmod: legalDate },
           { path: "/roi-calculator", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
+          { path: "/hotel-back-office-automation", changefreq: "monthly", priority: "0.85", lastmod: legalDate },
           { path: "/case-studies", changefreq: "monthly", priority: "0.8", lastmod: legalDate },
           { path: "/blog", changefreq: "weekly", priority: "0.8", lastmod: legalDate },
 

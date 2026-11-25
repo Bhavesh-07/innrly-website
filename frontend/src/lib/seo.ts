@@ -150,10 +150,10 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/onboarding": {
     "title": "Hotel Software Onboarding | Get Started with Innrly",
-    "description": "Get your hotel portfolio onboarded to Innrly in minutes. Connect your systems, streamline back-office operations and get live within one business day.",
+    "description": "Start your Innrly 90-day free trial. Add your company, users and properties; our team pairs your PMS and maps your chart of accounts.",
     "keywords": "innrly onboarding, get started, hotel software setup, Hotel Software Onboarding, Hotel Management Software Onboarding, Hotel Software Setup, Hotel Back-Office Automation, Hotel Operations Software, Hotel Portfolio Management",
     "ogTitle": "Hotel Management Software Onboarding | Innrly",
-    "ogDescription": "Onboard your hotel portfolio to Innrly in about 5 minutes and get live within one business day with secure hotel back-office automation.",
+    "ogDescription": "Start your Innrly 90-day free trial. Add your company, users and properties; our team pairs your PMS and maps your chart of accounts.",
     "ogImage": "/uploads/og_1789121600_onboarding.jpg",
     "ogType": "website",
     "canonical": "https://innrly.com/onboarding",

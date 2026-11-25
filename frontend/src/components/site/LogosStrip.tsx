@@ -32,7 +32,6 @@ const ADDITIVE: string[] = [
   "Repay",
   "Medallia",
   "Revinate",
-  "Hotel Effectiveness",
   "Kipsu",
 ];
 

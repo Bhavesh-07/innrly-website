@@ -189,7 +189,10 @@ export const Route = createFileRoute("/blog/")({
         "/blog"
       ),
     ],
-    links: [{ rel: "canonical", href: "https://innrly.com/blog" }],
+    links: [
+      { rel: "canonical", href: "https://innrly.com/blog" },
+      { rel: "alternate", type: "application/rss+xml", title: "Innrly Blog", href: "/rss.xml" },
+    ],
     scripts: [
       {
         type: "application/ld+json",

@@ -39,10 +39,19 @@ export const Route = createFileRoute("/contact")({
           "@context": "https://schema.org",
           "@type": "ContactPage",
           name: "Contact Innrly",
-          url: "/contact",
+          url: "https://innrly.com/contact",
           mainEntity: {
             "@type": "Organization",
             name: "Innrly",
+            email: "contact@innrly.com",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "4276 Hwy 51",
+              addressLocality: "LaPlace",
+              addressRegion: "LA",
+              postalCode: "70068",
+              addressCountry: "US",
+            },
             contactPoint: {
               "@type": "ContactPoint",
               contactType: "sales",
@@ -59,8 +68,8 @@ export const Route = createFileRoute("/contact")({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-            { "@type": "ListItem", position: 2, name: "Contact", item: "/contact" },
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://innrly.com/" },
+            { "@type": "ListItem", position: 2, name: "Contact", item: "https://innrly.com/contact" },
           ],
         }),
       },
@@ -241,7 +250,7 @@ function ContactPage() {
               ))}
             </ol>
 
-            <div className="mt-6 rounded-2xl border border-border bg-card/50 p-5">
+            <div className="mt-6 rounded-2xl border border-border bg-card/50 p-5 space-y-3">
               <p className="text-sm leading-relaxed text-muted-foreground">
                 Prefer email?{" "}
                 <a
@@ -255,6 +264,12 @@ function ContactPage() {
                   skip the demo and start your 90-day trial →
                 </Link>
               </p>
+              <div className="border-t border-border/60 pt-3 text-xs leading-relaxed text-muted-foreground">
+                <span className="font-semibold text-foreground">Innrly</span> · 4276 Hwy 51, LaPlace, LA 70068 ·{" "}
+                <a href="mailto:contact@innrly.com" className="hover:underline text-accent">
+                  contact@innrly.com
+                </a>
+              </div>
             </div>
           </div>
 
@@ -269,8 +284,7 @@ function ContactPage() {
                   Got it — we'll be in touch.
                 </h2>
                 <p className="mt-2 max-w-md text-sm text-muted-foreground">
-                  A member of the Innrly team will reach out within one business day to schedule
-                  your demo.
+                  A member of the Innrly team will reach out to schedule your demo.
                 </p>
                 <ol className="mt-8 w-full max-w-md space-y-3 text-left">
                   {STEPS.map((s, i) => (
