@@ -36,8 +36,8 @@ import { isDisposableEmail } from "@/lib/disposable-domains";
 
 const onboardingFaqs = [
   {
-    q: "How fast will my hotel portfolio be live on Innrly?",
-    a: "Our implementation team validates your property data and pairs your PMS connection directly upon review.",
+    q: "How quickly will my portfolio be live on Innrly?",
+    a: "Most portfolios are fully onboarded and live in 2–4 weeks. Our implementation team validates your property connections and chart of accounts mapping with your controllers.",
   },
   {
     q: "What do I need to prepare before onboarding?",
@@ -397,7 +397,7 @@ function OnboardingPage() {
             Let's get your portfolio <span className="text-gradient">onboarded.</span>
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground">
-            Takes about 5 minutes. Start your Innrly 90-day free trial.
+            Takes about 5 minutes. Most portfolios are live on Innrly in 2–4 weeks.
           </p>
         </div>
       </section>

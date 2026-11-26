@@ -3,14 +3,14 @@
 > Innrly is hotel back-office software for owners, management companies and multi-property operators. It automates the night audit pack, OTA, bank and credit card reconciliation, and vendor invoice capture and GL coding, then syncs to the accounting system the hotel already uses (M3, QuickBooks Online, Sage Intacct). An optional module, Innrly Shift, covers labor scheduling, a Face-ID TimeClock, housekeeping productivity (MPOR) and payroll export. Innrly was built inside Q Hotels Management's own hotels starting in 2007, released to other operators in 2023, and runs at 200+ properties.
 
 Key facts (from https://innrly.com/pricing, checked 2026-11-24):
-- Starter: $199 per property per month. Professional: $299/month. One-time setup fee $299 on monthly plans, waived on annual plans; annual billing saves 25%.
-- 90-day free trial, no credit card. Unlimited users. Onboarding included.
+- Starter: $199 per property per month. Professional: $299 per property per month. One-time setup fee $299 on monthly plans, waived on annual plans; annual billing saves 25%.
+- 90-day free trial, no credit card. Unlimited users. Onboarding included; typical go-live is 2–4 weeks.
 - Innrly Shift add-on: $149/month per property. Innrly Pay (virtual cards and ACH): free with annual Professional.
 - Accounting integration and A/P automation are included in Professional.
 - Innrly is not a PMS and not a general ledger. It works with the hotel's existing PMS and accounting system.
 - M3 Associate Partner (announced by M3 on 2026-09-29).
 - Official address: 4276 Hwy 51, LaPlace, LA 70068, United States.
-- Contact: contact@innrly.com, sales@innrly.com. No public phone number.
+- Contact: contact@innrly.com, sales@innrly.com.
 - Hotel Effectiveness (an Actabl product) is a competitor, not an Innrly integration.
 
 ## Product

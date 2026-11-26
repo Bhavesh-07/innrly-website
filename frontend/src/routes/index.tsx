@@ -90,13 +90,18 @@ export const Route = createFileRoute("/")({
               priceCurrency: "USD",
               url: "https://innrly.com/pricing",
               description:
-                "Professional plan, $299 per month. One-time $299 setup fee on monthly billing; setup waived and 25% saved on annual billing. 90-day free trial.",
+                "Professional plan, $299 per property per month. One-time $299 setup fee on monthly billing; setup waived and 25% saved on annual billing. 90-day free trial.",
               priceSpecification: {
                 "@type": "UnitPriceSpecification",
                 price: "299",
                 priceCurrency: "USD",
                 billingDuration: "P1M",
-                unitText: "per month",
+                unitText: "per property per month",
+                referenceQuantity: {
+                  "@type": "QuantitativeValue",
+                  value: 1,
+                  unitText: "property",
+                },
               },
             },
             {
@@ -142,7 +147,7 @@ export const Route = createFileRoute("/")({
               name: "How long does onboarding take with Innrly?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Onboarding is fully guided by our team and typically takes less than 14 days. We connect to your PMS, accounting systems, and bank feeds for you, ensuring a seamless transition with zero disruption to your daily operations.",
+                text: "Onboarding is fully guided by our team and typically takes 2–4 weeks. We connect to your PMS, accounting systems, and bank feeds for you, ensuring a seamless transition with zero disruption to your daily operations.",
               },
             },
             {
@@ -704,7 +709,7 @@ function HomePage() {
                 How long does onboarding take with Innrly?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed">
-                Onboarding is fully guided by our team and typically takes less than 14 days. We
+                Onboarding is fully guided by our team and typically takes 2–4 weeks. We
                 connect to your PMS, accounting systems, and bank feeds for you, ensuring a seamless
                 transition with zero disruption to your daily operations.
               </AccordionContent>

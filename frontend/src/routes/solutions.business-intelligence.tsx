@@ -382,7 +382,7 @@ function Page() {
             },
             {
               q: "How long until we see our own data?",
-              a: "Most portfolios are live in under two weeks. No IT project, no schema mapping homework — Innrly handles the connectors.",
+              a: "Most portfolios are live in 2–4 weeks. No IT project, no schema mapping homework — Innrly handles the connectors.",
             },
             {
               q: "Who actually logs in day-to-day?",

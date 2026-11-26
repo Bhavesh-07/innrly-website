@@ -71,11 +71,11 @@ export const defaultSeoData: Record<string, SeoData> = {
     "priority": "0.9"
   },
   "/pricing": {
-    "title": "Innrly Pricing | Scalable Hotel Management Software",
-    "description": "Compare flexible pricing plans for Innrly's hotel back-office software. Find the best solution for single properties or multi-hotel portfolios.",
+    "title": "Innrly Pricing: From $199 per Property per Month",
+    "description": "Starter $199 and Professional $299 per property per month, plus $299 setup (waived on annual). 90-day free trial, live in 2–4 weeks. Shift add-on $149.",
     "keywords": "Hotel Software Pricing, Innrly Pricing, Hotel Management Software Pricing, Hotel Back-Office Software, Hotel Management System Pricing, Hotel Automation Software",
-    "ogTitle": "Innrly Hotel Management Software Pricing & Plans",
-    "ogDescription": "Compare Innrly plans for hotel back-office automation, business intelligence, labor management and reconciliation. Start with a 90-day free trial.",
+    "ogTitle": "Innrly Pricing: From $199 per Property per Month",
+    "ogDescription": "Starter $199 and Professional $299 per property per month, plus $299 setup (waived on annual). 90-day free trial, live in 2–4 weeks. Shift add-on $149.",
     "ogImage": "/uploads/og_1788954421_INNRLYOGImagePricing.jpg",
     "ogType": "website",
     "canonical": "https://innrly.com/pricing",
@@ -150,10 +150,10 @@ export const defaultSeoData: Record<string, SeoData> = {
   },
   "/onboarding": {
     "title": "Hotel Software Onboarding | Get Started with Innrly",
-    "description": "Start your Innrly 90-day free trial. Add your company, users and properties; our team pairs your PMS and maps your chart of accounts.",
+    "description": "Start your Innrly 90-day free trial. Sign up in about 5 minutes; our team connects your PMS and accounting and most portfolios are live in 2–4 weeks.",
     "keywords": "innrly onboarding, get started, hotel software setup, Hotel Software Onboarding, Hotel Management Software Onboarding, Hotel Software Setup, Hotel Back-Office Automation, Hotel Operations Software, Hotel Portfolio Management",
     "ogTitle": "Hotel Management Software Onboarding | Innrly",
-    "ogDescription": "Start your Innrly 90-day free trial. Add your company, users and properties; our team pairs your PMS and maps your chart of accounts.",
+    "ogDescription": "Start your Innrly 90-day free trial. Sign up in about 5 minutes; our team connects your PMS and accounting and most portfolios are live in 2–4 weeks.",
     "ogImage": "/uploads/og_1789121600_onboarding.jpg",
     "ogType": "website",
     "canonical": "https://innrly.com/onboarding",

@@ -94,13 +94,18 @@ export const Route = createFileRoute("/pricing")({
               priceCurrency: "USD",
               url: "https://innrly.com/pricing",
               description:
-                "Professional plan, $299 per month. One-time $299 setup fee on monthly billing; setup waived and 25% saved on annual billing. 90-day free trial.",
+                "Professional plan, $299 per property per month. One-time $299 setup fee on monthly billing; setup waived and 25% saved on annual billing. 90-day free trial.",
               priceSpecification: {
                 "@type": "UnitPriceSpecification",
                 price: "299",
                 priceCurrency: "USD",
                 billingDuration: "P1M",
-                unitText: "per month",
+                unitText: "per property per month",
+                referenceQuantity: {
+                  "@type": "QuantitativeValue",
+                  value: 1,
+                  unitText: "property",
+                },
               },
             },
             {
@@ -461,7 +466,7 @@ const COMPARE: Array<[string, boolean, boolean | string]> = [
   ["Labor Snapshot", false, true],
   ["Mobile app", false, true],
   ["Innrly Pay", false, "Annual only"],
-  ["Phone support", false, true],
+  ["Phone support", false, "Phone support: 833-311-0777"],
 ];
 
 const faqs = [
@@ -521,7 +526,7 @@ function PricingPage() {
                     ? "Single property or small portfolios."
                     : "Growing portfolios that need automation.";
                 const m = p === "starter" ? 199 : 299;
-                const y = p === "starter" ? 149 : 249;
+                const y = p === "starter" ? 149 : 224;
                 const price = billing === "monthly" ? m : y;
                 const yearlyTotal = y * 12;
                 const isPopular = p === "pro";
@@ -571,7 +576,7 @@ function PricingPage() {
                         ${price}
                       </span>
                       <span className="text-xs text-muted-foreground">
-                        {p === "starter" ? "/property/mo" : "/mo"}
+                        /property/mo
                       </span>
                     </div>
                     <div className="mt-1.5 text-[10px] font-medium leading-tight">
@@ -626,7 +631,7 @@ function PricingPage() {
                 </div>
                 <span className="text-[10px] font-medium tracking-wide text-muted-foreground">
                   {billing === "yearly" ? (
-                    <span className="text-emerald-300">2 months free · setup waived on annual</span>
+                    <span className="text-emerald-300">Save 25% · setup waived on annual</span>
                   ) : (
                     <>Save 25% + setup waived on annual</>
                   )}

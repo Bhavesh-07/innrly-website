@@ -55,7 +55,7 @@
   - Postal Code: `70068`
   - Country: `United States`
   - Email: `contact@innrly.com`
-  - Phone: Remove where non-mandatory, or restrict to non-public internal review contact.
+  - Phone: `833-311-0777` (use if listing or trader info requires a public phone; otherwise remove)
 - Submit metadata changes for App Store review.
 
 **Step 3: Update Google Play Console**
@@ -68,7 +68,7 @@
   - Country: `United States`
 - Navigate to: **Store presence > Store settings > App contact details**
   - Email: `contact@innrly.com`
-  - Phone: Leave empty / uncheck public display if required verification allows.
+  - Developer phone: `833-311-0777` (Google requires a public phone; replace legacy +1 504-251-8314)
   - Website: `https://innrly.com`
 - Navigate to: **Policy and programs > App content > Privacy policy**
   - URL: `https://innrly.com/legal/privacy`

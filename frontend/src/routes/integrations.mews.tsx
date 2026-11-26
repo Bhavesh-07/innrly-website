@@ -5,7 +5,7 @@ import { IntegrationLayout } from "@/components/site/IntegrationLayout";
 const faqs = [
   {
     q: "How does Innrly connect to Mews?",
-    a: "Through the Mews integration interface used by certified back-office partners. Setup typically takes 1–2 weeks per portfolio.",
+    a: "Through the Mews integration interface used by certified back-office partners. Setup is part of onboarding; most portfolios are live in 2–4 weeks.",
   },
   {
     q: "Is Mews still my system of record?",

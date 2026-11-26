@@ -153,7 +153,7 @@ function Page() {
             {
               n: "2",
               t: "Onboard with Innrly",
-              b: "Our team plugs into your Innrly tenant, PMS, and accounting platform within 14 days.",
+              b: "Our team plugs into your Innrly tenant, PMS and accounting platform during your 2–4 week onboarding.",
             },
             {
               n: "3",

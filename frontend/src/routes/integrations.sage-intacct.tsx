@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "How long does Sage Intacct integration take to set up?",
-    a: "Standard Sage Intacct connection and chart of accounts mapping typically takes 1 to 2 weeks for multi-property portfolios, guided by our dedicated implementation team.",
+    a: "Setup is part of onboarding; most portfolios are live in 2–4 weeks.",
   },
 ];
 
