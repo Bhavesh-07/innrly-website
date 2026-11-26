@@ -1,0 +1,9 @@
+# robots.txt for https://app.innrly.com  (serve as text/plain, HTTP 200)
+# Innrly app host. Nothing behind sign-in is for a search engine: only the sign-in page may be crawled.
+# Also send the header "X-Robots-Tag: noindex, nofollow" on every app.innrly.com response,
+# so a crawler that ignores this file still indexes nothing.
+User-agent: *
+Allow: /$
+Allow: /signin$
+Allow: /login$
+Disallow: /

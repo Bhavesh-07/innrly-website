@@ -1,0 +1,39 @@
+# robots.txt for https://innrly.com
+# Final, November 24, 2026. Policy: the public marketing site is open to search engines
+# and AI assistants so Innrly can be found and cited. Private areas stay blocked.
+
+User-agent: *
+Allow: /
+Disallow: /control-hub
+Disallow: /control-hub/
+Disallow: /api/admin/
+
+# AI search and answer engines: explicitly allowed (these power ChatGPT search,
+# Claude, Perplexity, Copilot/Bing and Apple answers that cite websites).
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /control-hub
+Disallow: /control-hub/
+Disallow: /api/admin/
+
+# AI model-training crawlers: ALLOW (confirmed by Vimal).
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /control-hub
+Disallow: /control-hub/
+Disallow: /api/admin/
+
+Sitemap: https://innrly.com/sitemap.xml

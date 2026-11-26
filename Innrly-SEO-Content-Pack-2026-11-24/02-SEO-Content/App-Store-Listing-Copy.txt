@@ -1,0 +1,91 @@
+INNRLY APP STORE LISTINGS: COPY AND CONTACT CHANGES (final, Nov 24, 2026, updated 11 AM with Vimal's answers)
+=========================================================================
+Who: whoever owns the Google Play Console and App Store Connect accounts (developer: Mystic Solutions LLC).
+Nothing below has been changed by us. Checked live (public pages) on Nov 24, 2026.
+
+---------------------------------------------------------------------
+1) GOOGLE PLAY: "INNRLY" (package com.mystic.innrly)
+   https://play.google.com/store/apps/details?id=com.mystic.innrly
+---------------------------------------------------------------------
+LIVE TODAY (Nov 24) in "App support / About the developer":
+   Mystic Solutions LLC
+   contact@innrly.com
+   173 W Lakeview Dr, La Place, LA 70068, United States   <-- OLD ADDRESS, remove
+   +1 504-251-8314                                         <-- OLD PHONE, replace with 833-311-0777
+
+CHANGE TO:
+   Developer name:   Mystic Solutions LLC  (or "Innrly" if Vimal prefers; developer name can be changed any time)
+   Email:            contact@innrly.com
+   Website:          https://innrly.com
+   Address:          4276 Hwy 51, LaPlace, LA 70068, United States
+   Developer phone:  833-311-0777   (decided by Vimal, Nov 24; Google requires a public phone)
+   Privacy policy:   https://innrly.com/legal/privacy   (the current /privacy-policy/ URL works through a 301, but use the final URL)
+
+WHERE TO CHANGE IT:
+   - Address: Play Console > Settings > Developer account > Account details. For organization
+     accounts the address comes from the linked Google payments profile and must be re-verified
+     (it should match the D-U-N-S record). Update the payments profile address first.
+   - Developer phone (shown publicly): Play Console > Settings > Developer account > Account details
+     > Developer phone number. Enter 833-311-0777 and verify it with the one-time code Google sends.
+   - Per-app support email/phone/website: Play Console > Grow > Store presence > Store settings
+     > Store listing contact details. Phone: 833-311-0777 (or leave empty; the developer phone already shows).
+
+DECIDED (Vimal, Nov 24): Google requires organization accounts to show a verified developer phone,
+so the app-store listings use 833-311-0777. This number is for the app-store listings (and the
+/pricing phone-support line for packages that include it). It does not go in the website footer,
+/contact or schema. Source: https://support.google.com/googleplay/android-developer/answer/13628312
+
+UPDATED SHORT DESCRIPTION (max 80 characters; 74 used):
+   Hotel back-office app: night audit, reconciliation, AP and portfolio KPIs.
+
+UPDATED FULL DESCRIPTION (replaces the current text, which has typos such as "entrire" and
+does not match how innrly.com describes the product today):
+
+   Innrly is hotel back-office software for owners, management companies and multi-property
+   operators. The mobile app gives you your portfolio's numbers and exceptions on the go.
+
+   What Innrly does
+   • Night audit automation: the daily audit pack is collected, organized and filed by date.
+   • Reconciliation: PMS, bank, credit card and OTA (Expedia, Booking.com, Airbnb) matching,
+     with exceptions routed to the right GM or controller.
+   • AP automation: vendor invoices captured with OCR, GL-coded and routed for approval.
+   • Business intelligence: daily portfolio KPIs, property drill-downs and STR benchmarking.
+   • Works with the systems you already use: your PMS and accounting system (M3, QuickBooks,
+     Sage Intacct). Innrly is not a PMS and does not replace your general ledger.
+
+   Labor scheduling and the Face-ID TimeClock are part of Innrly Shift, an optional add-on.
+
+   Start a 90-day free trial at https://innrly.com/pricing. Questions: contact@innrly.com.
+
+---------------------------------------------------------------------
+2) APP STORE: "INNRLY Shift Team" (id6803081220)
+   https://apps.apple.com/us/app/innrly-shift-team/id6803081220
+---------------------------------------------------------------------
+LIVE TODAY (Nov 24): Seller MYSTIC SOLUTIONS LLC. Support link https://innrly.com/contact (OK).
+   Privacy policy link: https://innrly.com/privacy   <-- this is a 404 today. FIX NOW.
+   The public US page does not show a street address or phone number.
+
+CHANGE TO (App Store Connect > App > App Information / App Privacy):
+   Privacy Policy URL:  https://innrly.com/legal/privacy
+   Support URL:         https://innrly.com/contact
+   Marketing URL:       https://innrly.com/solutions/innrly-shift
+
+ALSO CHECK in App Store Connect (not visible on the public US page):
+   - Business > Trader status (EU Digital Services Act). If Mystic Solutions LLC declared itself a
+     trader, Apple shows the trader address, phone and email on EU storefronts. Address must be
+     4276 Hwy 51, LaPlace, LA 70068, United States. Remove 173 W Lakeview Dr. If a phone is shown or
+     required, replace +1 504-251-8314 (or any other number) with 833-311-0777.
+   - App Review contact info (private, not shown to users) can keep any internal number.
+
+The current App Store description is accurate for the team-member app. Optional last line:
+   "INNRLY Shift is the labor add-on to Innrly hotel back-office software. Learn more at
+    https://innrly.com/solutions/innrly-shift."
+
+---------------------------------------------------------------------
+3) SAME NAP EVERYWHERE ELSE
+---------------------------------------------------------------------
+   Innrly, 4276 Hwy 51, LaPlace, LA 70068, United States. contact@innrly.com.
+   Phone: only on the app-store listings (833-311-0777). Website: no phone, except the /pricing
+   phone-support line for the packages that include it.
+   Use the same address on LinkedIn (HQ currently shows Texas and a phone), Google Business Profile,
+   Bing Places, Crunchbase and every software directory. Vimal decides if any directory needs a phone.
