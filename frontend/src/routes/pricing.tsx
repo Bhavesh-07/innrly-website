@@ -507,8 +507,7 @@ function PricingPage() {
             Build your plan, <span className="text-gradient">not a column.</span>
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Toggle a tier. Watch capabilities light up across your stack. Add modules only when you
-            need them.
+            Toggle a tier. Watch capabilities light up across your stack.
           </p>
         </div>
       </section>
